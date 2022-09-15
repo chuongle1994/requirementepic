@@ -145,6 +145,8 @@ def main():
                 print("Incorrect username / password, please try again\n")
                 userIndex = 0
                 passwordIndex = 0
+                userFound = False   
+                passwordFound = False
 
         displayOptions()
 
