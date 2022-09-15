@@ -1,7 +1,7 @@
 from os.path import exists
 
 #search for job page
-def searchForjob():
+def searchForJob():
     return print("\nunder construction")
 
 #find someone you know page
@@ -52,7 +52,7 @@ def learnSkill():
         agileMethodologies()
         return
     elif selection == "5":
-        databaseDesign()
+        gitVersionControl()
         return
     elif selection == "6":
         displayOptions()
@@ -71,7 +71,7 @@ def displayOptions():
     selection = input("Selection: ")
 
     if selection == "1":
-        searchForjob()
+        searchForJob()
         return
     elif selection == "2":
         findSomeone()
