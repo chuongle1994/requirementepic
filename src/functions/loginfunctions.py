@@ -109,51 +109,58 @@ def existsUserPasswordFile():
     if passExists == 0:
         passFile = open("passwords.txt", "w")
         passFile.close()
-    
-def loginPage():
-    userIndex = 0;              # get username index in file
-    passwordIndex = 0;          # get password index in file
-    isSuccessfulLogin = False     
+
+def validateLogin(user, password):
+    userIndex = 0              # get username index in file
+    passwordIndex = 0          # get password index in file
     userFound = False   
     passwordFound = False
 
-    while(isSuccessfulLogin == False):  
+    with open("users.txt") as file:                 
+        while (line := file.readline().rstrip()):   # go through all lines in file, where line = username value in file
+            if line == user:                        # if line matches username input
+                userFound = True
+                break
+            else:
+                userIndex += 1                      # keep track of username index in file
+                continue
 
+    with open("passwords.txt") as file:
+        while (line := file.readline().rstrip()):   # go through all lines in file where line = password value in file
+            if line == password and userIndex == passwordIndex:                    # if line matches password input
+                passwordFound = True
+                break
+            else:
+                passwordIndex += 1                  # keep track of password index in file
+                continue
+
+    if userFound == True and passwordFound == True:
+        return True
+    else:
+        return False
+    
+
+    
+def loginPage():
+
+    isSuccessfulLogin = False     
+
+    while(isSuccessfulLogin == False):  
         # check username
         user = input("Username: ")                      # input username
-        with open("users.txt") as file:                 
-            while (line := file.readline().rstrip()):   # go through all lines in file, where line = username value in file
-                if line == user:                        # if line matches username input
-                    userFound = True
-                    break
-                else:
-                    userIndex += 1                      # keep track of username index in file
-                    continue
 
         # check password    
         password = input("Password: ")                  # input password
-        with open("passwords.txt") as file:
-            while (line := file.readline().rstrip()):   # go through all lines in file where line = password value in file
-                if line == password and userIndex == passwordIndex:                    # if line matches password input
-                    passwordFound = True
-                    break
-                else:
-                    passwordIndex += 1                  # keep track of password index in file
-                    continue
+
+        # validate login
+        validation = validateLogin(user, password)
 
         # both username and password were found and are on same index                
-        if userFound == True and passwordFound == True: 
+        if validation == True: 
             print("\nYou have successfully logged in")
             isSuccessfulLogin = True
         else:                                                      
             print("Incorrect username / password, please try again\n")
-            print(userIndex)
-            print(passwordIndex)
-            print(userFound)
-            print(passwordFound)
-            userIndex = 0
-            passwordIndex = 0
-            userFound = False   
-            passwordFound = False
+
 
     displayOptions()

@@ -1,6 +1,6 @@
 
 from fileinput import close
-from functions import loginfunctions, createAccountFunctions
+from functions import createAccountFunctions
 
 
 # test if number of account is greater than 5
