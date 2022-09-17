@@ -1,6 +1,19 @@
-def createAcc(numAccounts):
+def checkAccNum():
+    #Count the current number of account created
+        numAccounts = 0
+        with open("users.txt") as file:
+            while (line := file.readline().rstrip()):
+                numAccounts += 1
+        file.close()
+        if numAccounts >= 5:
+            return 1
+        else:
+            return 0
+            
+def createAcc():
     #Check account number does not exceed limit
-    if numAccounts >= 5:
+    accLimit = checkAccNum()
+    if accLimit == 1:
             print("All permitted accounts have been created, please come back later")
     else:
         #Create username
