@@ -15,7 +15,15 @@ def main():
         loginfunctions.loginPage()
 
     elif select == "2":
-        createAccountFunctions.accountCreation()
+        #Count the current number of account created
+        numAccounts = 0
+        with open("users.txt") as file:
+            while (line := file.readline().rstrip()):
+                numAccounts += 1
+        file.close()
+
+        #Perform account creation process
+        createAccountFunctions.createAcc(numAccounts)
     else:
         print("Invalid option, terminating program")
         exit()
