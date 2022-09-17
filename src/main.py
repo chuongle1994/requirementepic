@@ -1,4 +1,4 @@
-from functions import loginfunctions, createAccountFunctions
+import loginfunctions, createAccountFunctions
 
 def main():
     #Checks if the user file exists, if not create one

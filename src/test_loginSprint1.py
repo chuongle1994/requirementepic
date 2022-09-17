@@ -1,4 +1,4 @@
-from functions import loginfunctions, createAccountFunctions
+import loginfunctions, createAccountFunctions
 
 
 # Selecting any of these skills result in “under construction”
