@@ -1,10 +1,81 @@
 from os.path import exists
+import os
+import json
 
 #search for job page
-def searchForJob():
-    print("\nunder construction")
-    response = "\nunder construction"
-    return response
+def searchForAJob():
+    print("\nPlease select an option:")
+    print("[1] Post a job")
+    print("[2] Return to previous page")
+
+    selection = input("Selection: ")
+    if selection == "1":
+        inputJobInfo()
+    elif selection == "2":
+        displayOptions()
+    else:
+        print("\nInvalid input. Try selecting an option again.")
+        searchForAJob()
+
+def inputJobInfo():
+
+    if getNumberJobs() >= 5:
+        print("The system can only permit up to 5 jobs to be posted. Terminating.")
+        
+    else:
+        print("Please provide the following information for the job posting.")
+        title = input("Title: ")                      
+        description = input("Description: ")     
+        employer = input("Employer: ")        
+        location = input("Location: ")
+        salary = input("Salary: ")    
+        createJobPost(title, description, employer, location, salary)
+
+def getNumberJobs():
+    with open("jobPosts.json") as file:
+        file_data = json.load(file)
+        numberOfJobs = len(file_data["jobs"])
+        return numberOfJobs;
+
+
+def createJobPost(title, description, employer, location, salary):
+
+    new_data = {
+        'jobs' : [
+            {
+                "title": title,
+                "description": description,
+                "employer": employer,
+                "location": location,
+                "salary": salary
+            }
+        ]
+    }
+
+    appendingData = {"title": title,
+                    "description": description,
+                    "employer": employer,
+                    "location": location,
+                    "salary": salary
+                    }
+
+    writeJobPost(new_data, appendingData, "jobPosts.json")
+
+def writeJobPost(jobObject, appendingData, fileName):
+    
+    filesize = os.path.getsize(fileName)
+    
+    if filesize == 0:
+        with open(fileName, 'w') as file:
+            json.dump(jobObject, file)
+    else:
+        with open(fileName, "r+") as file:
+            file_data = json.load(file)
+
+            file_data["jobs"].append(appendingData)
+            file.seek(0)
+            json.dump(file_data, file, indent = 4)
+
 
 #find someone you know page
 def findSomeone():
@@ -85,7 +156,7 @@ def displayOptions():
     selection = input("Selection: ")
 
     if selection == "1":
-        searchForJob()
+        searchForAJob()
         return
     elif selection == "2":
         findSomeone()
@@ -97,6 +168,12 @@ def displayOptions():
         print("\nInvalid input. Try selecting an option again.")
         displayOptions()
         return
+
+def existsJobPostsFile():
+    jobPosts = exists("jobPosts.json")
+    if jobPosts == 0:
+        userFile = open("jobPosts.json", "w")
+        userFile.close()
 
 def existsUserPasswordFile():
     userExists = exists("users.txt")
