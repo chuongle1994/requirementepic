@@ -5,7 +5,7 @@ def main():
     print("Welcome to the Incollege website")
     print("Here is a successfull story of a person who using Incollege")
     print("This is Jone: He graduated from USF last summer")
-    print("He got a job interview at Google which was post on Incollege. He also have taken many internships that were posted on Incollege. ")
+    print("He got a job interview at Google which was post on Incollege. He also has taken many internships that were posted on Incollege. ")
     print("Do you want to watch a video of him?")
     print("Yes or No")
     select = input("Please pick an option: ")
