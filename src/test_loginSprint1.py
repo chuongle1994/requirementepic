@@ -19,18 +19,24 @@ def test_gitVersionControl():
 
 # search for job / internship and find someone you know result in "under construction"
 
-def test_searchForJob():
-    assert loginfunctions.searchForJob() == "\nunder construction"
+#def test_searchForJob():
+#    assert loginfunctions.searchForAJob() == "\nunder construction"
 
 def test_findSomeone():
     assert loginfunctions.findSomeone() == "\nunder construction"
 
 def test_validateLogin():
-    createAccountFunctions.storeData("test1", "Password123!")
-    createAccountFunctions.storeData("test2", "Hitest123!")
+    createAccountFunctions.storeData("test1", "Password123!", "Danh", "Le", "Danh Le")
+    createAccountFunctions.storeData("test2", "Hitest123!", "Danh", "Le", "Danh Le")
     assert loginfunctions.validateLogin("test1", "Password123!") == True
     assert loginfunctions.validateLogin("test2", "Hitest123!") == True
     user = open("users.txt", "w")
     user.close()
     passw = open("passwords.txt", "w")
     passw.close()
+    first = open("firstname.txt", "w")
+    first.close()
+    last = open("lastname.txt", "w")
+    last.close()
+    full = open("fullname.txt", "w")
+    full.close()
