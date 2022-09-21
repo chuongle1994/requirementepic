@@ -26,7 +26,7 @@ def inputJobInfo():
             print("The system can only permit up to 5 jobs to be posted. Terminating.")
             return
 
-    print("Please provide the following information for the job posting.")
+    print("\nPlease provide the following information for the job posting.")
     title = input("Title: ")                      
     description = input("Description: ")     
     employer = input("Employer: ")        
@@ -78,6 +78,10 @@ def writeJobPost(jobObject, appendingData, fileName):
             file_data["jobs"].append(appendingData)
             file.seek(0)
             json.dump(file_data, file, indent = 4)
+    print("Your job has been posted.") 
+    print("Returning to Menu...")
+    displayOptions()
+    return
 
 
 #find someone you know page
@@ -129,22 +133,22 @@ def learnSkill():
 
     if selection == "1":
         frontendDevelopment()
-        return
+        exit()
     elif selection == "2":
         backendDevelopment()
-        return
+        exit()
     elif selection == "3":
         databaseDesign()
-        return
+        exit()
     elif selection == "4":
         agileMethodologies()
-        return
+        exit()
     elif selection == "5":
         gitVersionControl()
-        return
+        exit()
     elif selection == "6":
         displayOptions()
-        return
+        exit()
     else:
         print("\nInvalid input. Try selecting a skill again.")
         learnSkill()
@@ -163,7 +167,7 @@ def displayOptions():
         return
     elif selection == "2":
         findSomeone()
-        return
+        exit()
     elif selection == "3":
         learnSkill()
         return
