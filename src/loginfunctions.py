@@ -17,21 +17,24 @@ def searchForAJob():
         print("\nInvalid input. Try selecting an option again.")
         searchForAJob()
 
+
 def inputJobInfo():
 
-    if getNumberJobs() >= 5:
-        print("The system can only permit up to 5 jobs to be posted. Terminating.")
-        
-    else:
-        print("Please provide the following information for the job posting.")
-        title = input("Title: ")                      
-        description = input("Description: ")     
-        employer = input("Employer: ")        
-        location = input("Location: ")
-        salary = input("Salary: ")    
-        createJobPost(title, description, employer, location, salary)
+    filesize = os.path.getsize("jobPosts.json")
+    if filesize != 0:
+        if getNumberOfJobPosts() >= 5:
+            print("The system can only permit up to 5 jobs to be posted. Terminating.")
+            return
 
-def getNumberJobs():
+    print("Please provide the following information for the job posting.")
+    title = input("Title: ")                      
+    description = input("Description: ")     
+    employer = input("Employer: ")        
+    location = input("Location: ")
+    salary = input("Salary: ")    
+    createJobPost(title, description, employer, location, salary)
+
+def getNumberOfJobPosts():
     with open("jobPosts.json") as file:
         file_data = json.load(file)
         numberOfJobs = len(file_data["jobs"])
@@ -186,6 +189,20 @@ def existsUserPasswordFile():
     if passExists == 0:
         passFile = open("passwords.txt", "w")
         passFile.close()
+
+def existsFirstLastFullNameFile():
+    fnameExists = exists("firstname.txt")
+    if fnameExists ==0:
+        fnameFile = open("firstname.txt","w")
+        fnameFile.close()
+    lnameExists = exists("lastname.txt")
+    if lnameExists ==0:
+        lnameFile = open("lastname.txt","w")
+        lnameFile.close()
+    fullnameExists = exists("fullname.txt")
+    if fullnameExists ==0:
+        fullnameFile = open("fullname.txt","a+")
+        fullnameFile.close()
 
 def validateLogin(user, password):
     userIndex = 0              # get username index in file
