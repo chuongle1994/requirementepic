@@ -4,41 +4,59 @@ import json
 
 #search for job page
 def searchForAJob():
-    print("\nPlease select an option:")
-    print("[1] Post a job")
-    print("[2] Return to previous page")
+    while(True):
+        print("\nPlease select an option:")
+        print("[1] Post a job")
+        print("[2] Return to previous page")
 
-    selection = input("Selection: ")
-    if selection == "1":
-        inputJobInfo()
-    elif selection == "2":
-        displayOptions()
-    else:
-        print("\nInvalid input. Try selecting an option again.")
-        searchForAJob()
+        selection = input("Selection: ")
+        if selection == "1":
+            inputJobInfo()
+            break
+        elif selection == "2":
+            displayOptions()
+            break
+        else:
+            print("\nInvalid input. Try selecting an option again.")
+            searchForAJob()
+    return
+
 
 def inputJobInfo():
 
-    if getNumberJobs() >= 5:
-        print("The system can only permit up to 5 jobs to be posted. Terminating.")
-        
-    else:
-        print("Please provide the following information for the job posting.")
-        title = input("Title: ")                      
-        description = input("Description: ")     
-        employer = input("Employer: ")        
-        location = input("Location: ")
-        salary = input("Salary: ")    
-        createJobPost(title, description, employer, location, salary)
+    filesize = os.path.getsize("jobPosts.json")
+    if filesize != 0:
+        if getNumberOfJobPosts() >= 5:
+            print("\nThe system can only permit up to 5 jobs to be posted. Returning to previous page.")
+            searchForAJob()
+            return
 
-def getNumberJobs():
+    print("\nPlease provide the following information for the job posting.")
+    title = input("Title: ")                      
+    description = input("Description: ")     
+    employer = input("Employer: ")        
+    location = input("Location: ")
+    salary = input("Salary: ")    
+    createJobPost(title, description, employer, location, salary)
+    return
+
+def getNumberOfJobPosts():
     with open("jobPosts.json") as file:
         file_data = json.load(file)
         numberOfJobs = len(file_data["jobs"])
         return numberOfJobs;
 
+def getUsersName():
+    usersName = ""
+    with open("currentUserData.txt") as file:                 
+        while (line := file.readline().rstrip()):   # go through all lines in file, where line = username value in file
+            usersName = line
+            break
+    return usersName
 
 def createJobPost(title, description, employer, location, salary):
+
+    usersName = getUsersName()
 
     new_data = {
         'jobs' : [
@@ -47,7 +65,8 @@ def createJobPost(title, description, employer, location, salary):
                 "description": description,
                 "employer": employer,
                 "location": location,
-                "salary": salary
+                "salary": salary,
+                "poster-name": usersName
             }
         ]
     }
@@ -56,7 +75,8 @@ def createJobPost(title, description, employer, location, salary):
                     "description": description,
                     "employer": employer,
                     "location": location,
-                    "salary": salary
+                    "salary": salary,
+                    "poster-name": usersName
                     }
 
     writeJobPost(new_data, appendingData, "jobPosts.json")
@@ -75,6 +95,10 @@ def writeJobPost(jobObject, appendingData, fileName):
             file_data["jobs"].append(appendingData)
             file.seek(0)
             json.dump(file_data, file, indent = 4)
+    print("\nYour job has been posted.") 
+    print("\nReturning to Menu...")
+    displayOptions()
+    return
 
 
 #find someone you know page
@@ -187,6 +211,30 @@ def existsUserPasswordFile():
         passFile = open("passwords.txt", "w")
         passFile.close()
 
+def existsFirstLastFullNameFile():
+    fnameExists = exists("firstname.txt")
+    if fnameExists ==0:
+        fnameFile = open("firstname.txt","w")
+        fnameFile.close()
+    lnameExists = exists("lastname.txt")
+    if lnameExists ==0:
+        lnameFile = open("lastname.txt","w")
+        lnameFile.close()
+    fullnameExists = exists("fullname.txt")
+    if fullnameExists ==0:
+        fullnameFile = open("fullname.txt","a+")
+        fullnameFile.close()
+
+def existsCurrentUserData():
+    currentUserData = exists("currentUserData.txt")
+    if currentUserData ==0:
+        currentUserData = open("currentUserData.txt","w")
+        currentUserData.close()
+
+def clearFile(filename):
+    open(filename, 'w').close()
+    return
+
 def validateLogin(user, password):
     userIndex = 0              # get username index in file
     passwordIndex = 0          # get password index in file
@@ -215,6 +263,33 @@ def validateLogin(user, password):
         return True
     else:
         return False
+
+def storeUserData(user):
+    print("storing user data")
+    userIndex = 0
+    nameIndex = 0
+    userFullName = ""
+    with open("users.txt") as file:                 
+        while (line := file.readline().rstrip()):   # go through all lines in file, where line = username value in file
+            if line == user:                        # if line matches username input
+                break
+            else:
+                userIndex += 1                      # keep track of username index in file
+                continue
+
+    with open("fullname.txt") as file:                 
+        while (line := file.readline().rstrip()):   
+            if userIndex == nameIndex:
+                userFullName = line
+                break
+            else:
+                nameIndex += 1
+                continue
+
+    userDataFile = open("currentUserData.txt", "a")
+    userDataFile.write("{}\n".format(userFullName))
+    userDataFile.close()
+    return
     
 
     
@@ -235,6 +310,7 @@ def loginPage():
         # both username and password were found and are on same index                
         if validation == True: 
             print("\nYou have successfully logged in")
+            storeUserData(user)
             isSuccessfulLogin = True
         else:                                                      
             print("Incorrect username / password, please try again\n")

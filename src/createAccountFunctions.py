@@ -18,9 +18,8 @@ def createAcc():
     else:
         #Create username
         while(True):
-            newUser = input("Enter your desired username: ")
+            newUser = input("Enter your username: ")
             userFlag = checkUser(newUser)
-
             if(userFlag == 1):
                 continue
             else:
@@ -34,9 +33,12 @@ def createAcc():
                 continue
             else:
                 break
-
+        newFirstname = input("Enter your first name: ")
+        newLastname = input("Enter your last name: ")
+        newFullname = newFirstname + " " + newLastname
         #If requirements are met, store data into files
-        storeData(newUser, newPass)
+        storeData(newUser, newPass, newFirstname, newLastname, newFullname)
+    return
 
 def checkUser(newUser):
     #Check if there is a duplicate username
@@ -64,6 +66,7 @@ def checkPass(newPass):
                 digitFlag = 1
             if not letter.isalnum():
                 specialFlag = 1
+
         if upperFlag == 1 and digitFlag == 1 and specialFlag == 1:
             return 0
         else:
@@ -73,10 +76,20 @@ def checkPass(newPass):
             print("Please have an uppercase, digit, or special character in your password")
             return 1
 
-def storeData(newUser, newPass):
+def storeData(newUser, newPass, newFirstname, newLastname, newFullname):
     userFile = open("users.txt", "a")
     userFile.write("{}\n".format(newUser))
     userFile.close()
     passFile = open("passwords.txt", "a")
     passFile.write("{}\n".format(newPass))
     passFile.close()
+    passFile = open("firstname.txt", "a")
+    passFile.write("{}\n".format(newFirstname))
+    passFile.close()
+    passFile = open("lastname.txt", "a")
+    passFile.write("{}\n".format(newLastname))
+    passFile.close()
+    passFile = open("fullname.txt", "a")
+    passFile.write("{}\n".format(newFullname))
+    passFile.close()
+    return
