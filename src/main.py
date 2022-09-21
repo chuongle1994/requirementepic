@@ -6,6 +6,7 @@ def main():
     loginfunctions.existsUserPasswordFile()
     loginfunctions.existsJobPostsFile()
     loginfunctions.existsFirstLastFullNameFile()
+    loginfunctions.existsCurrentUserData()
 
     # trigger success story
     homeFunctions.successStory()
@@ -19,13 +20,18 @@ def main():
         #Selection functions
         if select == "1":
             loginfunctions.loginPage()
+            break
         elif select == "2":
             #Perform account creation process
             createAccountFunctions.createAcc()
+            continue
         elif select == "3":
             homeFunctions.connectPeople()
+            continue
         else:
             print("Invalid option, terminating program")
             exit()
+
+    loginfunctions.clearFile("currentUserData.txt")
 
 main()

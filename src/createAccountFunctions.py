@@ -38,6 +38,7 @@ def createAcc():
         newFullname = newFirstname + " " + newLastname
         #If requirements are met, store data into files
         storeData(newUser, newPass, newFirstname, newLastname, newFullname)
+    return
 
 def checkUser(newUser):
     #Check if there is a duplicate username
@@ -91,3 +92,4 @@ def storeData(newUser, newPass, newFirstname, newLastname, newFullname):
     passFile = open("fullname.txt", "a")
     passFile.write("{}\n".format(newFullname))
     passFile.close()
+    return
