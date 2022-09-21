@@ -3,6 +3,8 @@ import loginfunctions, createAccountFunctions
 def main():
     #Checks if the user file exists, if not create one
     loginfunctions.existsUserPasswordFile();
+    loginfunctions.existsJobPostsFile();
+
 
     #Home screen
     print("Please select an option:")
