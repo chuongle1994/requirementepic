@@ -27,9 +27,9 @@ def inputJobInfo():
     filesize = os.path.getsize("jobPosts.json")
     if filesize != 0:
         if getNumberOfJobPosts() >= 5:
-            print("\nThe system can only permit up to 5 jobs to be posted. Returning to previous page.")
-            searchForAJob()
-            return
+            print("\nThe system can only permit up to 5 jobs to be posted.")
+            return "\nThe system can only permit up to 5 jobs to be posted."
+            
 
     print("\nPlease provide the following information for the job posting.")
     title = input("Title: ")                      
@@ -96,8 +96,6 @@ def writeJobPost(jobObject, appendingData, fileName):
             file.seek(0)
             json.dump(file_data, file, indent = 4)
     print("\nYour job has been posted.") 
-    print("\nReturning to Menu...")
-    displayOptions()
     return
 
 
@@ -177,21 +175,23 @@ def displayOptions():
     print("[1] Search for a job / internship")
     print("[2] Find someone you know")
     print("[3] Learn a new skill")
+    print("[4] Return to previous level")
     selection = input("Selection: ")
 
     if selection == "1":
         searchForAJob()
-        return
+        exit()
     elif selection == "2":
         findSomeone()
-        return
+        exit()
     elif selection == "3":
         learnSkill()
+        exit()
+    elif selection == "4":
         return
     else:
         print("\nInvalid input. Try selecting an option again.")
         displayOptions()
-        return
 
 def existsJobPostsFile():
     jobPosts = exists("jobPosts.json")
