@@ -24,8 +24,8 @@ def successStory():
     else:
       print("Invalid selection. Try again")
       continue
-
   return
+
 def checkMatch(fullname):
             with open('fullname.txt', 'r') as file:
         # read all content from the fullname file using read()
@@ -37,14 +37,19 @@ def checkMatch(fullname):
              else:
                 print("\nThey are not yet a part of the InCollege system yet")
                 return "\nThey are not yet a part of the InCollege system yet"
+
 def connectPeople():
         #input firstname
         firstname = input("First name: ")
          # input lastname
         lastname = input("Last name: ")
         fullname = firstname + " " + lastname 
-        checkMatch(fullname)
-        contactFound()
+        response = checkMatch(fullname)
+        if response == "\nThey are a part of the Incollege system":
+          contactFound()
+        else:
+          return
+
 def contactFound():
     print("\nContact was found in InCollege. Please select from the following options: ")
     print("[1] Log in")
