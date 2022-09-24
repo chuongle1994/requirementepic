@@ -1,40 +1,45 @@
 
 from fileinput import close
-import createAccountFunctions
+import createAccountFunctions, loginfunctions
 
 
 # test if number of account is greater than 5
 def test_accNumTest():
-    createAccountFunctions.storeData("trile", "Abcdef1!")
-    createAccountFunctions.storeData("danhle", "Abcdef1!")
-    createAccountFunctions.storeData("dinhle", "Abcdef1!")
-    createAccountFunctions.storeData("chuongle", "Abcdef1!")
-    createAccountFunctions.storeData("hyunjung", "Abcdef1!")
+    # Check if it correctly evaluates a full file.
+    createAccountFunctions.storeData("trile", "Abcdef1!", "Tri", "Le", "Tri Le")
+    createAccountFunctions.storeData("danhle", "Abcdef1!", "Danh", "Le", "Danh Le:")
+    createAccountFunctions.storeData("dinhle", "Abcdef1!", "Dinh", "Le", "Dinh Le")
+    createAccountFunctions.storeData("chuongle", "Abcdef1!", "Chuong", "Le", "Chuong Le")
+    createAccountFunctions.storeData("hyunjung", "Abcdef1!", "Hyunjung", "Lee", "Hyunjung Lee")
     assert createAccountFunctions.checkAccNum() == 1
-    user = open("users.txt", "w")
-    user.close()
-    passw = open("passwords.txt", "w")
-    passw.close()
+    loginfunctions.clearFile("firstname.txt")
+    loginfunctions.clearFile("lastname.txt")
+    loginfunctions.clearFile("fullname.txt")
+    loginfunctions.clearFile("users.txt")
+    loginfunctions.clearFile("passwords.txt")
 
-    createAccountFunctions.storeData("trile", "Abcdef1!")
-    createAccountFunctions.storeData("danhle", "Abcdef1!")
-    createAccountFunctions.storeData("dinhle", "Abcdef1!")
-    createAccountFunctions.storeData("chuongle", "Abcdef1!")
+    # Check if it correctly evaluates a file with one more spot.
+    createAccountFunctions.storeData("trile", "Abcdef1!", "Tri", "Le", "Tri Le")
+    createAccountFunctions.storeData("danhle", "Abcdef1!", "Danh", "Le", "Danh Le:")
+    createAccountFunctions.storeData("dinhle", "Abcdef1!", "Dinh", "Le", "Dinh Le")
+    createAccountFunctions.storeData("chuongle", "Abcdef1!", "Chuong", "Le", "Chuong Le")
     assert createAccountFunctions.checkAccNum() == 0
-    user = open("users.txt", "w")
-    user.close()
-    passw = open("passwords.txt", "w")
-    passw.close()
+    loginfunctions.clearFile("firstname.txt")
+    loginfunctions.clearFile("lastname.txt")
+    loginfunctions.clearFile("fullname.txt")
+    loginfunctions.clearFile("users.txt")
+    loginfunctions.clearFile("passwords.txt")
 
 # check if there is duplicated account
 def test_checkDup():
-    createAccountFunctions.storeData("trile", "Abcdef1!")
-    assert createAccountFunctions.checkUser("trile") == 1
-    assert createAccountFunctions.checkUser("triiile") == 0
-    user = open("users.txt", "w")
-    user.close()
-    passw = open("passwords.txt", "w")
-    passw.close()
+    createAccountFunctions.storeData("trile", "Abcdef1!", "Tri", "Le", "Tri Le")
+    assert createAccountFunctions.checkUser("trile") == 1 # Check for a duplicate.
+    assert createAccountFunctions.checkUser("triiile") == 0 # Check for no duplicate.
+    loginfunctions.clearFile("firstname.txt")
+    loginfunctions.clearFile("lastname.txt")
+    loginfunctions.clearFile("fullname.txt")
+    loginfunctions.clearFile("users.txt")
+    loginfunctions.clearFile("passwords.txt")
 
 # check if passwords are eligible
 def test_checkPass():

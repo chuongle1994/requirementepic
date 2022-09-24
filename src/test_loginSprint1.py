@@ -17,20 +17,16 @@ def test_agileMethodologies():
 def test_gitVersionControl():
     assert loginfunctions.gitVersionControl() == "\nunder construction"
 
-# search for job / internship and find someone you know result in "under construction"
-
-def test_searchForJob():
-    assert loginfunctions.searchForJob() == "\nunder construction"
-
 def test_findSomeone():
     assert loginfunctions.findSomeone() == "\nunder construction"
 
 def test_validateLogin():
-    createAccountFunctions.storeData("test1", "Password123!")
-    createAccountFunctions.storeData("test2", "Hitest123!")
-    assert loginfunctions.validateLogin("test1", "Password123!") == True
-    assert loginfunctions.validateLogin("test2", "Hitest123!") == True
-    user = open("users.txt", "w")
-    user.close()
-    passw = open("passwords.txt", "w")
-    passw.close()
+    createAccountFunctions.storeData("trile", "Abcdef1!", "Tri", "Le", "Tri Le")
+    createAccountFunctions.storeData("danhle", "Abcdef1!", "Danh", "Le", "Danh Le:")
+    assert loginfunctions.validateLogin("trile", "Abcdef1!") == True
+    assert loginfunctions.validateLogin("danhle", "Abcdef1!") == True
+    loginfunctions.clearFile("firstname.txt")
+    loginfunctions.clearFile("lastname.txt")
+    loginfunctions.clearFile("fullname.txt")
+    loginfunctions.clearFile("users.txt")
+    loginfunctions.clearFile("passwords.txt")
