@@ -51,27 +51,18 @@ def contactFound():
     print("[2] Sign up and join your friends.")
     print("[3] Return to previous level.")
     
-    while(True):
-      select = input("Selection: ")
 
-      #Selection functions
-      if select == "1":
-          loginfunctions.loginPage()
-          break
+    select = input("Selection: ")
 
-      elif select == "2":
-          #Perform account creation process
-          createAccountFunctions.createAcc()
-          break
+    #Selection functions
+    if select == "1":
+        loginfunctions.loginPage()
+        return
 
-      elif select == "3":
-          #Perform account creation process
-          # return to previous level
-          # main.main()
-          break
+    elif select == "2":
+        #Perform account creation process
+        createAccountFunctions.createAcc()
+        return
 
-      else:
-          print("Invalid option, please try again.")
-          continue
-
-    return
+    else:
+      return

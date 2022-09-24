@@ -30,6 +30,7 @@ def inputJobInfo():
             print("\nThe system can only permit up to 5 jobs to be posted.")
             return "\nThe system can only permit up to 5 jobs to be posted."
 
+
     print("\nPlease provide the following information for the job posting.")
     title = input("Title: ")                      
     description = input("Description: ")     
@@ -174,21 +175,23 @@ def displayOptions():
     print("[1] Search for a job / internship")
     print("[2] Find someone you know")
     print("[3] Learn a new skill")
+    print("[4] Return to previous level")
     selection = input("Selection: ")
 
     if selection == "1":
         searchForAJob()
-        return
+        exit()
     elif selection == "2":
         findSomeone()
-        return
+        exit()
     elif selection == "3":
         learnSkill()
+        exit()
+    elif selection == "4":
         return
     else:
         print("\nInvalid input. Try selecting an option again.")
         displayOptions()
-        return
 
 def existsJobPostsFile():
     jobPosts = exists("jobPosts.json")
