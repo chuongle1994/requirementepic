@@ -27,9 +27,8 @@ def inputJobInfo():
     filesize = os.path.getsize("jobPosts.json")
     if filesize != 0:
         if getNumberOfJobPosts() >= 5:
-            print("\nThe system can only permit up to 5 jobs to be posted. Returning to previous page.")
-            searchForAJob()
-            return
+            print("\nThe system can only permit up to 5 jobs to be posted.")
+            return "\nThe system can only permit up to 5 jobs to be posted."
 
     print("\nPlease provide the following information for the job posting.")
     title = input("Title: ")                      
@@ -96,8 +95,6 @@ def writeJobPost(jobObject, appendingData, fileName):
             file.seek(0)
             json.dump(file_data, file, indent = 4)
     print("\nYour job has been posted.") 
-    print("\nReturning to Menu...")
-    displayOptions()
     return
 
 

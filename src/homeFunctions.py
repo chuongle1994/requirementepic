@@ -32,8 +32,10 @@ def checkMatch(fullname):
              content = file.read()
         # check if fullname present or not
              if fullname in content:
+                print("\nThey are a part of the Incollege system")
                 return "\nThey are a part of the Incollege system"
              else:
+                print("\nThey are not yet a part of the InCollege system yet")
                 return "\nThey are not yet a part of the InCollege system yet"
 def connectPeople():
         #input firstname
