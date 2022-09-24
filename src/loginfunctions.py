@@ -29,7 +29,7 @@ def inputJobInfo():
         if getNumberOfJobPosts() >= 5:
             print("\nThe system can only permit up to 5 jobs to be posted.")
             return "\nThe system can only permit up to 5 jobs to be posted."
-            
+
 
     print("\nPlease provide the following information for the job posting.")
     title = input("Title: ")                      
