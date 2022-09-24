@@ -26,30 +26,23 @@ def successStory():
       continue
 
   return
-
+def checkMatch(fullname):
+            with open('fullname.txt', 'r') as file:
+        # read all content from the fullname file using read()
+             content = file.read()
+        # check if fullname present or not
+             if fullname in content:
+                return "\nThey are a part of the Incollege system"
+             else:
+                return "\nThey are not yet a part of the InCollege system yet"
 def connectPeople():
-    isSuccessfulFinding = False    
-    #input firstname
-    print("\nFind someone that you know to help you: ")
-    while(isSuccessfulFinding == False): 
-        # validate finding 
+        #input firstname
         firstname = input("First name: ")
          # input lastname
         lastname = input("Last name: ")
         fullname = firstname + " " + lastname 
-        print("opening file")
-        with open('fullname.txt', 'r') as file:
-        # read all content from the fullname file using read()
-          content = file.read()
-        # check if fullname present or not
-          if fullname in content:
-            contactFound()
-            isSuccessfulFinding == True
-            break
-          else:
-            print("They are not yet a part of the InCollege system yet")
-            return
-
+        checkMatch(fullname)
+        contactFound()
 def contactFound():
     print("\nContact was found in InCollege. Please select from the following options: ")
     print("[1] Log in")
