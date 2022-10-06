@@ -1,6 +1,7 @@
 from os.path import exists
 import os
 import json
+import linkFunctions
 
 #search for job page
 def searchForAJob():
@@ -171,6 +172,10 @@ def learnSkill():
 
 #select options menu
 def displayOptions():
+    # Add navigation links
+    linkFunctions.navigationLinks()
+    linkFunctions.selectLinks()
+    
     print("\nPlease select an option:")
     print("[1] Search for a job / internship")
     print("[2] Find someone you know")
@@ -311,6 +316,7 @@ def loginPage():
         if validation == True: 
             print("\nYou have successfully logged in")
             storeUserData(user)
+            linkFunctions.languages()
             isSuccessfulLogin = True
         else:                                                      
             print("Incorrect username / password, please try again\n")
