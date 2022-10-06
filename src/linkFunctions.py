@@ -11,7 +11,6 @@ def navigationLinks():
     importantLinks = ["[A] A Copyright Notice", "[B] About", "[C] Accessibility", "[D] User Agreement", "[E] Privacy Policy", "[F] Cookie Policy", "[G] Copyright Policy", "[H] Brand Policy", "[I] Guest Controls", "[J] Languages"]
     print('\n'.join(map(str, importantLinks)))
 
-
 def selectLinks():
     select = input("Please select an option (0 to exit): ")
     if select == "a":
@@ -90,7 +89,6 @@ def previousToGeneral():
     print("\nWould you like to return to previous level?")
     print("[1] Yes")
     print("[2] No")
-    
     select = input("Please pick an option: ")
     if select == "1":
         general()
@@ -99,7 +97,6 @@ def previousToGeneral():
     else:
         print("Invalid selection. Try again")
         previousToGeneral
-        
         
 # Useful Links: 2. Browse InCollege
 def browseInCollege():
@@ -120,7 +117,6 @@ def previousToNavi():
     print("\nWould you like to return to previous level?")
     print("[1] Yes")
     print("[2] No")
-    
     select = input("Please pick an option: ")
     if select == "1":
         navigationLinks()
@@ -250,8 +246,7 @@ def guestControls():
     print("[1] Email")
     print("[2] SMS")
     print("[3] Targeted Advertising features")
-
-    onOff = input("Please pick an option to change (0 to exit): ")   
+    onOff = input("Please pick an option to change (0 to exit): ")  
     if onOff == "1":
         email()
         guestControls()
@@ -272,13 +267,11 @@ def email():
     with open("controls.txt", "r") as f:
         for line in f:
             data = ast.literal_eval(line)
-
     # Modify data
     if data["Username"] == usersName and data["Email"] == 1:
         data["Email"] = 0
     elif data["Username"] == usersName and data["Email"] == 0:
         data["Email"] = 1
-
     with open("controls.txt", "w") as fw:
         fw.write(repr(data))
             
@@ -287,13 +280,11 @@ def sms():
     with open("controls.txt", "r") as f:
         for line in f:
             data = ast.literal_eval(line)
-
     # Modify data
     if data["Username"] == usersName and data["SMS"] == 1:
         data["SMS"] = 0
     elif data["Username"] == usersName and data["SMS"] == 0:
         data["SMS"] = 1
-
     with open("controls.txt", "w") as fw:
         fw.write(repr(data))
 
@@ -302,13 +293,11 @@ def advertising():
     with open("controls.txt", "r") as f:
         for line in f:
             data = ast.literal_eval(line)
-
     # Modify data
     if data["Username"] == usersName and data["Advertising"] == 1:
         data["Advertising"] = 0
     elif data["Username"] == usersName and data["Advertising"] == 0:
         data["Advertising"] = 1
-
     with open("controls.txt", "w") as fw:
         fw.write(repr(data))
     
@@ -317,7 +306,7 @@ def advertising():
 def firstLanguageSetting(username):
     setting = {"Language": "English"}
     setting["Username"] = username
-    # add dictionay to "controls.txt"
+    # add dictionay to "language.txt"
     settingFile = open("languege.txt", "a")
     settingFile.write("{}\n".format(setting))
     settingFile.close()
@@ -328,7 +317,7 @@ def currentLanguage():
     if usersName == "":
         print("Please login to change setting!")
         loginfunctions.loginPage()
-    
+    # print current user dictionary for language
     with open("languege.txt", "r") as file:
         for line in file:
             data = ast.literal_eval(line)
@@ -341,13 +330,11 @@ def changeLanguage():
     with open("languege.txt", "r") as f:
         for line in f:
             data = ast.literal_eval(line)
-
     # Modify data
     if data["Username"] == usersName and data["Language"] == "English":
         data["Language"] = "Spanish"
     elif data["Username"] == usersName and data["Language"] == "Spanish":
         data["Language"] = "English"
-
     with open("languege.txt", "w") as fw:
         fw.write(repr(data))
     
@@ -376,7 +363,6 @@ def languages():
         print("\nSelect the language you want:")
         print("[1] English")
         print("[2] Spanish")
-        
         select = input("Please pick an option: ")
         if select == "1":
             changeLanguage()
