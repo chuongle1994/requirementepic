@@ -50,8 +50,10 @@ def selectLinks():
         previousToNavi()
     elif select == "I":
         guestControls()
+        previousToNavi()
     elif select == "J":
         languages()
+        previousToNavi()
     elif select == "0":
         return
     else:
