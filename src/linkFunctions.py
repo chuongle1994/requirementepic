@@ -17,26 +17,37 @@ def selectLinks():
         general()
     elif select == "b":
         browseInCollege()
+        previousToNavi()
     elif select == "c":
         businessSolutions()
+        previousToNavi()
     elif select == "d":
         directories()
+        previousToNavi()
     elif select == "A":
         copyrightNotice()
+        previousToNavi()
     elif select == "B":
         aboutImportant()
+        previousToNavi()
     elif select == "C":
         accessibility()
+        previousToNavi()
     elif select == "D":
         userAgreement()
+        previousToNavi()
     elif select == "E":
         privacyPolicy()
+        previousToNavi()
     elif select == "F":
         cookiePolicy()
+        previousToNavi()
     elif select == "G":
         copyrightPolicy()
+        previousToNavi()
     elif select == "H":
         brandPolicy()
+        previousToNavi()
     elif select == "I":
         guestControls()
     elif select == "J":
@@ -96,22 +107,19 @@ def previousToGeneral():
         return
     else:
         print("Invalid selection. Try again")
-        previousToGeneral
+        previousToGeneral()
         
 # Useful Links: 2. Browse InCollege
 def browseInCollege():
     print("\nUnder construction")
-    previousToNavi()
     
 # Useful Links: 3. Business Solutions
 def businessSolutions():
     print("\nUnder construction")
-    previousToNavi()
 
 # Useful Links: 4. Directories
 def directories():
     print("\nUnder construction")
-    previousToNavi()
 
 def previousToNavi():
     print("\nWould you like to return to previous level?")
@@ -159,22 +167,18 @@ def developers():
 # Important Links: 1. Copyright Notice
 def copyrightNotice():
     print("\n© InCollege Corporation 2022. All Rights Reserved.")
-    previousToNavi()
 
 # Important Links: 2. About
 def aboutImportant():
-    print("\nAbout InCollege\nWelcome to InCollege website, the world's largest professional network for all college students!\n")
-    previousToNavi()
+    print("\nAbout InCollege\nWelcome to InCollege website, the world's largest professional network for all college students!")
 
 # Important Links: 3. Accessibility
 def accessibility():
     print("\nInCollege is a place where every student can find their opportunity. Whatever your goals, ideas, and abilities are, we're here to help you succeed.")
-    previousToNavi()
 
 # Important Links: 4. User Agreement
 def userAgreement():
     print("\nWhen you use our services you agree to all of these terms. Your use of our services is also subject to our cookie policy and our privacy policy, which covers how we collect, use, share, and store your personal information. Please see the detail. ")
-    previousToNavi()
 
 # Important Links: 5. Privacy Policy
 def privacyPolicy():
@@ -188,22 +192,19 @@ def privacyPolicy():
     if select == "1":
         guestControls()
     else:
-        previousToNavi()
+        return
 
 # Important Links: 6. Cookie Policy
 def cookiePolicy():
     print("\nAt InCollege, cookie can be used to recognized you when you visit InCollege, remember your preferences, and give you a personalized experience that's in line with your setting. Cookies make your interations with InCollege faster and more secure.")
-    previousToNavi()
 
 # Important Links: 7. Copyright Policy
 def copyrightPolicy():
     print("\nYou may not share, distribute, or reproduce in any way any copyrighted material, trademarks, or other proprietary information belonging to others without obtaining the prior written consent of the owner of such proprietary rights.")
-    previousToNavi()
     
 # Important Links: 8. Brand Policy
 def brandPolicy():
     print("\nOur trademarks and other brand features are protected by law.  You’ll need our permission in order to use them.")
-    previousToNavi()
     
 # Important Links: 9. Guest Controls
 def firstControlsSetting(username):
@@ -215,7 +216,6 @@ def firstControlsSetting(username):
     controlsFile.write("{}\n".format(controls))
     controlsFile.close()
 
-
 def currentSetting():
     usersName = loginfunctions.getUsersName()
     if usersName == "":
@@ -224,22 +224,24 @@ def currentSetting():
         print("[1] Yes")
         print("[2] No")
         select = input("Please pick an option: ")
-
         if select == "1":
             loginfunctions.loginPage()
         else:
             navigationLinks()
-            selectLinks()
-        
+            selectLinks()    
     else: 
-        print("\nHere is your current setting: ")
-        with open("controls.txt", "r") as file:
-            for line in file:
-                data = ast.literal_eval(line)
-                if data["Username"] == usersName:
-                    print(data)
-                    break
-                
+        printCurrentSetting()
+
+def printCurrentSetting():
+    usersName = loginfunctions.getUsersName()
+    print("\nHere is your current setting: ")
+    with open("controls.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            if data["Username"] == usersName:
+                print(data)
+                break
+
 def guestControls():
     currentSetting()
     print("\nWould you like to change the setting?")
