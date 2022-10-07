@@ -260,10 +260,10 @@ def currentSetting():
             print("Invalid input. Try selecting an option again.")
             currentSetting()
     else: 
-        printCurrentSetting()
         guestControls()
 
 def guestControls():
+    printCurrentSetting()
     print("\nWould you like to change the setting?")
     print("[1] Email")
     print("[2] SMS")
