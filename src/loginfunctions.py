@@ -322,7 +322,6 @@ def loginPage():
         if validation == True: 
             print("\nYou have successfully logged in")
             storeUserData(user)
-            linkFunctions.languages()
             isSuccessfulLogin = True
         else:                                                      
             print("Incorrect username / password, please try again\n")
