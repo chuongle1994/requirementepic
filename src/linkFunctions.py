@@ -309,7 +309,7 @@ def firstLanguageSetting(username):
     setting = {"Language": "English"}
     setting["Username"] = username
     # add dictionay to "language.txt"
-    settingFile = open("languege.txt", "a")
+    settingFile = open("language.txt", "a")
     settingFile.write("{}\n".format(setting))
     settingFile.close()
 
@@ -320,7 +320,7 @@ def currentLanguage():
         print("Please login to change setting!")
         loginfunctions.loginPage()
     # print current user dictionary for language
-    with open("languege.txt", "r") as file:
+    with open("language.txt", "r") as file:
         for line in file:
             data = ast.literal_eval(line)
             if data["Username"] == usersName:
@@ -329,7 +329,7 @@ def currentLanguage():
 
 def changeLanguage():
     usersName = loginfunctions.getUsersName()
-    with open("languege.txt", "r") as f:
+    with open("language.txt", "r") as f:
         for line in f:
             data = ast.literal_eval(line)
     # Modify data
@@ -337,7 +337,7 @@ def changeLanguage():
         data["Language"] = "Spanish"
     elif data["Username"] == usersName and data["Language"] == "Spanish":
         data["Language"] = "English"
-    with open("languege.txt", "w") as fw:
+    with open("language.txt", "w") as fw:
         fw.write(repr(data))
     
 def languages():

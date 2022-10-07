@@ -236,6 +236,12 @@ def existsCurrentUserData():
         currentUserData = open("currentUserData.txt","w")
         currentUserData.close()
 
+def existsLanguageFile():
+    currentLanguage = exists("language.txt")
+    if currentLanguage ==0:
+        currentLanguage = open("language.txt","w")
+        currentLanguage.close()
+
 def clearFile(filename):
     open(filename, 'w').close()
     return
