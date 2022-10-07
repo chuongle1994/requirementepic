@@ -112,14 +112,17 @@ def previousToGeneral():
 # Useful Links: 2. Browse InCollege
 def browseInCollege():
     print("\nUnder construction")
+    return "\nUnder construction"
     
 # Useful Links: 3. Business Solutions
 def businessSolutions():
     print("\nUnder construction")
+    return "\nUnder construction"
 
 # Useful Links: 4. Directories
 def directories():
     print("\nUnder construction")
+    return "\nUnder construction"
 
 def previousToNavi():
     print("\nWould you like to return to previous level?")
@@ -142,43 +145,53 @@ def signUp():
 # Useful Links: General: 2. Help Center
 def helpCenter():
     print("\nWe're here to help")
+    return "\nWe're here to help"
 
 # Useful Links: General: 3. About
 def aboutUseful():
     print("\nIn College: Welcome to InCollege, the world's largest college student network with many users in many countries and territories worldwide")
+    return "\nIn College: Welcome to InCollege, the world's largest college student network with many users in many countries and territories worldwide"
 
 # Useful Links: General: 4. Press
 def press():
     print("\nIn College Pressroom: Stay on top of the latest news, updates,and reports")
+    return "\nIn College Pressroom: Stay on top of the latest news, updates,and reports"
 
 # Useful Links: General: 5. Blog
 def blog():
     print("\nUnder construction")
+    return "\nUnder construction"
 
 # Useful Links: General: 6. Careers
 def careers():
     print("\nUnder construction")
+    return "\nUnder construction"
 
 # Useful Links: General: 7. Developers
 def developers():
     print("\nUnder construction")
+    return "\nUnder construction"
 
 
 # Important Links: 1. Copyright Notice
 def copyrightNotice():
     print("\n© InCollege Corporation 2022. All Rights Reserved.")
+    return "\n© InCollege Corporation 2022. All Rights Reserved."
 
 # Important Links: 2. About
 def aboutImportant():
     print("\nAbout InCollege\nWelcome to InCollege website, the world's largest professional network for all college students!")
+    return "\nAbout InCollege\nWelcome to InCollege website, the world's largest professional network for all college students!"
 
 # Important Links: 3. Accessibility
 def accessibility():
     print("\nInCollege is a place where every student can find their opportunity. Whatever your goals, ideas, and abilities are, we're here to help you succeed.")
+    return "\nInCollege is a place where every student can find their opportunity. Whatever your goals, ideas, and abilities are, we're here to help you succeed."
 
 # Important Links: 4. User Agreement
 def userAgreement():
     print("\nWhen you use our services you agree to all of these terms. Your use of our services is also subject to our cookie policy and our privacy policy, which covers how we collect, use, share, and store your personal information. Please see the detail. ")
+    return "\nWhen you use our services you agree to all of these terms. Your use of our services is also subject to our cookie policy and our privacy policy, which covers how we collect, use, share, and store your personal information. Please see the detail. "
 
 # Important Links: 5. Privacy Policy
 def privacyPolicy():
@@ -197,14 +210,17 @@ def privacyPolicy():
 # Important Links: 6. Cookie Policy
 def cookiePolicy():
     print("\nAt InCollege, cookie can be used to recognized you when you visit InCollege, remember your preferences, and give you a personalized experience that's in line with your setting. Cookies make your interations with InCollege faster and more secure.")
+    return "\nAt InCollege, cookie can be used to recognized you when you visit InCollege, remember your preferences, and give you a personalized experience that's in line with your setting. Cookies make your interations with InCollege faster and more secure."
 
 # Important Links: 7. Copyright Policy
 def copyrightPolicy():
     print("\nYou may not share, distribute, or reproduce in any way any copyrighted material, trademarks, or other proprietary information belonging to others without obtaining the prior written consent of the owner of such proprietary rights.")
+    return "\nYou may not share, distribute, or reproduce in any way any copyrighted material, trademarks, or other proprietary information belonging to others without obtaining the prior written consent of the owner of such proprietary rights."
     
 # Important Links: 8. Brand Policy
 def brandPolicy():
     print("\nOur trademarks and other brand features are protected by law.  You’ll need our permission in order to use them.")
+    return "\nOur trademarks and other brand features are protected by law.  You’ll need our permission in order to use them."
     
 # Important Links: 9. Guest Controls
 def firstControlsSetting(username):
