@@ -49,7 +49,7 @@ def selectLinks():
         brandPolicy()
         previousToNavi()
     elif select == "I":
-        guestControls()
+        currentSetting()
         previousToNavi()
     elif select == "J":
         languages()
@@ -205,7 +205,7 @@ def privacyPolicy():
     print("[2] No")
     select = input("Please pick an option: ")
     if select == "1":
-        guestControls()
+        currentSetting()
     else:
         return
 
@@ -234,22 +234,6 @@ def firstControlsSetting(username):
     controlsFile.write("{}\n".format(controls))
     controlsFile.close()
 
-def currentSetting():
-    usersName = loginfunctions.getUsersName()
-    if usersName == "":
-        print("\nPlease login to change setting!")
-        print("Do you want to login for now?")
-        print("[1] Yes")
-        print("[2] No")
-        select = input("Please pick an option: ")
-        if select == "1":
-            loginfunctions.loginPage()
-        else:
-            navigationLinks()
-            selectLinks()    
-    else: 
-        printCurrentSetting()
-
 def printCurrentSetting():
     usersName = loginfunctions.getUsersName()
     print("\nHere is your current setting: ")
@@ -260,8 +244,26 @@ def printCurrentSetting():
                 print(data)
                 break
 
+def currentSetting():
+    usersName = loginfunctions.getUsersName()
+    if usersName == "":
+        print("\nPlease login to change setting!")
+        print("Do you want to login for now?")
+        print("[1] Yes")
+        print("[2] No")
+        select = input("Please pick an option: ")
+        if select == "1":
+            loginfunctions.loginPage()
+        elif select == "2":
+            return
+        else:
+            print("Invalid input. Try selecting an option again.")
+            currentSetting()
+    else: 
+        printCurrentSetting()
+        guestControls()
+
 def guestControls():
-    currentSetting()
     print("\nWould you like to change the setting?")
     print("[1] Email")
     print("[2] SMS")
@@ -376,7 +378,6 @@ def languages():
         else:
             print("Invalid input. Try selecting an option again.")
             languages()
-        previousToNavi()
         
     else:
         currentLanguage()
