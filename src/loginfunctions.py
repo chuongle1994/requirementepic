@@ -185,14 +185,15 @@ def displayOptions():
 
     if selection == "1":
         searchForAJob()
-        exit()
+        return
     elif selection == "2":
         findSomeone()
-        exit()
+        return
     elif selection == "3":
         learnSkill()
-        exit()
+        return
     elif selection == "4":
+        clearFile("currentUserData.txt")
         return
     else:
         print("\nInvalid input. Try selecting an option again.")

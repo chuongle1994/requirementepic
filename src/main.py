@@ -25,6 +25,7 @@ def main():
     # Selection functions
     if select == "1":
         loginfunctions.loginPage()
+        loginfunctions.clearFile("currentUserData.txt")
         main()
 
     elif select == "2":
