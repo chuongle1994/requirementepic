@@ -1,3 +1,5 @@
+import linkFunctions
+
 def checkAccNum():
     #Count the current number of account created
         numAccounts = 0
@@ -38,6 +40,8 @@ def createAcc():
         newFullname = newFirstname + " " + newLastname
         #If requirements are met, store data into files
         storeData(newUser, newPass, newFirstname, newLastname, newFullname)
+        linkFunctions.firstControlsSetting(newFullname)
+        linkFunctions.firstLanguageSetting(newFullname)
     return
 
 def checkUser(newUser):

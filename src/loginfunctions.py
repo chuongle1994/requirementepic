@@ -1,6 +1,7 @@
 from os.path import exists
 import os
 import json
+import linkFunctions
 
 #search for job page
 def searchForAJob():
@@ -171,6 +172,10 @@ def learnSkill():
 
 #select options menu
 def displayOptions():
+    # Add navigation links
+    linkFunctions.navigationLinks()
+    linkFunctions.selectLinks()
+    
     print("\nPlease select an option:")
     print("[1] Search for a job / internship")
     print("[2] Find someone you know")
@@ -230,6 +235,12 @@ def existsCurrentUserData():
     if currentUserData ==0:
         currentUserData = open("currentUserData.txt","w")
         currentUserData.close()
+
+def existsLanguageFile():
+    currentLanguage = exists("language.txt")
+    if currentLanguage ==0:
+        currentLanguage = open("language.txt","w")
+        currentLanguage.close()
 
 def clearFile(filename):
     open(filename, 'w').close()
