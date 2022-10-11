@@ -286,42 +286,63 @@ def guestControls():
 
 def email():
     usersName = loginfunctions.getUsersName()
+    listControl = []
     with open("controls.txt", "r") as f:
         for line in f:
             data = ast.literal_eval(line)
+            listControl.append(data)
     # Modify data
-    if data["Username"] == usersName and data["Email"] == 1:
-        data["Email"] = 0
-    elif data["Username"] == usersName and data["Email"] == 0:
-        data["Email"] = 1
+    for user in listControl:
+        if user["Username"] == usersName and user["Email"] == 1:
+            user["Email"] = 0
+        elif user["Username"] == usersName and user["Email"] == 0:
+            user["Email"] = 1
+    
+    for index in range(len(listControl)):
+        listControl[index] = str(listControl[index]) + "\n"
     with open("controls.txt", "w") as fw:
-        fw.write(repr(data))
+        fw.writelines(listControl)
             
 def sms():
     usersName = loginfunctions.getUsersName()
+    listControl = []
     with open("controls.txt", "r") as f:
         for line in f:
             data = ast.literal_eval(line)
+            listControl.append(data)
+
     # Modify data
-    if data["Username"] == usersName and data["SMS"] == 1:
-        data["SMS"] = 0
-    elif data["Username"] == usersName and data["SMS"] == 0:
-        data["SMS"] = 1
+    for user in listControl:
+        if user["Username"] == usersName and user["SMS"] == 1:
+            user["SMS"] = 0
+        elif user["Username"] == usersName and user["SMS"] == 0:
+            user["SMS"] = 1
+
+    for index in range(len(listControl)):
+        listControl[index] = str(listControl[index]) + "\n"
     with open("controls.txt", "w") as fw:
-        fw.write(repr(data))
+        fw.writelines(listControl)
 
 def advertising():
     usersName = loginfunctions.getUsersName()
+    listControl = []
+
     with open("controls.txt", "r") as f:
         for line in f:
             data = ast.literal_eval(line)
+            listControl.append(data)
+
     # Modify data
-    if data["Username"] == usersName and data["Advertising"] == 1:
-        data["Advertising"] = 0
-    elif data["Username"] == usersName and data["Advertising"] == 0:
-        data["Advertising"] = 1
+    for user in listControl:
+        if user["Username"] == usersName and user["Advertising"] == 1:
+            user["Advertising"] = 0
+        elif user["Username"] == usersName and user["Advertising"] == 0:
+            user["Advertising"] = 1
+
+    for index in range(len(listControl)):
+        listControl[index] = str(listControl[index]) + "\n"
     with open("controls.txt", "w") as fw:
-        fw.write(repr(data))
+        fw.writelines(listControl)
     
 
 # Important Links: 10. Languages
@@ -349,16 +370,24 @@ def currentLanguage():
 
 def changeLanguage():
     usersName = loginfunctions.getUsersName()
+    listControl = []
+
     with open("language.txt", "r") as f:
         for line in f:
             data = ast.literal_eval(line)
+            listControl.append(data)
+
     # Modify data
-    if data["Username"] == usersName and data["Language"] == "English":
-        data["Language"] = "Spanish"
-    elif data["Username"] == usersName and data["Language"] == "Spanish":
-        data["Language"] = "English"
+    for user in listControl:
+        if user["Username"] == usersName and user["Language"] == "English":
+            user["Language"] = "Spanish"
+        elif user["Username"] == usersName and user["Language"] == "Spanish":
+            user["Language"] = "English"
+            
+    for index in range(len(listControl)):
+        listControl[index] = str(listControl[index]) + "\n"
     with open("language.txt", "w") as fw:
-        fw.write(repr(data))
+        fw.writelines(listControl)
     
 def languages():
     usersName = loginfunctions.getUsersName()
