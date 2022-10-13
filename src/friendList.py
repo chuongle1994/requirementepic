@@ -145,11 +145,16 @@ def requestFriend():
     for user in profileList:
         if user["Username"] == friend:
             found = 1
-        if user["Username"] == friend and currentUser in user["Pending Lists"]:
-            inPendingList = 1
-        if user["Username"] == currentUser and friend in user["Friend Lists"]:
-            inFriendList = 1
-
+            if currentUser in user["Pending Lists"]:
+                inPendingList = 1
+            elif currentUser in user["Friend Lists"]:
+                inFriendList = 1
+        if found == 1 and inFriendList == 0 and inPendingList == 0:
+            user["Pending Lists"].append(currentUser)
+            print("You successfully send friend request!")
+            break
+            
+    
     # write pending list to profile
     for index in range(len(profileList)):
         profileList[index] = str(profileList[index]) + "\n"
@@ -161,11 +166,6 @@ def requestFriend():
         enterAgain("User not found", requestFriend)
     elif inFriendList == 1 or inPendingList == 1:
         enterAgain("You already sent request before!", requestFriend)
-    elif found == 1 and inFriendList == 0 and inPendingList == 0:
-        user["Pending Lists"].append(currentUser)
-        print("You successfully send friend request!")
-    else:
-        print("Unexpected Result.")
 
 
 # after login, check the pending list
