@@ -1,7 +1,7 @@
 from os.path import exists
 import os
 import json
-import linkFunctions
+import linkFunctions, friendList
 
 #search for job page
 def searchForAJob():
@@ -323,9 +323,10 @@ def loginPage():
         if validation == True: 
             print("\nYou have successfully logged in")
             storeUserData(user)
+            friendList.pendingData()
+            friendList.search()
             isSuccessfulLogin = True
         else:                                                      
             print("Incorrect username / password, please try again\n")
-
 
     displayOptions()
