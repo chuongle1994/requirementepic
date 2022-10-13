@@ -1,3 +1,4 @@
+import os
 import ast
 import loginfunctions
 
@@ -10,6 +11,9 @@ def createFriendList(username):
 
 # Function for providing options to search students
 def search():
+    #clear screen
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     print("\nDo you want to connect with other students?")
     print("[1] Search by lastname")
     print("[2] Search by university")
@@ -29,7 +33,7 @@ def search():
         search()
 
 # Function to search for students by lastname
-def searchLastName():
+def searchLastName():  
     usersName = loginfunctions.getUsersName()
     lastname = input("\nEnter the lastname to search for students: ")
     found = 0
@@ -65,11 +69,11 @@ def enterAgain(searchMsg, callback):
         return
     else:
         print("Invalid selection. Please try again.")
-        enterAgain()
+        enterAgain(searchMsg, callback)
   
 
 # search for students by university
-def searchUniversity():
+def searchUniversity():    
     usersName = loginfunctions.getUsersName()
     university = input("\nEnter the university to search for students: ")
     found = 0
@@ -89,7 +93,7 @@ def searchUniversity():
 
 
 # search for students by major
-def searchMajor():
+def searchMajor():  
     usersName = loginfunctions.getUsersName()
     major = input("\nEnter the major to search for students: ")
     found = 0
@@ -167,6 +171,8 @@ def requestFriend():
 # after login, check the pending list
 # if there is pending list, go to function they can decide you accept or reject
 def pendingData():
+    os.system('cls' if os.name == 'nt' else 'clear')
+  
     usersName = loginfunctions.getUsersName()
     with open("friendList.txt", "r") as file:
         for line in file:
@@ -186,12 +192,15 @@ def decision():
     print("\nPlease select the options to deicde to accept or reject: ")
     print("[1] Accept")
     print("[2] Reject")
+    print("[3] Skip")
     select = input("Please select an option: ")
 
     if select == "1": 
         accept()
     elif select == "2":
         reject()
+    elif select == "3":
+        return
     else:
         print("Invalid input. Try selecting an option again.")
         decision()
@@ -210,7 +219,7 @@ def accept():
 
     # Modify data
     for user in listControl:
-        if user["Username"] == usersName:
+        if user["Username"] == usersName and friend in user["Pending Lists"]:
             user["Friend Lists"].append(friend)
             user["Pending Lists"].remove(friend)
         if user["Username"] == friend:
@@ -224,7 +233,7 @@ def accept():
         fw.writelines(listControl)
 
     if found ==0:
-        enterAgain("Cannot accept. User not found", accept)
+        enterAgain("Cannot accept friend request. User not found", accept)
 
     # check again if there is any pending left
     pendingData()
@@ -243,7 +252,7 @@ def reject():
 
     # Modify data
     for user in listControl:
-        if user["Username"] == usersName:
+        if user["Username"] == usersName and friend in user["Pending Lists"]:
             user["Pending Lists"].remove(friend)
             found =1
           
@@ -255,7 +264,7 @@ def reject():
         fw.writelines(listControl)
 
     if found ==0:
-        enterAgain("Cannot reject. User not found", reject)
+        enterAgain("Cannot reject friend request. User not found", reject)
 
       #may need to call pending again
     pendingData()
@@ -285,7 +294,10 @@ def currentFriendList():
         for line in file:
             data = ast.literal_eval(line)
             if data["Username"] == usersName:
-                print(data)
+                if data["Friend Lists"]:
+                    print(*data["Friend Lists"], sep = ",")
+                else:
+                    print("None")
                 break
 
 

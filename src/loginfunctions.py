@@ -180,7 +180,8 @@ def displayOptions():
     print("[1] Search for a job / internship")
     print("[2] Find someone you know")
     print("[3] Learn a new skill")
-    print("[4] Return to previous level")
+    print("[4] Show my network")
+    print("[5] Return to previous level")
     selection = input("Selection: ")
 
     if selection == "1":
@@ -193,6 +194,9 @@ def displayOptions():
         learnSkill()
         return
     elif selection == "4":
+        friendList.userNetwork()
+        return
+    elif selection == "5":
         clearFile("currentUserData.txt")
         return
     else:
