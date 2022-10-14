@@ -18,3 +18,16 @@ def test_searchLastName():
     profileFunctions.createProfile("tri le", "le")
     assert friendList.searchLastName("danh le", "le") == 1
     clear_all_files()
+def test_searchUniversity():
+    createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le") # making an account defaults sms to 1 or "on"
+    createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le") # making an account defaults sms to 1 or "on"
+    assert friendList.searchUniversity("danh le", "USF") == 0
+    clear_all_files()
+
+def test_searchMajor():
+    createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le") # making an account defaults sms to 1 or "on"
+    createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le") # making an account defaults sms to 1 or "on"
+    assert friendList.searchMajor("danh le", "CS") == 0
+    clear_all_files()
+
+    
