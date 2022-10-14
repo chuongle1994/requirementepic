@@ -2,10 +2,7 @@ import os
 import loginfunctions
 import ast
 
-def navigationLinks():
-    #clear screen
-    os.system('cls' if os.name == 'nt' else 'clear')
-  
+def navigationLinks():  
     # Useful Links Lists
     print("\nUseful Links")
     usefulLinks = ["[a] General", "[b] Browse InCollege", "[c] Business Solutions", "[d] Directories"]
