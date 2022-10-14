@@ -327,7 +327,7 @@ def loginPage():
         if validation == True: 
             print("\nYou have successfully logged in")
             storeUserData(user)
-            friendList.pendingData()
+            friendList.pendingScreen()
             friendList.search()
             isSuccessfulLogin = True
         else:                                                      

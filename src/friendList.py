@@ -181,21 +181,29 @@ def requestFriend(currentUser, friend):
 
 # after login, check the pending list
 # if there is pending list, go to function they can decide you accept or reject
-def pendingData():
-    os.system('cls' if os.name == 'nt' else 'clear')
+def pendingData(usersName):
   
-    usersName = loginfunctions.getUsersName()
     with open("friendList.txt", "r") as file:
         for line in file:
             data = ast.literal_eval(line)
+            # find the current user's friend list
             if data["Username"] == usersName:
               break
     
     if data["Pending Lists"]:
-        print("\nYou have a friend request!")
-        print("Here is the list who want to connect wih you: ")
-        print(data["Pending Lists"])
-        decision()
+        return data["Pending Lists"]
+
+# the pending interface
+def pendingScreen():
+
+      usersName = loginfunctions.getUsersName()
+      pendingList = pendingData(usersName)
+      if pendingList:
+          print("\nYou have a friend request!")
+          print("Here is the list who want to connect wih you: ")
+          print(pendingList)
+          decision()
+   
           
                 
 # Function for deciding to accept or reject
@@ -225,7 +233,7 @@ def inputAccept():
         enterAgain("Cannot accept friend request. User not found", inputAccept)
 
     # check again if there is any pending left
-    pendingData()
+    pendingScreen()
 
 
 # Function for accpeting of friend request
@@ -265,7 +273,7 @@ def inputReject():
         enterAgain("Cannot reject friend request. User not found", inputReject)
 
       #may need to call pending again
-    pendingData()
+    pendingScreen()
 
     
 # Function for rejecting of friend request
