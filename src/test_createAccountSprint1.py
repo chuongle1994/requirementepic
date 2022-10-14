@@ -10,6 +10,11 @@ def test_accNumTest():
     createAccountFunctions.storeData("dinhle", "Abcdef1!", "dinh", "le", "dinh le")
     createAccountFunctions.storeData("chuongle", "Abcdef1!", "chuong", "le", "chuong le")
     createAccountFunctions.storeData("hyunjung", "Abcdef1!", "hyunjung", "lee", "hyungjung lee")
+    createAccountFunctions.storeData("trile1", "Abcdef1!1", "tri1", "le1", "tri le1")
+    createAccountFunctions.storeData("danhle1", "Abcdef1!1", "danh1", "le1", "danh le1")
+    createAccountFunctions.storeData("dinhle1", "Abcdef1!1", "dinh1", "le1", "dinh le1")
+    createAccountFunctions.storeData("chuongle1", "Abcdef1!1", "chuong1", "le1", "chuong le1")
+    createAccountFunctions.storeData("hyunjung1", "Abcdef1!1", "hyunjung1", "lee1", "hyungjung lee1")
     assert createAccountFunctions.checkAccNum() == 1
     user = open("users.txt", "w")
     user.close()
