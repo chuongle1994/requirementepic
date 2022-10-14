@@ -125,7 +125,7 @@ def requestOption():
 
     select = input("Please pick an option: ")
     if select == "1":
-        requestFriend()
+        inputFriend()
         userNetwork()
     elif select == "2":
         userNetwork()
@@ -133,15 +133,25 @@ def requestOption():
         print("Invalid input. Try selecting an option again.")
         requestOption()
 
-        
+
+def inputFriend():
+    currentUser = loginfunctions.getUsersName()
+    friend = input("\nEnter the name you want to send friend request: ")
+    found, inFriendList, inPendingList = requestFriend(currentUser, friend)
+    if found == 0:
+        enterAgain("User not found", inputFriend)
+    elif inFriendList == 0 and inPendingList == 0:
+        print("You successfully send friend request!")
+    elif inFriendList == 1 or inPendingList == 1:
+        enterAgain("You already sent request before!", inputFriend)
+
+
 # When the search successes, option for sending a request to connect
-def requestFriend():
-    profileList = []
+def requestFriend(currentUser, friend):
     found = 0
     inFriendList = 0
     inPendingList = 0
-    currentUser = loginfunctions.getUsersName()
-    friend = input("\nEnter the name you want to send friend request: ")
+    profileList = []
     
     with open("friendList.txt", "r") as file:
         for line in file:
@@ -157,9 +167,7 @@ def requestFriend():
                 inFriendList = 1
         if found == 1 and inFriendList == 0 and inPendingList == 0:
             user["Pending Lists"].append(currentUser)
-            print("You successfully send friend request!")
             break
-            
     
     # write pending list to profile
     for index in range(len(profileList)):
@@ -168,10 +176,7 @@ def requestFriend():
     with open("friendList.txt", "w") as fw:
         fw.writelines(profileList)
 
-    if found == 0:
-        enterAgain("User not found", requestFriend)
-    elif inFriendList == 1 or inPendingList == 1:
-        enterAgain("You already sent request before!", requestFriend)
+    return found, inFriendList, inPendingList
 
 
 # after login, check the pending list
@@ -202,21 +207,31 @@ def decision():
     select = input("Please select an option: ")
 
     if select == "1": 
-        accept()
+        inputAccept()
     elif select == "2":
-        reject()
+        inputReject()
     elif select == "3":
         return
     else:
         print("Invalid input. Try selecting an option again.")
         decision()
 
-# Function for accpeting of friend request
-def accept():
-    listControl = []
-    found = 0
+def inputAccept():
     usersName = loginfunctions.getUsersName()
     friend = input("\nEnter the name you want to accept: ")
+    found = accept(usersName, friend)
+
+    if found == 0:
+        enterAgain("Cannot accept friend request. User not found", inputAccept)
+
+    # check again if there is any pending left
+    pendingData()
+
+
+# Function for accpeting of friend request
+def accept(usersName, friend):
+    found = 0
+    listControl = []
     
     with open("friendList.txt", "r") as f:
         for line in f:
@@ -228,6 +243,7 @@ def accept():
         if user["Username"] == usersName and friend in user["Pending Lists"]:
             user["Friend Lists"].append(friend)
             user["Pending Lists"].remove(friend)
+            found = 1
         if user["Username"] == friend:
             user["Friend Lists"].append(usersName)
             found = 1
@@ -238,18 +254,24 @@ def accept():
     with open("friendList.txt", "w") as fw:
         fw.writelines(listControl)
 
-    if found ==0:
-        enterAgain("Cannot accept friend request. User not found", accept)
+    return found
 
-    # check again if there is any pending left
-    pendingData()
-
-# Function for rejecting of friend request
-def reject():
-    listControl = []
-    found = 0
+def inputReject():
     usersName = loginfunctions.getUsersName()
     friend = input("\nEnter the name you want to reject: ")
+    found = reject(usersName, friend)
+
+    if found == 0:
+        enterAgain("Cannot reject friend request. User not found", inputReject)
+
+      #may need to call pending again
+    pendingData()
+
+    
+# Function for rejecting of friend request
+def reject(usersName, friend):
+    found = 0
+    listControl = []
     
     with open("friendList.txt", "r") as f:
         for line in f:
@@ -260,20 +282,17 @@ def reject():
     for user in listControl:
         if user["Username"] == usersName and friend in user["Pending Lists"]:
             user["Pending Lists"].remove(friend)
-            found =1
+            found = 1
           
-        
     for index in range(len(listControl)):
         listControl[index] = str(listControl[index]) + "\n"
         
     with open("friendList.txt", "w") as fw:
         fw.writelines(listControl)
+    
+    return found
 
-    if found ==0:
-        enterAgain("Cannot reject friend request. User not found", reject)
-
-      #may need to call pending again
-    pendingData()
+    
         
 # Function for option of "show my network"
 def userNetwork():
@@ -314,20 +333,26 @@ def disconnectOption():
     select = input("Please select an option: ")
 
     if select == "1":
-        disconnect()
+        inputDisconnect()
     elif select == "2":
         return
     else:
         print("Invalid input. Please try again.")
         disconnectOption()
 
-                
-# Function for option of disconnecting
-def disconnect():
-    found = 0
-    listControl = []
+def inputDisconnect():
     usersName = loginfunctions.getUsersName()
     friend = input("\nEnter the name you want to disconnect: ")
+    found = disconnect(usersName, friend)
+
+    if found == 0:
+        enterAgain("User does not in your Friend List", inputDisconnect)
+
+
+# Function for option of disconnecting
+def disconnect(usersName, friend):
+    found = 0
+    listControl = []
     
     with open("friendList.txt", "r") as f:
         for line in f:
@@ -349,5 +374,4 @@ def disconnect():
     with open("friendList.txt", "w") as fw:
         fw.writelines(listControl)
 
-    if found == 0:
-        enterAgain("User does not in your Friend List", disconnect)
+    return found
