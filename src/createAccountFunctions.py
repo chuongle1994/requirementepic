@@ -1,4 +1,4 @@
-import linkFunctions, friendList, profile
+import linkFunctions, friendList, profileFunctions
 
 def checkAccNum():
     #Count the current number of account created
@@ -43,7 +43,7 @@ def createAcc():
         storeData(newUser, newPass, newFirstname, newLastname, newFullname)
         linkFunctions.firstControlsSetting(newFullname)
         linkFunctions.firstLanguageSetting(newFullname)
-        profile.createProfile(newFullname, newLastname)
+        profileFunctions.createProfile(newFullname, newLastname)
         friendList.createFriendList(newFullname)
 
     return

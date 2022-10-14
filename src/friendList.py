@@ -21,7 +21,7 @@ def search():
 
     select = input("Please pick an option(0 to exit): ")
     if select == "1":
-        searchLastName()
+        inputLastName()
     elif select == "2":
         searchUniversity()
     elif select == "3":
@@ -32,24 +32,29 @@ def search():
         print("Invalid input. Try selecting an option again.")
         search()
 
-# Function to search for students by lastname
-def searchLastName():  
+def inputLastName():
     usersName = loginfunctions.getUsersName()
     lastname = input("\nEnter the lastname to search for students: ")
-    found = 0
-    
+    found = searchLastName(usersName, lastname)
+    if found == 0:
+        enterAgain("User not found", inputLastName)
+    elif found == 1:
+        requestOption()
+
+# Function to search for students by lastname
+def searchLastName(usersName, lastname):  
     print("\nHere is the search result:")
+    found = 0
     with open("profile.txt", "r") as file:
         for line in file:
             data = ast.literal_eval(line)
             if data["Lastname"] == lastname and data["Username"] != usersName:
                 print(data["Username"])
                 found = 1
+    return found
 
-    if found == 0:
-        enterAgain("User not found", searchLastName)
-    elif found == 1:
-        requestOption()
+    
+        
 
 # When result no found (callback funct)
 def enterAgain(searchMsg, callback):
