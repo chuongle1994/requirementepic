@@ -23,9 +23,9 @@ def search():
     if select == "1":
         inputLastName()
     elif select == "2":
-        searchUniversity()
+        inputUniversity()
     elif select == "3":
-        searchMajor()
+        inputMajor()
     elif select == "0":
         return
     else:
@@ -53,8 +53,6 @@ def searchLastName(usersName, lastname):
                 found = 1
     return found
 
-    
-        
 
 # When result no found (callback funct)
 def enterAgain(searchMsg, callback):
@@ -77,12 +75,18 @@ def enterAgain(searchMsg, callback):
         enterAgain(searchMsg, callback)
   
 
-# search for students by university
-def searchUniversity():    
+def inputUniversity():
     usersName = loginfunctions.getUsersName()
     university = input("\nEnter the university to search for students: ")
+    found = searchUniversity(usersName, university)
+    if found == 0:
+        enterAgain("User not found", searchUniversity)
+    elif found == 1:
+        requestOption()
+
+# search for students by university
+def searchUniversity(usersName, university):
     found = 0
-    
     print("\nHere is the search result:")
     with open("profile.txt", "r") as file:
         for line in file:
@@ -90,19 +94,20 @@ def searchUniversity():
             if data["University"] == university and data["Username"] != usersName:
                 print(data["Username"])
                 found = 1
+    return found
 
+def inputMajor():
+    usersName = loginfunctions.getUsersName()
+    major = input("\nEnter the major to search for students: ")
+    found = searchMajor(usersName, major)
     if found == 0:
-        enterAgain("User not found", searchUniversity)
+        enterAgain("User not found", searchMajor)
     elif found == 1:
         requestOption()
 
-
 # search for students by major
-def searchMajor():  
-    usersName = loginfunctions.getUsersName()
-    major = input("\nEnter the major to search for students: ")
+def searchMajor(usersName, major):  
     found = 0
-    
     print("\nHere is the search result:")
     with open("profile.txt", "r") as file:
         for line in file:
@@ -110,11 +115,7 @@ def searchMajor():
             if data["Major"] == major and data["Username"] != usersName:
                 print(data["Username"])
                 found = 1
-
-    if found == 0:
-        enterAgain("User not found", searchMajor)
-    elif found == 1:
-        requestOption()
+    return found
     
 
 def requestOption():
