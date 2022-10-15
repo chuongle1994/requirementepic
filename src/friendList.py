@@ -201,7 +201,7 @@ def pendingScreen():
       if pendingList:
           print("\nYou have a friend request!")
           print("Here is the list who want to connect wih you: ")
-          print(pendingList)
+          print(*pendingList, sep = ", ")
           decision()
    
           
@@ -304,15 +304,19 @@ def reject(usersName, friend):
         
 # Function for option of "show my network"
 def userNetwork():
-    print("\nDo you want to see your network?")
-    print("[1] Yes")
-    print("[2] No")
-    select = input("Please select an option: ")
+    pendingScreen()
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+    currentFriendList()
+    print("\n[1] Do you want to connect with other students?")
+    print("[2] Do you want to disconnect with someone?")
+    select = input("Please select an option (0 to exit): ")
 
     if select == "1":
-        currentFriendList()
-        disconnectOption()
+        search()
     elif select == "2":
+        inputDisconnect()
+    elif select == "0":
         return
     else:
         print("Invalid input. Please try again.")
