@@ -321,6 +321,7 @@ def userNetwork():
     
 # Function for print the current friend list
 def currentFriendList():
+    numFriends = 0
     usersName = loginfunctions.getUsersName()
     print("\nHere is your friend list: ")
     with open("friendList.txt", "r") as file:
@@ -329,9 +330,11 @@ def currentFriendList():
             if data["Username"] == usersName:
                 if data["Friend Lists"]:
                     print(*data["Friend Lists"], sep = ",")
+                    numFriends = len(data["Friend Lists"])
                 else:
                     print("None")
                 break
+    return numFriends
 
 
 def disconnectOption():
