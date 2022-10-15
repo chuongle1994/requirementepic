@@ -1,4 +1,4 @@
-import linkFunctions
+import linkFunctions, friendList, profileFunctions
 
 def checkAccNum():
     #Count the current number of account created
@@ -7,7 +7,8 @@ def checkAccNum():
             while (line := file.readline().rstrip()):
                 numAccounts += 1
         file.close()
-        if numAccounts >= 5:
+        # student account can be created upto 10
+        if numAccounts >= 10:
             return 1
         else:
             return 0
@@ -42,6 +43,9 @@ def createAcc():
         storeData(newUser, newPass, newFirstname, newLastname, newFullname)
         linkFunctions.firstControlsSetting(newFullname)
         linkFunctions.firstLanguageSetting(newFullname)
+        profileFunctions.createProfile(newFullname, newLastname)
+        friendList.createFriendList(newFullname)
+
     return
 
 def checkUser(newUser):

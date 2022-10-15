@@ -1,7 +1,8 @@
+import os
 import loginfunctions
 import ast
 
-def navigationLinks():
+def navigationLinks():  
     # Useful Links Lists
     print("\nUseful Links")
     usefulLinks = ["[a] General", "[b] Browse InCollege", "[c] Business Solutions", "[d] Directories"]
@@ -226,9 +227,7 @@ def brandPolicy():
     
 # Important Links: 9. Guest Controls
 def firstControlsSetting(username):
-    controls = {"Email": 1, "SMS": 1, "Advertising": 1}
-    # add username to dictionary
-    controls["Username"] = username
+    controls = {"Username": username, "Email": 1, "SMS": 1, "Advertising": 1}
     # add dictionay to "controls.txt"
     controlsFile = open("controls.txt", "a")
     controlsFile.write("{}\n".format(controls))
@@ -347,8 +346,7 @@ def advertising():
 
 # Important Links: 10. Languages
 def firstLanguageSetting(username):
-    setting = {"Language": "English"}
-    setting["Username"] = username
+    setting = {"Username": username, "Language": "English"}
     # add dictionay to "language.txt"
     settingFile = open("language.txt", "a")
     settingFile.write("{}\n".format(setting))
