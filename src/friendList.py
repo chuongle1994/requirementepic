@@ -208,7 +208,7 @@ def pendingScreen():
                 
 # Function for deciding to accept or reject
 def decision():
-    print("\nPlease select the options to deicde to accept or reject: ")
+    print("\nPlease select the options to decide to accept or reject: ")
     print("[1] Accept")
     print("[2] Reject")
     print("[3] Skip")
