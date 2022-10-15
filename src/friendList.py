@@ -80,7 +80,7 @@ def inputUniversity():
     university = input("\nEnter the university to search for students: ")
     found = searchUniversity(usersName, university)
     if found == 0:
-        enterAgain("User not found", searchUniversity)
+        enterAgain("User not found", inputUniversity)
     elif found == 1:
         requestOption()
 
@@ -101,7 +101,7 @@ def inputMajor():
     major = input("\nEnter the major to search for students: ")
     found = searchMajor(usersName, major)
     if found == 0:
-        enterAgain("User not found", searchMajor)
+        enterAgain("User not found", inputMajor)
     elif found == 1:
         requestOption()
 
