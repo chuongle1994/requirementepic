@@ -1,7 +1,8 @@
 from os.path import exists
 import os
 import json
-import linkFunctions, friendList
+import profile
+import linkFunctions, friendList, profileFunctions
 
 #search for job page
 def searchForAJob():
@@ -181,7 +182,10 @@ def displayOptions():
     print("[2] Find someone you know")
     print("[3] Learn a new skill")
     print("[4] Show my network")
-    print("[5] Return to previous level")
+    print("[5] Create profile")
+    print("[6] Edit profile")
+    print("[7] View profile")
+    print("[8] Return to previous level")
     selection = input("Selection: ")
 
     if selection == "1":
@@ -197,6 +201,15 @@ def displayOptions():
         friendList.userNetwork()
         return
     elif selection == "5":
+        profileFunctions.addProfile()
+        return
+    elif selection == "6":
+        profileFunctions.editProfile()
+        return
+    elif selection == "7":
+        profileFunctions.printProfile()
+        return 
+    elif selection == "8":
         clearFile("currentUserData.txt")
         return
     else:
