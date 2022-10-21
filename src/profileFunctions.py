@@ -3,8 +3,8 @@ import loginfunctions
 from os.path import exists
 
 # Function to create a personal profile with friend lists
-def createProfile(name, username):
-    profile = {"Name": name, "Title": "", "University": "", "Major": "", "About": "", "Experiences": ""}
+def createProfile(username, lastname):
+    profile = {"Username": username, "Lastname": lastname, "Title": "", "University": "", "Major": "", "About": "", "Experiences": ""}
     profileFile = open("profile.txt", "a")
     profileFile.write("{}\n".format(profile))
     profileFile.close()
@@ -21,7 +21,7 @@ def writeProfileBase(title, major, university, information):
 
     # Retrieve data from the array
     for user in profile:
-        if user["Name"] == loginfunctions.getUsersName():
+        if user["Username"] == loginfunctions.getUsersName():
             user["Title"] = title
             user["Major"] = major
             user["University"] = university
@@ -100,7 +100,7 @@ def personalProfile():
 
     # Retrieve save data from the file
     for user in profileList:
-        if user["Name"] == loginfunctions.getUsersName():
+        if user["Username"] == loginfunctions.getUsersName():
             if user["Title"] == "":
                 flag = 0
             elif user["Major"] == "":
@@ -186,7 +186,7 @@ def editProfile():
 
     # Retrieve data from the array
     for user in profileList:
-        if user["Name"] == loginfunctions.getUsersName():
+        if user["Username"] == loginfunctions.getUsersName():
                 title = user["Title"]
                 major = user["Major"]
                 university = user["University"]
