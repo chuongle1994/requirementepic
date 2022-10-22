@@ -188,6 +188,7 @@ def editProfile():
     # Check if the profile has been completely created
     complete = checkComplete(loginfunctions.getUsersName())
     if complete == "You have not finished creating your account.":
+        print("You have not finished creating your account.")
         return
 
     # Read data from the file to the array
@@ -593,7 +594,6 @@ def checkComplete(name):
 
     # If the profile creation is incomplete, terminate
     if title == "" or major == "" or university == "" or information == "" or experience == "None" or edu == "None":
-        print("You have not finished creating your account.")
         file.close()
         return "You have not finished creating your account."
     file.close()
