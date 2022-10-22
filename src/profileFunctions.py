@@ -6,7 +6,7 @@ from os.path import exists
 
 # Function to create a personal profile with friend lists
 def createProfile(username, lastname):
-    profile = {"Username": username, "Lastname": lastname, "Title": "", "University": "", "Major": "", "About": "", "Experience": "N", "Education": "N"}
+    profile = {"Username": username, "Lastname": lastname, "Title": "", "University": "", "Major": "", "About": "", "Experience": "None", "Education": "None"}
     profileFile = open("profile.txt", "a")
     profileFile.write("{}\n".format(profile))
     profileFile.close()
@@ -129,7 +129,7 @@ def personalProfile():
         if title == 'x':
             return
         flag = 1
-        writeProfileBase(title, "", "", "", "N", "N")
+        writeProfileBase(title, "", "", "", "None", "None")
 
     if flag == 1:
         major = input("Enter your major, or enter 'x' to exit: ")
@@ -137,7 +137,7 @@ def personalProfile():
             return
         major = major.title()
         flag = 2
-        writeProfileBase(title, major, "", "", "N", "N")
+        writeProfileBase(title, major, "", "", "None", "None")
 
     if flag == 2:
         university = input("Enter your University, or enter 'x' to exit: ")
@@ -145,13 +145,13 @@ def personalProfile():
             return
         university = university.title()
         flag = 3
-        writeProfileBase(title, major, university, "", "N", "N")
+        writeProfileBase(title, major, university, "", "None", "None")
     
     if flag == 3:
         information = input("Enter your information about yourself, or enter 'x' to exit: ")
         if information == 'x':
             return
-        writeProfileBase(title, major, university, information, "N", "N")
+        writeProfileBase(title, major, university, information, "None", "None")
 
     if expFlag == "N":
         while(True):
@@ -164,7 +164,7 @@ def personalProfile():
             else:
                 print("Invalid input.")
         flag = 4
-        writeProfileBase(title, major, university, information, "Y", "N")
+        writeProfileBase(title, major, university, information, "-", "None")
     if eduFlag == "N":
         while(True):
             expCont = input("Would you like to continue to 'Education'? [Y/N]: ")
@@ -176,7 +176,7 @@ def personalProfile():
             else:
                 print("Invalid input.")
         flag = 5
-        writeProfileBase(title, major, university, information, "Y", "Y")
+        writeProfileBase(title, major, university, information, "-", "-")
 
     if flag == 6:
         print("Profile already created.")
@@ -202,7 +202,7 @@ def editProfile():
                 edu = user["Education"]
 
     # If the profile creation is incomplete, terminate
-    if title == "" or major == "" or university == "" or information == "" or experience == "N" or edu == "N":
+    if title == "" or major == "" or university == "" or information == "" or experience == "None" or edu == "None":
         print("You have not finished creating your account.")
         file.close()
         return
@@ -214,19 +214,19 @@ def editProfile():
     if editInput == '1':
         newTitle = input("New title: ")
         title = newTitle
-        writeProfileBase(title, major, university, information, "Y", "Y")
+        writeProfileBase(title, major, university, information, "-", "-")
     elif editInput == '2':
         newMajor = input("New major: ")
         major = newMajor
-        writeProfileBase(title, major, university, information, "Y", "Y")
+        writeProfileBase(title, major, university, information, "-", "-")
     elif editInput == '3':
         newUni = input("New university: ")
         university = newUni
-        writeProfileBase(title, major, university, information, "Y", "Y")
+        writeProfileBase(title, major, university, information, "-", "-")
     elif editInput == '4':
         newAbout = input("New about me: ")
         information = newAbout
-        writeProfileBase(title, major, university, information, "Y", "Y")
+        writeProfileBase(title, major, university, information, "-", "-")
     elif editInput == '5':
         getExperience()
     elif editInput == '6':
