@@ -153,7 +153,7 @@ def personalProfile():
             return
         writeProfileBase(title, major, university, information, "None", "None")
 
-    if expFlag == "N":
+    if expFlag == "None":
         while(True):
             expCont = input("Would you like to continue to 'Experiences'? [Y/N]: ")
             if expCont == 'Y':
@@ -165,7 +165,7 @@ def personalProfile():
                 print("Invalid input.")
         flag = 4
         writeProfileBase(title, major, university, information, "-", "None")
-    if eduFlag == "N":
+    if eduFlag == "None":
         while(True):
             expCont = input("Would you like to continue to 'Education'? [Y/N]: ")
             if expCont == 'Y':
@@ -183,30 +183,8 @@ def personalProfile():
 
 # Function that allows the user to modify their profile
 def editProfile():
-    profileList = []
-
-    # Read data from the file to the array
-    with open("profile.txt", "r") as file:
-        for line in file:
-            data = ast.literal_eval(line)
-            profileList.append(data)
-
-    # Retrieve data from the array
-    for user in profileList:
-        if user["Username"] == loginfunctions.getUsersName():
-                title = user["Title"]
-                major = user["Major"]
-                university = user["University"]
-                information = user["About"]
-                experience = user["Experience"]
-                edu = user["Education"]
-
-    # If the profile creation is incomplete, terminate
-    if title == "" or major == "" or university == "" or information == "" or experience == "None" or edu == "None":
-        print("You have not finished creating your account.")
-        file.close()
-        return
-    file.close()
+    # Check if the profile has been completely created
+    title, major, university, information = checkComplete(loginfunctions.getUsersName())
 
     editInput = input("Which of the following would you like to edit?\n[1] Title\n[2] Major\n[3] University\n[4] About me\n[5] Add Experiences\n[6] Add Education\n[7] Edit Experiences\n[8] Edit Education\nInput: ")
 
@@ -423,8 +401,7 @@ def printFriendProfile():
     usersName = loginfunctions.getUsersName()
     print("\nFriends Profile:")
     displayFriendProfileOption(usersName)
-    option = input("\nWho do you want to see the profile?: ")
-
+    option = input("\nWhich profile do you want to view?")
     if option.isdigit() == False:
         print("Invalid option. Please choose again")
         printFriendProfile()
@@ -549,3 +526,30 @@ def getExperience():
         elif contFlag == 1:
             contFlag = 0
             break
+
+def checkComplete(name):
+    profileList = []
+
+    # Read data from the file to the array
+    with open("profile.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            profileList.append(data)
+
+    # Retrieve data from the array
+    for user in profileList:
+        if user["Username"] == name:
+                title = user["Title"]
+                major = user["Major"]
+                university = user["University"]
+                information = user["About"]
+                experience = user["Experience"]
+                edu = user["Education"]
+
+    # If the profile creation is incomplete, terminate
+    if title == "" or major == "" or university == "" or information == "" or experience == "None" or edu == "None":
+        print("You have not finished creating your account.")
+        file.close()
+        return "You have not finished creating your account."
+    file.close()
+    return title, major, university, information
