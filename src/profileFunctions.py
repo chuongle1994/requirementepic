@@ -202,10 +202,10 @@ def editProfile():
                 title = user["Title"]
                 major = user["Major"]
                 university = user["University"]
-                information = user["About"]]
+                information = user["About"]
 
     file.close()
-    
+
     editInput = input("Which of the following would you like to edit?\n[1] Title\n[2] Major\n[3] University\n[4] About me\n[5] Add Experiences\n[6] Add Education\n[7] Edit Experiences\n[8] Edit Education\nInput: ")
 
     # The allowed actions, the user is allowed to make
