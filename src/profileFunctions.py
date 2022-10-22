@@ -1,10 +1,12 @@
+from curses.ascii import isdigit
+import os
 import ast
 import loginfunctions
 from os.path import exists
 
 # Function to create a personal profile with friend lists
 def createProfile(username, lastname):
-    profile = {"Username": username, "Lastname": lastname, "Title": "", "University": "", "Major": "", "About": "", "Experience": "N", "Education": "N"}
+    profile = {"Username": username, "Lastname": lastname, "Title": "", "University": "", "Major": "", "About": "", "Experience": "None", "Education": "None"}
     profileFile = open("profile.txt", "a")
     profileFile.write("{}\n".format(profile))
     profileFile.close()
@@ -332,28 +334,131 @@ def addProfile():
 
 # Allows user to view profile
 def printProfile():
-    print("\nDo you want to view your profile?")
-    print("[1] Yes")
-    print("[2] No")
+    print("\n[1] Do you want to view your profile?")
+    print("[2] Do you want to view your friends's profile?")
+    print("[3] No")
     select = input("Please pick an option: ")
     if select == "1":
-        currentProfile()
+        os.system('cls' if os.name == 'nt' else 'clear')
+        userName = loginfunctions.getUsersName()
+        currentProfile(userName)
+        currentExp(userName)
+        currentEdu(userName)
     elif select == "2":
+        printFriendProfile()
+    elif select == "3":
         return
     else:
         print("Invalid input. Try selecting an option again.")
         printProfile()
 
 # Prints the current user profile
-def currentProfile():
-    usersName = loginfunctions.getUsersName()
-    print("\nHere is your profile: ")
+def currentProfile(usersName):
+    # usersName = loginfunctions.getUsersName()
+    print("\nHere is the profile: ")
     with open("profile.txt", "r") as file:
         for line in file:
             data = ast.literal_eval(line)
             if data["Username"] == usersName:
-                print(data)
+                # print(data)
                 break
+    print("\nProfile:\n")
+    for info in data:
+        print(info + ": " + data[info])
+    
+    return data
+
+# Prints the current user experience
+def currentExp(usersName):
+    expList = []
+
+    with open("profExperience.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            if data["Name"] == usersName:
+                expList.append(data)
+    print("\nExperience information:")
+    for edu in expList:
+        print("")
+        for info in edu:
+            if info == "Name":
+                continue
+            print(info + ": " + edu[info])
+    
+    return expList
+
+# Prints the current user education
+def currentEdu(usersName):
+    eduList = []
+
+    with open("profEducation.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            if data["Name"] == usersName:
+                eduList.append(data)
+    print("\nEducation information:")
+    for edu in eduList:
+        print("")
+        for info in edu:
+            if info == "Name":
+                continue
+            print(info + ": " + edu[info])
+    
+    return eduList
+
+
+#   user's friends profile interface
+def printFriendProfile():
+    usersName = loginfunctions.getUsersName()
+    print("\nFriends Profile:")
+    displayFriendProfileOption(usersName)
+    option = input("\nWho do you want to see the profile?: ")
+
+    if option.isdigit() == False:
+        print("Invalid option. Please choose again")
+        printFriendProfile()
+    elif friendProfile(int(option), usersName) == 0:
+        print("Option is out of range. Please choose again")
+
+
+# print out the friend's profile based on selected input
+def friendProfile(friendIndex, usersName):
+    with open("friendList.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            if data["Username"] == usersName:
+                break
+    
+    # in the terminal, option starts at 1
+    friendIndex-=1
+
+    if friendIndex > len(data["Friend Lists"]) or friendIndex < 0:
+        return 0
+        
+    friendName =  data["Friend Lists"][friendIndex]
+    print("\nProfile of: ", friendName)
+    currentProfile(friendName)
+    currentExp(friendName)
+    currentEdu(friendName)
+    return 1
+    
+# display the friend list with profile option
+def displayFriendProfileOption(usersName):
+    numFriends = 0
+    option = 1
+    print("\nHere is your friend list: \n")
+    with open("friendList.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            if data["Username"] == usersName:
+                for friend in data["Friend Lists"]:
+                    print(f"{friend:20} [{option}]View profile")
+                    option+=1
+                    numFriends = len(data["Friend Lists"])
+            else:
+                print("None")
+            break
+    return numFriends
 
 # Function that retrieves education data from user
 def getEducation():
