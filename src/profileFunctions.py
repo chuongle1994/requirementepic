@@ -362,6 +362,9 @@ def currentProfile(usersName):
                 break
     print("\nProfile:\n")
     for info in data:
+        if info == "Experience" or info == "Education":
+            if data[info] == "-":
+                break
         print(info + ": " + data[info])
     
     return data
@@ -370,6 +373,9 @@ def currentProfile(usersName):
 def currentExp(usersName):
     expList = []
     found = 0
+
+    if exists("profExperience.txt") == 0:
+        return
 
     with open("profExperience.txt", "r") as file:
         for line in file:
@@ -396,6 +402,9 @@ def currentEdu(usersName):
     eduList = []
     found = 0
 
+    if exists("profEducation.txt") == 0:
+        return
+
     with open("profEducation.txt", "r") as file:
         for line in file:
             data = ast.literal_eval(line)
@@ -419,14 +428,20 @@ def currentEdu(usersName):
 #   user's friends profile interface
 def printFriendProfile():
     usersName = loginfunctions.getUsersName()
-    print("\nFriends Profile:")
-    displayFriendProfileOption(usersName)
-    option = input("\nWhich profile do you want to view?")
-    if option.isdigit() == False:
-        print("Invalid option. Please choose again")
+    print("\n-----Friends Profile-----")
+    if displayFriendProfileOption(usersName) == 0:
+        return
+    option = input("\nWhich profile do you want to view?\nPress [x] to exit\n")
+
+    if option == "x":
+        return
+    elif option.isdigit() == False:
+        print("Inputed option is not a digit. Please choose again")
         printFriendProfile()
     elif friendProfile(int(option), usersName) == 0:
-        print("Option is out of range. Please choose again")
+        print("Invalid option. Please choose again")
+        printFriendProfile()
+    return
 
 
 # print out the friend's profile based on selected input
@@ -444,6 +459,11 @@ def friendProfile(friendIndex, usersName):
         return 0
         
     friendName =  data["Friend Lists"][friendIndex]
+
+    # quit if friend has not create profile
+    if checkComplete(friendName) == "You have not finished creating your account.":
+        return 0
+
     print("\nProfile of: ", friendName)
     currentProfile(friendName)
     currentExp(friendName)
@@ -459,13 +479,18 @@ def displayFriendProfileOption(usersName):
         for line in file:
             data = ast.literal_eval(line)
             if data["Username"] == usersName:
-                for friend in data["Friend Lists"]:
-                    print(f"{friend:20} [{option}]View profile")
-                    option+=1
+                if data["Friend Lists"]:
                     numFriends = len(data["Friend Lists"])
-            else:
-                print("None")
-            break
+                    for friend in data["Friend Lists"]:
+                        if checkComplete(friend) == "You have not finished creating your account.":
+                            print(f"{friend:20}  No profile")
+                            option+=1
+                        else:
+                            print(f"{friend:20} [{option}]View profile")
+                            option+=1
+                else:
+                    print("You have no friend to view their profile")
+                    break
     return numFriends
 
 # Function that retrieves education data from user
