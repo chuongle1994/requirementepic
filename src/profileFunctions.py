@@ -183,8 +183,28 @@ def personalProfile():
 
 # Function that allows the user to modify their profile
 def editProfile():
+    profileList = []
+
     # Check if the profile has been completely created
-    title, major, university, information = checkComplete(loginfunctions.getUsersName())
+    complete = checkComplete(loginfunctions.getUsersName())
+    if complete == "You have not finished creating your account.":
+        return
+
+    # Read data from the file to the array
+    with open("profile.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            profileList.append(data)
+
+    # Retrieve data from the array
+    for user in profileList:
+        if user["Username"] == loginfunctions.getUsersName():
+                title = user["Title"]
+                major = user["Major"]
+                university = user["University"]
+                information = user["About"]
+                experience = user["Experience"]
+                edu = user["Education"]
 
     editInput = input("Which of the following would you like to edit?\n[1] Title\n[2] Major\n[3] University\n[4] About me\n[5] Add Experiences\n[6] Add Education\n[7] Edit Experiences\n[8] Edit Education\nInput: ")
 
@@ -552,4 +572,3 @@ def checkComplete(name):
         file.close()
         return "You have not finished creating your account."
     file.close()
-    return title, major, university, information
