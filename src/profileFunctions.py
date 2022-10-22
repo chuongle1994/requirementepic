@@ -6,7 +6,7 @@ from os.path import exists
 
 # Function to create a personal profile with friend lists
 def createProfile(username, lastname):
-    profile = {"Username": username, "Lastname": lastname, "Title": "", "University": "", "Major": "", "About": "", "Experience": "None", "Education": "None"}
+    profile = {"Username": username, "Lastname": lastname, "Title": "", "University": "", "Major": "", "About": "", "Experience": "N", "Education": "N"}
     profileFile = open("profile.txt", "a")
     profileFile.write("{}\n".format(profile))
     profileFile.close()
@@ -371,12 +371,18 @@ def currentProfile(usersName):
 # Prints the current user experience
 def currentExp(usersName):
     expList = []
+    found = 0
 
     with open("profExperience.txt", "r") as file:
         for line in file:
             data = ast.literal_eval(line)
             if data["Name"] == usersName:
                 expList.append(data)
+                found = 1
+
+    if found == 0:
+        return
+        
     print("\nExperience information:")
     for edu in expList:
         print("")
@@ -390,12 +396,17 @@ def currentExp(usersName):
 # Prints the current user education
 def currentEdu(usersName):
     eduList = []
+    found = 0
 
     with open("profEducation.txt", "r") as file:
         for line in file:
             data = ast.literal_eval(line)
             if data["Name"] == usersName:
                 eduList.append(data)
+                found = 1
+    if found == 0:
+        return
+
     print("\nEducation information:")
     for edu in eduList:
         print("")
