@@ -12,7 +12,7 @@ def createProfile(username, lastname):
     profileFile.close()
 
 # Function to write data into the base profile
-def writeProfileBase(title, major, university, information, experience, education):
+def writeProfileBase(name, title, major, university, information, experience, education):
     profile = []
 
     # Read file and add it to array
@@ -23,10 +23,10 @@ def writeProfileBase(title, major, university, information, experience, educatio
 
     # Retrieve data from the array
     for user in profile:
-        if user["Username"] == loginfunctions.getUsersName():
+        if user["Username"] == name:
             user["Title"] = title
-            user["Major"] = major
-            user["University"] = university
+            user["Major"] = major.title()
+            user["University"] = university.title()
             user["About"] = information
             user["Experience"] = experience
             user["Education"] = education
@@ -39,7 +39,7 @@ def writeProfileBase(title, major, university, information, experience, educatio
         fw.writelines(profile)
 
 # Function to write data into the experience
-def writeExperience(title, employer, start, end, location, desc, newtitle):
+def writeExperience(name, title, employer, start, end, location, desc, newtitle):
     experience = []
 
     # Read file and add it to array
@@ -50,7 +50,7 @@ def writeExperience(title, employer, start, end, location, desc, newtitle):
 
     # Retrieve data from the array
     for user in experience:
-        if user["Name"] == loginfunctions.getUsersName():
+        if user["Name"] == name:
             if user["Title"] == title:
                 user["Title"] = newtitle
                 user["Employer"] = employer
@@ -67,7 +67,7 @@ def writeExperience(title, employer, start, end, location, desc, newtitle):
         fw.writelines(experience)
 
 # Function to write data into the education
-def writeEducation(university, degree, years, newuni):
+def writeEducation(name, university, degree, years, newuni):
     education = []
 
     # Read file and add it to array
@@ -78,7 +78,7 @@ def writeEducation(university, degree, years, newuni):
 
     # Retrieve data from the array
     for user in education:
-        if user["Name"] == loginfunctions.getUsersName():
+        if user["Name"] == name:
             if user["School"] == university:
                 user["School"] = newuni
                 user["Degree"] = degree
@@ -95,6 +95,7 @@ def writeEducation(university, degree, years, newuni):
 def personalProfile():
     flag = 6
     profileList = []
+    userName = loginfunctions.getUsersName()
 
     # Read data from file to array
     with open("profile.txt", "r") as file:
@@ -104,7 +105,7 @@ def personalProfile():
 
     # Retrieve save data from the file
     for user in profileList:
-        if user["Username"] == loginfunctions.getUsersName():
+        if user["Username"] == userName:
             expFlag = user["Experience"]
             eduFlag = user["Education"]
             if user["Title"] == "":
@@ -129,29 +130,27 @@ def personalProfile():
         if title == 'x':
             return
         flag = 1
-        writeProfileBase(title, "", "", "", "None", "None")
+        writeProfileBase(userName, title, "", "", "", "None", "None")
 
     if flag == 1:
         major = input("Enter your major, or enter 'x' to exit: ")
         if major == 'x':
             return
-        major = major.title()
         flag = 2
-        writeProfileBase(title, major, "", "", "None", "None")
+        writeProfileBase(userName, title, major, "", "", "None", "None")
 
     if flag == 2:
         university = input("Enter your University, or enter 'x' to exit: ")
         if university == 'x':
             return
-        university = university.title()
         flag = 3
-        writeProfileBase(title, major, university, "", "None", "None")
+        writeProfileBase(userName, title, major, university, "", "None", "None")
     
     if flag == 3:
         information = input("Enter your information about yourself, or enter 'x' to exit: ")
         if information == 'x':
             return
-        writeProfileBase(title, major, university, information, "None", "None")
+        writeProfileBase(userName, title, major, university, information, "None", "None")
 
     if expFlag == "None":
         while(True):
@@ -164,7 +163,7 @@ def personalProfile():
             else:
                 print("Invalid input.")
         flag = 4
-        writeProfileBase(title, major, university, information, "-", "None")
+        writeProfileBase(userName, title, major, university, information, "-", "None")
     if eduFlag == "None":
         while(True):
             expCont = input("Would you like to continue to 'Education'? [Y/N]: ")
@@ -176,7 +175,7 @@ def personalProfile():
             else:
                 print("Invalid input.")
         flag = 5
-        writeProfileBase(title, major, university, information, "-", "-")
+        writeProfileBase(userName, title, major, university, information, "-", "-")
 
     if flag == 6:
         print("Profile already created.")
@@ -184,6 +183,7 @@ def personalProfile():
 # Function that allows the user to modify their profile
 def editProfile():
     profileList = []
+    userName = loginfunctions.getUsersName()
 
     # Check if the profile has been completely created
     complete = checkComplete(loginfunctions.getUsersName())
@@ -199,7 +199,7 @@ def editProfile():
 
     # Retrieve data from the array
     for user in profileList:
-        if user["Username"] == loginfunctions.getUsersName():
+        if user["Username"] == userName:
                 title = user["Title"]
                 major = user["Major"]
                 university = user["University"]
@@ -213,19 +213,19 @@ def editProfile():
     if editInput == '1':
         newTitle = input("New title: ")
         title = newTitle
-        writeProfileBase(title, major, university, information, "-", "-")
+        writeProfileBase(userName, title, major, university, information, "-", "-")
     elif editInput == '2':
         newMajor = input("New major: ")
         major = newMajor
-        writeProfileBase(title, major, university, information, "-", "-")
+        writeProfileBase(userName, title, major, university, information, "-", "-")
     elif editInput == '3':
         newUni = input("New university: ")
         university = newUni
-        writeProfileBase(title, major, university, information, "-", "-")
+        writeProfileBase(userName, title, major, university, information, "-", "-")
     elif editInput == '4':
         newAbout = input("New about me: ")
         information = newAbout
-        writeProfileBase(title, major, university, information, "-", "-")
+        writeProfileBase(userName, title, major, university, information, "-", "-")
     elif editInput == '5':
         getExperience()
     elif editInput == '6':
@@ -244,12 +244,12 @@ def editProfile():
 
         print("Here are your experience(s) by title:")
         for user in experiences:
-            if user["Name"] == loginfunctions.getUsersName():
+            if user["Name"] == userName:
                 print(user["Title"])
 
         selection = input("Please select a title to modify: ")
         for user in experiences:
-            if user["Name"] == loginfunctions.getUsersName():
+            if user["Name"] == userName:
                 if user["Title"] == selection:
                     titlein = user["Title"]
                     empin = user["Employer"]
@@ -277,7 +277,7 @@ def editProfile():
         else:
             print("Invalid input")
             return
-        writeExperience(selection, empin, startin, endin, locationin, descin, titlein)
+        writeExperience(userName, selection, empin, startin, endin, locationin, descin, titlein)
     elif editInput == '8':
         education = []
         with open("profEducation.txt", "r") as file:
@@ -288,12 +288,12 @@ def editProfile():
 
         print("Here are your education(s) by university:")
         for user in education:
-            if user["Name"] == loginfunctions.getUsersName():
+            if user["Name"] == userName:
                 print(user["School"])
         
         selection = input("Please select a university to modify: ")
         for user in education:
-            if user["Name"] == loginfunctions.getUsersName():
+            if user["Name"] == userName:
                 if user["School"] == selection:
                     school = user["School"]
                     degree = user["Degree"]
@@ -312,7 +312,7 @@ def editProfile():
         else:
             print("Invalid input")
             return
-        writeEducation(selection, degree, years, school)
+        writeEducation(userName, selection, degree, years, school)
     else:
         print("Invalid input")
 
@@ -494,8 +494,15 @@ def displayFriendProfileOption(usersName):
                     break
     return numFriends
 
+def saveEducation(name, school_name, degree, years):
+    education = {"Name": name, "School": school_name, "Degree": degree, "Years": years}
+    eduFile = open("profEducation.txt", "a")
+    eduFile.write("{}\n".format(education))
+    eduFile.close()
+
 # Function that retrieves education data from user
 def getEducation():
+    userName = loginfunctions.getUsersName()
     eduFile = open("profEducation.txt", "w")
     eduFile.close()
     print("Please list your education: ")
@@ -505,10 +512,7 @@ def getEducation():
         school_name = input("School name: ")
         degree = input("Degree: ")
         years = input("Years attended: ")
-        education = {"Name": loginfunctions.getUsersName(), "School": school_name, "Degree": degree, "Years": years}
-        eduFile = open("profEducation.txt", "a")
-        eduFile.write("{}\n".format(education))
-        eduFile.close()
+        saveEducation(userName, school_name, degree, years)
         while True:
             continueFlag = input("Would you like to add more education? [Y/N]: ")
             if continueFlag == 'Y':
@@ -524,10 +528,17 @@ def getEducation():
             contFlag = 0
             break
 
+def saveExperience(name, title, employer, start, end, location, description):
+    experience = {"Name": name, "Title": title, "Employer": employer, "Start": start, "End": end, "Location": location, "Description": description}
+    expFile = open("profExperience.txt", "a")
+    expFile.write("{}\n".format(experience))
+    expFile.close()
+
 # Function that retrieves experience data from user
 def getExperience():
     addCount = 0
     contFlag = 0
+    userName = loginfunctions.getUsersName()
     expFile = open("profExperience.txt", "a")
     expFile.close()
     # Checks if the user wants to add an experience
@@ -549,10 +560,7 @@ def getExperience():
         end_date = input("Data ended: ")
         location = input("Location: ")
         description = input("Description: ")
-        experience = {"Name": loginfunctions.getUsersName(), "Title": title, "Employer": employer, "Start": start_date, "End": end_date, "Location": location, "Description": description}
-        expFile = open("profExperience.txt", "a")
-        expFile.write("{}\n".format(experience))
-        expFile.close()
+        saveExperience(userName, title, employer, start_date, end_date, location, description)
         addCount += 1
         print("Experience entry added!")
         if addCount == 3:
