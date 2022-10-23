@@ -1,7 +1,8 @@
 import ast
-import loginfunctions, profileFunctions
+import loginfunctions, profileFunctions, friendList
 
 # Test Title, Major, University, About section is stored
+# Check major and university is stored with first letters is uppercase
 def test_profile():
     profileFunctions.createProfile("Hyunjung Lee", "Lee")
     profileFunctions.createProfile("Danh Le", "Le")
@@ -20,6 +21,7 @@ def test_profile():
             data = ast.literal_eval(line)
             if data["Username"] == "Hyunjung Lee":
                 assert data["Title"] == "Software"
+                
                 assert data["Major"] == "Computer Science"
                 assert data["University"] == "Usf"
                 assert data["About"] == "Test1"
@@ -50,7 +52,7 @@ def test_profile():
     
     loginfunctions.clearFile("profile.txt")
 
-
+# Test experience is stored
 def test_experience():
     profileFunctions.saveExperience("Hyunjung Lee", "Developer1", "Google", "1.12.12", "3.21.14", "NY", "Develop Something")
     profileFunctions.saveExperience("Hyunjung Lee", "Tester1", "Apple", "2.21.15", "8.11.17", "Tampa", "Test Something")
@@ -90,7 +92,7 @@ def test_experience():
 
     loginfunctions.clearFile("profExperience.txt")
 
-
+# Test education is stored
 def test_education():
     profileFunctions.saveEducation("Hyunjung Lee", "school1", "AA", "2012")
     profileFunctions.saveEducation("Hyunjung Lee", "school2", "Bachelor", "2017")
@@ -111,3 +113,43 @@ def test_education():
                     assert data["Years"] == "2022"
 
     loginfunctions.clearFile("profEducation.txt")
+
+
+# Test for displaying profiles for User and Friends
+def test_friendProfile():
+    profileFunctions.createProfile("Hyunjung Lee", "Lee")
+    profileFunctions.createProfile("Danh Le", "Le")
+    profileFunctions.createProfile("Tri Le", "Le")
+    profileFunctions.writeProfileBase("Hyunjung Lee", "Software", "computer science", "usf", "Test1", "-", "-")
+    profileFunctions.writeProfileBase("Danh Le", "Hardware", "computer engineering", "university of south florida", "Test2", "-", "-")
+    profileFunctions.writeProfileBase("Tri Le", "Database", "cs", "ut", "Test3", "-", "-")
+    profileFunctions.saveExperience("Hyunjung Lee", "Developer2", "Instagram", "1.12.18", "3.21.20", "NY", "Develop Something")
+    profileFunctions.saveExperience("Danh Le", "Scrum Master", "Tesla", "8.12.18", "9.10.20", "Austin", "Organize Daily Scrum")
+    profileFunctions.saveExperience("Tri Le", "Tester", "Tesla", "8.12.18", "9.10.20", "Austin", "Test something")
+    profileFunctions.saveEducation("Hyunjung Lee", "school2", "Bachelor", "2017")
+    profileFunctions.saveEducation("Danh Le", "school3", "Master", "2022")
+    profileFunctions.saveEducation("Tri Lee", "school2", "Bachelor", "2000")
+
+    # Test for printing the current user profile
+    assert profileFunctions.currentProfile("Hyunjung Lee") == {"Username": "Hyunjung Lee", "Lastname": "Lee", "Title": "Software", "University": "Usf", "Major":"Computer Science", "About":"Test1", "Experience":"-", "Education":"-"}
+    assert profileFunctions.currentProfile("Danh Le") == {"Username": "Danh Le", "Lastname": "Le", "Title": "Hardware", "University": "University Of South Florida", "Major":"Computer Engineering", "About":"Test2", "Experience":"-", "Education":"-"}
+    assert profileFunctions.currentEdu("Hyunjung Lee") == [{"Name": "Hyunjung Lee", "School": "school2", "Degree": "Bachelor", "Years": "2017"}]
+    assert profileFunctions.currentExp("Hyunjung Lee") == [{"Name": "Hyunjung Lee", "Title": "Developer2", "Employer": "Instagram", "Start": "1.12.18", "End": "3.21.20", "Location": "NY", "Description": "Develop Something"}]
+
+    friendList.createFriendList("Hyunjung Lee")
+    friendList.createFriendList("Danh Le")
+    friendList.createFriendList("Tri Le")
+    friendList.requestFriend("Hyunjung Lee", "Danh Le")
+    friendList.accept("Danh Le", "Hyunjung Lee")
+    friendList.requestFriend("Hyunjung Lee", "Tri Le")
+    friendList.accept("Tri Le", "Hyunjung Lee")
+
+    # Test for displaying the friend List to view the profile
+    assert profileFunctions.displayFriendProfileOption("Hyunjung Lee") == 2
+    assert profileFunctions.displayFriendProfileOption("Danh Le") == 1
+    assert profileFunctions.displayFriendProfileOption("Danh Le") == 1
+
+    loginfunctions.clearFile("profile.txt")
+    loginfunctions.clearFile("profExperience.txt")
+    loginfunctions.clearFile("profEducation.txt")
+    loginfunctions.clearFile("friendList.txt")
