@@ -1,1 +1,0 @@
-{'Name': 'Tri Le', 'School': 'University of South Florida', 'Degree': "Bachelor's", 'Years': '2019-2023'}
