@@ -609,5 +609,5 @@ def checkComplete(name):
     # If the profile creation is incomplete, terminate
     if title == "" or major == "" or university == "" or information == "" or experience == "None" or edu == "None":
         file.close()
-        return "You have not finished creating your account."
+        return "You have not finished creating your profile."
     file.close()
