@@ -41,7 +41,8 @@ def writeProfileBase(name, title, major, university, information, experience, ed
 # Function to write data into the experience
 def writeExperience(name, title, employer, start, end, location, desc, newtitle):
     # If the file does not exist, then create it
-    if exists("profExperience.txt" == 0):
+    fileExist = exists("profExperience.txt")
+    if fileExist == 0:
         file = open("profExperience.txt", 'w')
         file.close()
 
@@ -74,7 +75,8 @@ def writeExperience(name, title, employer, start, end, location, desc, newtitle)
 # Function to write data into the education
 def writeEducation(name, university, degree, years, newuni):
     # If the file does not exist, then create it
-    if exists("profEducation.txt" == 0):
+    fileExist = exists("profEducation.txt")
+    if fileExist == 0:
         file = open("profEducation.txt", 'w')
         file.close()
 
@@ -384,8 +386,8 @@ def currentProfile(usersName):
 def currentExp(usersName):
     expList = []
     found = 0
-
-    if exists("profExperience.txt") == 0:
+    fileExist = exists("profExperience.txt")
+    if fileExist == 0:
         return
 
     with open("profExperience.txt", "r") as file:
@@ -412,8 +414,8 @@ def currentExp(usersName):
 def currentEdu(usersName):
     eduList = []
     found = 0
-
-    if exists("profEducation.txt") == 0:
+    fileExist = exists("profEducation.txt")
+    if fileExist == 0:
         return
 
     with open("profEducation.txt", "r") as file:
