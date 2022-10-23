@@ -40,6 +40,11 @@ def writeProfileBase(name, title, major, university, information, experience, ed
 
 # Function to write data into the experience
 def writeExperience(name, title, employer, start, end, location, desc, newtitle):
+    # If the file does not exist, then create it
+    if exists("profExperience.txt" == 0):
+        file = open("profExperience.txt", 'w')
+        file.close()
+
     experience = []
 
     # Read file and add it to array
@@ -68,6 +73,11 @@ def writeExperience(name, title, employer, start, end, location, desc, newtitle)
 
 # Function to write data into the education
 def writeEducation(name, university, degree, years, newuni):
+    # If the file does not exist, then create it
+    if exists("profEducation.txt" == 0):
+        file = open("profEducation.txt", 'w')
+        file.close()
+
     education = []
 
     # Read file and add it to array
@@ -187,8 +197,8 @@ def editProfile():
 
     # Check if the profile has been completely created
     complete = checkComplete(loginfunctions.getUsersName())
-    if complete == "You have not finished creating your account.":
-        print("You have not finished creating your account.")
+    if complete == "You have not finished creating your profile.":
+        print("You have not finished creating your profile.")
         return
 
     # Read data from the file to the array
@@ -503,8 +513,6 @@ def saveEducation(name, school_name, degree, years):
 # Function that retrieves education data from user
 def getEducation():
     userName = loginfunctions.getUsersName()
-    eduFile = open("profEducation.txt", "w")
-    eduFile.close()
     print("Please list your education: ")
     contFlag = 0
     while True:
@@ -539,8 +547,6 @@ def getExperience():
     addCount = 0
     contFlag = 0
     userName = loginfunctions.getUsersName()
-    expFile = open("profExperience.txt", "a")
-    expFile.close()
     # Checks if the user wants to add an experience
     while True:
         expFlag = input("Would you like to add your experience? [Y/N]: ")
