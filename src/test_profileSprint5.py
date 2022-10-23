@@ -200,6 +200,11 @@ def test_editExperiene():
         for line in file:
             data = ast.literal_eval(line)
             if data["Name"] == "Hyunjung Lee":
+                # check content before editing delete
+                assert data["Title"] != "Developer1"
+                assert data["Title"] != "Tester1"
+                assert data["Title"] != "Developer2"
+                # Check edited content stored
                 if data["Title"] == "Test1":
                     assert data["Employer"] == "USF"
                     assert data["Start"] == "11.11.11"
@@ -236,6 +241,11 @@ def test_editEducation():
         for line in file:
             data = ast.literal_eval(line)
             if data["Name"] == "Hyunjung Lee":
+                # check content before editing delete
+                assert data["School"] != "school1"
+                assert data["School"] != "school2"
+                assert data["School"] != "school3"
+                # Check edited content stored
                 if data["School"] == "UCF":
                     assert data["Degree"] == "CC"
                     assert data["Years"] == "2014"
