@@ -3,6 +3,13 @@ import loginfunctions, profileFunctions, friendList
 
 # Test Title, Major, University, About section is stored
 # Check major and university is stored with first letters is uppercase
+def test_notFinishProfile():
+    profileFunctions.createProfile("Hyunjung Lee", "Lee")
+    profileFunctions.createProfile("Danh Le", "Le")
+    profileFunctions.createProfile("Chuong Le", "Le")
+    profileFunctions.createProfile("Tri Le", "Le",)
+    profileFunctions.createProfile("Dinh Le", "Le")
+    assert profileFunctions.checkComplete("Danh Le") =="You have not finished creating your account."
 def test_profile():
     profileFunctions.createProfile("Hyunjung Lee", "Lee")
     profileFunctions.createProfile("Danh Le", "Le")
@@ -113,8 +120,23 @@ def test_education():
                     assert data["Years"] == "2022"
 
     loginfunctions.clearFile("profEducation.txt")
+def test_ExperieneChange():
+    profileFunctions.writeExperience("Hyunjung Lee", "Developer1", "Google", "1.12.12", "3.21.14", "NY", "Develop Something","Developer2")
+    with open("profExperience.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            if data["Name"] == "Hyunjung Lee":
+                assert data["Title"] == "Developer2"
+    loginfunctions.clearFile("profExperience.txt")
 
-
+def test_EducationChange():
+    profileFunctions.writeEducation("Hyunjung Lee", "usf", "BA", "2016", "UCF")
+    with open("profEducation.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            if data["Name"] == "Hyunjung Lee":
+                assert data["School"] == "USF"
+    loginfunctions.clearFile("profEducation.txt")
 # Test for displaying profiles for User and Friends
 def test_friendProfile():
     profileFunctions.createProfile("Hyunjung Lee", "Lee")
