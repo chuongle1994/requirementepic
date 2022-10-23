@@ -1,5 +1,4 @@
 import ast
-from re import A
 import loginfunctions, profileFunctions, friendList
 
 # Test profile is complete or not
@@ -37,39 +36,48 @@ def test_storeProfile():
     profileFunctions.writeProfileBase("Hyunjung Lee", "Software", "computer science", "usf", "Test1", "None", "None")
     profileFunctions.writeProfileBase("Danh Le", "Hardware", "computer engineering", "university of south florida", "Test2", "None", "None")
     profileFunctions.writeProfileBase("Chuong Le", "Developer", "cs", "ut", "Test3", "None", "None")
-    profileFunctions.writeProfileBase("Tri Le", "Tester", "ce", "uf", "Test4", "None", "None")
-    profileFunctions.writeProfileBase("Dinh Le", "Data Analysist", "CS", "university", "Test5", "None", "None")
+    profileFunctions.writeProfileBase("Tri Le", "Tester", "CE", "UF", "Test4", "None", "None")
+    profileFunctions.writeProfileBase("Dinh Le", "Data Analysist", "Cs", "university", "Test5", "None", "None")
 
     with open("profile.txt", "r") as file:
         for line in file:
             data = ast.literal_eval(line)
             if data["Username"] == "Hyunjung Lee":
                 assert data["Title"] == "Software"
+                assert data["Major"] != "computer science"
                 assert data["Major"] == "Computer Science"
+                assert data["University"] != "usf"
                 assert data["University"] == "Usf"
                 assert data["About"] == "Test1"
 
             elif data["Username"] == "Danh Le":
                 assert data["Title"] == "Hardware"
+                assert data["Major"] != "computer engineering"
                 assert data["Major"] == "Computer Engineering"
+                assert data["University"] != "university of south florida"
                 assert data["University"] == "University Of South Florida"
                 assert data["About"] == "Test2"
 
             elif data["Username"] == "Chuong Le":
                 assert data["Title"] == "Developer"
+                assert data["Major"] != "cs"
                 assert data["Major"] == "Cs"
+                assert data["University"] != "ut"
                 assert data["University"] == "Ut"
                 assert data["About"] == "Test3"
 
             elif data["Username"] == "Tri Le":
                 assert data["Title"] == "Tester"
+                assert data["Major"] != "CE"
                 assert data["Major"] == "Ce"
+                assert data["University"] != "UF"
                 assert data["University"] == "Uf"
                 assert data["About"] == "Test4"
 
             elif data["Username"] == "Dinh Le":
                 assert data["Title"] == "Data Analysist"
                 assert data["Major"] == "Cs" 
+                assert data["University"] != "university"
                 assert data["University"] == "University"
                 assert data["About"] == "Test5"
     
@@ -92,13 +100,13 @@ def test_experience():
                     assert data["End"] == "3.21.14"
                     assert data["Location"] == "NY"
                     assert data["Description"] == "Develop Something"
-                if data["Title"] == "Tester1":
+                elif data["Title"] == "Tester1":
                     assert data["Employer"] == "Apple"
                     assert data["Start"] == "2.21.15"
                     assert data["End"] == "8.11.17"
                     assert data["Location"] == "Tampa"
                     assert data["Description"] == "Test Something"
-                if data["Title"] == "Developer2":
+                elif data["Title"] == "Developer2":
                     assert data["Employer"] == "Instagram"
                     assert data["Start"] == "1.12.18"
                     assert data["End"] == "3.21.20"
@@ -128,10 +136,10 @@ def test_education():
                 if data["School"] == "school1":
                     assert data["Degree"] == "AA"
                     assert data["Years"] == "2012"
-                if data["School"] == "school2":
+                elif data["School"] == "school2":
                     assert data["Degree"] == "Bachelor"
                     assert data["Years"] == "2017"
-                if data["School"] == "school3":
+                elif data["School"] == "school3":
                     assert data["Degree"] == "Master"
                     assert data["Years"] == "2022"
 
@@ -150,26 +158,29 @@ def test_editProfile():
     profileFunctions.writeProfileBase("Chuong Le", "Developer", "cs", "ut", "Test3", "-", "-")
     profileFunctions.writeProfileBase("Tri Le", "Tester", "ce", "uf", "Test4", "-", "-")
     
-    # edit profile
-    # edit title
+    # edit profile - "title"
     profileFunctions.writeProfileBase("Hyunjung Lee", "Software Engineer", "computer science", "usf", "Test1", "-", "-")
-    # edit major
+    # edit profile - "major"
     profileFunctions.writeProfileBase("Danh Le", "Hardware", "Computer Science", "university of south florida", "Test2", "-", "-")
-    # edit university
+    # edit profile - "university"
     profileFunctions.writeProfileBase("Chuong Le", "Developer", "cs", "USF", "Test3", "-", "-")
-    # edit information
+    # edit profile - "information"
     profileFunctions.writeProfileBase("Tri Le", "Tester", "ce", "uf", "Information", "-", "-")
 
     with open("profile.txt", "r") as file:
         for line in file:
             data = ast.literal_eval(line)
             if data["Username"] == "Hyunjung Lee":
+                assert data["Title"] != "Software"
                 assert data["Title"] == "Software Engineer"
             elif data["Username"] == "Danh Le":
+                assert data["Major"] != "Computer Engineering"
                 assert data["Major"] == "Computer Science"
             elif data["Username"] == "Chuong Le":
+                assert data["University"] != "Ut"
                 assert data["University"] == "Usf"
             elif data["Username"] == "Tri Le":
+                assert data["About"] != "Test4"
                 assert data["About"] == "Information"
     
     loginfunctions.clearFile("profile.txt")
@@ -195,13 +206,13 @@ def test_editExperiene():
                     assert data["End"] == "22.22.22"
                     assert data["Location"] == "Tampa"
                     assert data["Description"] == "Bull"
-                if data["Title"] == "Test2":
+                elif data["Title"] == "Test2":
                     assert data["Employer"] == "Facebook"
                     assert data["Start"] == "33.33.33"
                     assert data["End"] == "44.44.44"
                     assert data["Location"] == "Miami"
                     assert data["Description"] == "my face"
-                if data["Title"] == "Test3":
+                elif data["Title"] == "Test3":
                     assert data["Employer"] == "Chase"
                     assert data["Start"] == "55.55.55"
                     assert data["End"] == "66.66.66"
@@ -228,13 +239,13 @@ def test_editEducation():
                 if data["School"] == "UCF":
                     assert data["Degree"] == "CC"
                     assert data["Years"] == "2014"
-                if data["School"] == "USF":
+                elif data["School"] == "USF":
                     assert data["Degree"] == "BB"
                     assert data["Years"] == "2015"
-                if data["School"] == "UF":
+                elif data["School"] == "UF":
                     assert data["Degree"] == "AA"
                     assert data["Years"] == "2016"
-                    
+
     loginfunctions.clearFile("profEducation.txt")
 
 # Test for displaying profiles for User and Friends
