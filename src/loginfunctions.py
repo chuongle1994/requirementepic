@@ -1,7 +1,6 @@
 from os.path import exists
 import os
 import json
-import profile
 import linkFunctions, friendList, profileFunctions
 
 #search for job page
