@@ -1,0 +1,766 @@
+commit b2ebf14147015999711c752f2d0931a0ee939936
+Merge: e99553d 46ae93d
+Author: thedanhle <69592206+thedanhle@users.noreply.github.com>
+Date:   Sun Oct 23 20:33:12 2022 -0400
+
+    Merge pull request #20 from chuongle1994/COP4020-221017
+    
+    Cop4020 221017
+
+commit 46ae93d3fa0c8bb005adc36f6dbb8815893b3d31
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Sun Oct 23 20:30:12 2022 -0400
+
+    updating from epic 5
+
+commit d58ceff81d4169d769bdb665078c581adb6e3c5d
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Sun Oct 23 20:28:23 2022 -0400
+
+    commit
+
+commit eae01918c66f3341a548b7733a7313c372c0f5fa
+Merge: 06859a8 9c37af0
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Sun Oct 23 20:15:53 2022 -0400
+
+    Merge remote-tracking branch 'origin/Epic-5' into COP4020-221017
+
+commit 9c37af04451dce050f365e0520ecc8bace0574b7
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Sun Oct 23 19:37:58 2022 -0400
+
+    removing zip
+
+commit 861fa48a3743b8b2af2585fd5fc8b7fbb8547509
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Sun Oct 23 17:32:44 2022 -0400
+
+    Add more testing in editing experience and education
+
+commit 27ff40c57811aa764c45b34e792828f678290537
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Sun Oct 23 17:12:30 2022 -0400
+
+    Fixed broken edit
+
+commit bd70aed90befda05040285b05807464553571804
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Sun Oct 23 17:11:58 2022 -0400
+
+    Fixed broken edit
+
+commit 88e5088a2b366f5d0e60212acad3052fe0fb5afa
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Sun Oct 23 15:26:34 2022 -0400
+
+    Edit testing file for profile
+
+commit c9279faf309ac4746995434ede22e89d63896cdc
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Sun Oct 23 14:58:08 2022 -0400
+
+    Add more testing for editing profile
+
+commit 388a26514bcbd80a71c2fdad5a34be3b6d921eeb
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Sun Oct 23 02:08:43 2022 -0400
+
+    adding edit profile functions
+
+commit c7fb79408ad6d125a98952195b4b43be0abd9373
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Sun Oct 23 02:04:54 2022 -0400
+
+    adding edit test file into the Sprint test
+
+commit cd64754bd58ac82f538ffd1af99eaee8bcf49093
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Sun Oct 23 01:34:31 2022 -0400
+
+    removed file creation in get(), added them in write()
+
+commit c6befbe6676573a2b3bb61502b5a5ca46807e0ad
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Sun Oct 23 01:04:09 2022 -0400
+
+    test_edit
+
+commit a4f2b920ffbf34dabf10783cc7d728cec18b3e07
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Sat Oct 22 23:54:30 2022 -0400
+
+    Testing for displaying profile
+
+commit 479e8e55dcd2b1042f8024d61b1a62d5e6cac09b
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Sat Oct 22 22:31:10 2022 -0400
+
+    Testing for creating profile
+
+commit 66adaf65d022e5bfca454ca49016d7e3ae8bd2bb
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Sat Oct 22 15:58:35 2022 -0400
+
+    Redirected profile check statement
+
+commit 7bd96c53ede3430f9744be55410f184a962f8dfa
+Author: VanDinhLe <dinhdaica1998@gmail.com>
+Date:   Sat Oct 22 15:54:24 2022 -0400
+
+    fixed viewing friend's profile
+    
+    -friend with no profile no longer show available option
+    -user with no friend will show no friend profile
+
+commit 3cbb5df42ac4661f5a4ae8d7a975cf1cd168a68d
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Sat Oct 22 14:59:39 2022 -0400
+
+    fixed another error
+
+commit e8d7854f65d22fdc6e95e7b233471ce43fad675f
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Sat Oct 22 14:59:08 2022 -0400
+
+    fixed another error
+
+commit d9faf47c7bda300274461a06339ee046f775e04d
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Sat Oct 22 14:57:56 2022 -0400
+
+    Fixed error
+
+commit a54df1863aa2c304bf8cc0cb8398ef73c8801323
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Sat Oct 22 14:53:21 2022 -0400
+
+    Profile file changes
+
+commit dd175c194f0e28304e44a8bb74de7b9a441600f3
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Sat Oct 22 14:17:39 2022 -0400
+
+    added 'none' to profile creation/edit
+
+commit be8750d9f45a906086e90c2d4ed820f93970a8d4
+Author: VanDinhLe <dinhdaica1998@gmail.com>
+Date:   Sat Oct 22 13:36:12 2022 -0400
+
+    fixed not asking to create exp and edu
+
+commit 44bee2ebf352b29295e7ca08aabd4d221895a8d1
+Author: VanDinhLe <dinhdaica1998@gmail.com>
+Date:   Fri Oct 21 21:01:13 2022 -0400
+
+    added viewing user's and friend's profile
+
+commit e99553d358280d39d2e7431a13bef42bdfd78470
+Merge: 6dbb1a6 7ebfc4a
+Author: VanDinhLe <dinhdaica1998@gmail.com>
+Date:   Fri Oct 21 20:26:31 2022 -0400
+
+    Merge branch 'main' of https://github.com/chuongle1994/requirementepic
+
+commit 846f7c143fb42ac48972adde80895ae5aff39971
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Fri Oct 21 19:07:40 2022 -0400
+
+    First half of epic
+
+commit 06859a86d504772ef78b479daad9d45a0e071589
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Fri Oct 21 13:52:17 2022 -0400
+
+    Updating profile functions
+
+commit 81aad2106326f3baaded45c588398bc2438a23d2
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Fri Oct 21 10:24:54 2022 -0400
+
+    Adding Tri's changes
+
+commit 6dbb1a6d3d5ae840dfcc73ec3adcd19cf5c416e0
+Author: VanDinhLe <dinhdaica1998@gmail.com>
+Date:   Sat Oct 15 16:59:12 2022 -0400
+
+    user network interface be more friendly
+
+commit 7ebfc4a10bd0a8383c13e0bb78818a1cd106c60d
+Author: VanDinhLe <dinhdaica1998@gmail.com>
+Date:   Sat Oct 15 16:59:12 2022 -0400
+
+    user network interface be more friendly
+
+commit 62cd4758330776f886af6050df3bc9776ea1feb7
+Author: Tri Le <107281308+LeTri01@users.noreply.github.com>
+Date:   Sat Oct 15 16:18:42 2022 -0400
+
+    fixed grammar line 211
+
+commit 08e882ea7eb0b422fc611edf7e5dc1aab030c38b
+Merge: e0adce0 6acd77a
+Author: Tri Le <107281308+LeTri01@users.noreply.github.com>
+Date:   Sat Oct 15 15:50:53 2022 -0400
+
+    Merge pull request #17 from chuongle1994/epic-4
+    
+    merging to main
+
+commit 6acd77af53d982d7755602e92043ea59ea83aa9b
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Sat Oct 15 14:45:51 2022 -0400
+
+    Added test for pending friends list
+
+commit e0adce051111baaec21e732400fc0d56f0827177
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Sat Oct 15 10:02:05 2022 -0400
+
+    fixed test_pendingList
+
+commit 3cf899a5422fab3cacfb6b5f1f4a4bd24187a80b
+Merge: 41a1c9b c208edb
+Author: thedanhle <69592206+thedanhle@users.noreply.github.com>
+Date:   Sat Oct 15 02:14:37 2022 -0400
+
+    Merge pull request #16 from chuongle1994/epic-4
+    
+    Epic 4
+
+commit c208edb8e2f9ef3861eb321d47d231ff3d4c93a3
+Merge: d26c8ce 337a6ce
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Sat Oct 15 02:10:50 2022 -0400
+
+    Merge branch 'epic-4' of github.com:chuongle1994/requirementepic into epic-4
+
+commit d26c8ce3692bb2abcce40658246573e8748697c0
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Sat Oct 15 02:04:12 2022 -0400
+
+    Added tests for showing and removing friends
+
+commit 337a6ce02282daf26c85411b55ccd77c86dd3eea
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Sat Oct 15 01:32:41 2022 -0400
+
+    Create test_pendingList.py
+    
+    add pending test file
+
+commit 182d2e9ae7b3f28540c87a8f15e4bcc707818958
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Sat Oct 15 01:26:53 2022 -0400
+
+    Fix bugs with callback
+
+commit 0c4232c9cfbf9141ac620e38052072a08139177b
+Author: VanDinhLe <77133778+VanDinhLe@users.noreply.github.com>
+Date:   Fri Oct 14 16:43:09 2022 -0400
+
+    pendingData to returns list of pending friend
+    
+    added pendingScreen to show pending list
+    Changed pendingData to return pending list to display at pendingScreen
+
+commit 14c6afb39a261b150abbac7120a3435b9e95bd9e
+Author: Chuong <chuonglepro1994@gmail.com>
+Date:   Fri Oct 14 09:38:56 2022 -0400
+
+    Modified the test_accNumTest to test up to 10 user
+
+commit 8dd45c71b57fbdf4e98f3a28aa2a28661e25af82
+Author: Chuong <chuonglepro1994@gmail.com>
+Date:   Fri Oct 14 09:30:12 2022 -0400
+
+    add new test for university and major
+
+commit 824f6ddc41e0ed50c93e5f48a6d7c505ab46d9fa
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Fri Oct 14 00:17:39 2022 -0400
+
+    Create separate input function for testing
+
+commit acd5e69be2b1f8e05242de22318bb8f180d27478
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Thu Oct 13 23:27:21 2022 -0400
+
+    Modify Functions for Testing
+
+commit 7151f2a807b25ed0fcb5e97785ff46f9540b73c4
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Thu Oct 13 22:57:48 2022 -0400
+
+    Changed and added test forsearch last name
+
+commit baf939c7a33e24fc1101a57d8d08559c2063762f
+Merge: 31db158 e02cdc0
+Author: VanDinhLe <dinhdaica1998@gmail.com>
+Date:   Thu Oct 13 21:22:45 2022 -0400
+
+    Merge branch 'epic-4' of https://github.com/chuongle1994/requirementepic into epic-4
+
+commit 31db158e93450d0a229e65296d9fc55c1b7cd6d5
+Author: VanDinhLe <dinhdaica1998@gmail.com>
+Date:   Thu Oct 13 21:22:30 2022 -0400
+
+    fix the play video bug that makes video disappeared
+
+commit e02cdc0a823f9a786ed88591277fae61d4820b6a
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Thu Oct 13 16:54:21 2022 -0400
+
+    101322Idaho
+
+commit aa3d8b3ff9aebd550653b7df19edb5252f738170
+Author: VanDinhLe <dinhdaica1998@gmail.com>
+Date:   Wed Oct 12 23:57:02 2022 -0400
+
+    101222Idaho
+    
+    1. added clear terminal to make interface clearer
+    2. Fixed minor bugs that raise errors for entering random friend name
+    
+    Co-Authored-By: Hyunjung Lee <72768159+oranberry@users.noreply.github.com>
+
+commit 7982de79d48d0041c9b760bae3c55795bbda22d5
+Author: VanDinhLe <dinhdaica1998@gmail.com>
+Date:   Wed Oct 12 22:47:07 2022 -0400
+
+    101222Idaho
+    
+    added friend list features
+    
+    Co-Authored-By: Hyunjung Lee <72768159+oranberry@users.noreply.github.com>
+
+commit 2d9ac53709f5634c299ca3f3321a82596d659927
+Author: VanDinhLe <77133778+VanDinhLe@users.noreply.github.com>
+Date:   Tue Oct 11 13:59:05 2022 -0400
+
+    Add files via upload
+
+commit 41a1c9bc2b0b80323895a321ad3ce4b9eeb40b35
+Author: VanDinhLe <77133778+VanDinhLe@users.noreply.github.com>
+Date:   Tue Oct 11 13:23:20 2022 -0400
+
+    Add files via upload
+
+commit a6cda538a112226795dfab9cb160e1f78c08a042
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Sat Oct 8 12:52:28 2022 -0400
+
+    Fixing clear currentUserdata
+
+commit df482d54820ddda64dfbf8d7c808d40df80d7d7a
+Merge: d7625b4 646783f
+Author: VanDinhLe <77133778+VanDinhLe@users.noreply.github.com>
+Date:   Sat Oct 8 00:28:31 2022 -0400
+
+    Merge pull request #14 from chuongle1994/epic3
+    
+    Epic3 to main
+
+commit 646783f0528246d16b182dfbc6942cdcdae378e2
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Fri Oct 7 19:25:38 2022 -0400
+
+    Modify guestControl for printing current setting
+
+commit 5103d72be0868db35e446caf57e9477b299dda11
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Fri Oct 7 18:45:01 2022 -0400
+
+    Fix guestControl errors
+
+commit 65ea42330c30f6b153a84f850252f1d99f8ac60f
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Fri Oct 7 17:50:03 2022 -0400
+
+    Add Navigationlink
+
+commit 71483c65d335e24292b211cf8e3226ca30c9a3a6
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Fri Oct 7 17:39:33 2022 -0400
+
+    delete language function call after login
+
+commit 6d7aaebb80b25f2c55251b92c7680db01a903509
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Fri Oct 7 16:37:25 2022 -0400
+
+    Added test file and add return statemnts in linkFunctions.py
+
+commit e7af3a4a426221abc1072e59892d3b84023f7d8e
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Fri Oct 7 01:10:08 2022 -0400
+
+    Added tests for guest controls and language
+
+commit e6dd55bfcc657c3871f8ea6c412ebca589500232
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Thu Oct 6 22:45:24 2022 -0400
+
+    Modify some functions for testing
+
+commit cc645cacdaa54854e1396542314780c4ebd88868
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Thu Oct 6 12:46:38 2022 -0400
+
+    Add Epic3 Requirement
+
+commit f4c527a2b059592d588213b68736638068fa0152
+Author: Hyunjung Lee <leeleehj77@gmail.com>
+Date:   Thu Oct 6 12:00:00 2022 -0400
+
+    Add Epic3 Requirement
+
+commit d7625b4042c301be9d713236a192df9871475cfa
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Sat Sep 24 15:50:04 2022 -0400
+
+    Fixing connectPeople function
+
+commit 99a712f149dd5caa0fa4d5648b89992678c9bc58
+Merge: f0854a8 2da0532
+Author: thedanhle <69592206+thedanhle@users.noreply.github.com>
+Date:   Sat Sep 24 15:30:34 2022 -0400
+
+    Merge pull request #13 from chuongle1994/COP4020-220920
+    
+    Cop4020 220920
+
+commit 2da05326a7e484357cac12fb1a68d2f1750732c6
+Merge: bdf37c1 f0854a8
+Author: thedanhle <69592206+thedanhle@users.noreply.github.com>
+Date:   Sat Sep 24 15:29:45 2022 -0400
+
+    Merge branch 'main' into COP4020-220920
+
+commit f0854a82fdac457a0b9168479b1a9f3a3d05424b
+Merge: e681295 effee05
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Sat Sep 24 13:37:17 2022 -0400
+
+    Merge pull request #12 from chuongle1994/addTests
+    
+    Modified src code
+
+commit effee05dec948cd6cda07e1da57d8789a772e8ba
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Sat Sep 24 13:14:38 2022 -0400
+
+    Modified src code
+
+commit e681295db5e46eba7289237b5d33dacdd1a3407e
+Merge: bf0a4a3 86ed953
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Sat Sep 24 12:54:03 2022 -0400
+
+    Merge pull request #11 from chuongle1994/COP-4020-name-test
+    
+    add pytest for first last and full name
+
+commit bf0a4a38bea2f8bad3beec40b25b1bec20a6bc94
+Merge: 737279e de90ce2
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Sat Sep 24 12:46:07 2022 -0400
+
+    Merge pull request #10 from chuongle1994/addTests
+    
+    Add new pytests
+
+commit de90ce2563b8882f8ac33818286ebf0c40c3ba6b
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Sat Sep 24 12:41:59 2022 -0400
+
+    Added comments to test_homeSprint2.py
+
+commit bf1971e293d894b38da9b2ac4215bbb0bdf7bfdb
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Sat Sep 24 12:38:48 2022 -0400
+
+    Add new pytests
+
+commit 737279ea3ac0e38e5e06c9135d6d1f7b4357b13b
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Fri Sep 23 23:39:13 2022 -0400
+
+    add new a new function
+
+commit 86ed95346c25eb7726e5b43ab53163070b5b8e11
+Author: VanDinhLe <77133778+VanDinhLe@users.noreply.github.com>
+Date:   Fri Sep 23 20:41:52 2022 -0400
+
+    add pytest for first last and full name
+
+commit bdf37c18c516bfe5c5903e108612614593e2521c
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Thu Sep 22 21:56:54 2022 -0400
+
+    Removing loops and updating functions
+
+commit b6ed7a2b7429c452debfc18260ee155af77732ed
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Wed Sep 21 08:33:02 2022 -0400
+
+    updating last sprint's tests
+
+commit 2381377f656ed33ecc9ac50cc721d0b5b29a276b
+Author: thedanhle <69592206+thedanhle@users.noreply.github.com>
+Date:   Wed Sep 21 01:15:42 2022 -0400
+
+    Delete test_loginSprint1.py
+
+commit 7fc845aa8d6368f6c3eed0a33ca08eb2bc5b2501
+Author: thedanhle <69592206+thedanhle@users.noreply.github.com>
+Date:   Wed Sep 21 01:15:34 2022 -0400
+
+    Delete test_createAccountSprint1.py
+
+commit 596369641c86d3ff92495dd21c02a85f97f4e3f8
+Author: thedanhle <69592206+thedanhle@users.noreply.github.com>
+Date:   Wed Sep 21 01:15:26 2022 -0400
+
+    Delete main.py
+
+commit 297a7459f5001c83c9d292bc5c56689c06cc9749
+Author: thedanhle <69592206+thedanhle@users.noreply.github.com>
+Date:   Wed Sep 21 01:15:19 2022 -0400
+
+    Delete loginfunctions.py
+
+commit f93192451603c70653738ca7e5311bf9494aa011
+Author: thedanhle <69592206+thedanhle@users.noreply.github.com>
+Date:   Wed Sep 21 01:15:09 2022 -0400
+
+    Delete homeFunctions.py
+
+commit 4b15fead43cec7c87564040208dedda4a2157cf2
+Author: thedanhle <69592206+thedanhle@users.noreply.github.com>
+Date:   Wed Sep 21 01:14:59 2022 -0400
+
+    Delete createAccountFunctions.py
+
+commit 0ec201867d4dd2e934b5285a258b8446adfd1b57
+Merge: 3dbcb13 0d4f3f5
+Author: thedanhle <69592206+thedanhle@users.noreply.github.com>
+Date:   Wed Sep 21 01:13:47 2022 -0400
+
+    Merge pull request #9 from chuongle1994/COP4020-220920
+    
+    Cop4020 220920
+
+commit 0d4f3f54f14f85e22811c578e778a9af543db47d
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Wed Sep 21 01:11:47 2022 -0400
+
+    Implemented cache and legibility features
+
+commit 4e652d8f1dc09165a18c0efb52fefee56ad1c06b
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Wed Sep 21 00:09:08 2022 -0400
+
+    Improving functionalities and legibility
+
+commit feee3d4626f2fb85b131be3f83cdbc2fae980250
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Tue Sep 20 23:33:29 2022 -0400
+
+    Fixed merge conflicts and fixed bugs
+
+commit 3dbcb13d454e71febd10a8593c10482e1d87fdb8
+Merge: 2349e94 99735bb
+Author: thedanhle <69592206+thedanhle@users.noreply.github.com>
+Date:   Tue Sep 20 21:48:46 2022 -0400
+
+    Merge pull request #7 from chuongle1994/COP4020-new
+    
+    Update main.py
+
+commit 91a1babfcf98b18754deb9329ead03ee430ef2ca
+Merge: 002143c 99735bb
+Author: Chuong <chuonglepro1994@gmail.com>
+Date:   Tue Sep 20 21:41:34 2022 -0400
+
+    Merge remote-tracking branch 'origin/COP4020-new' into COP4020-220920
+
+commit 2349e94ca1dc739418d1f3f66e24617215cd8feb
+Merge: 35b61be 002143c
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Tue Sep 20 21:33:26 2022 -0400
+
+    Merge pull request #8 from chuongle1994/COP4020-220920
+    
+    Cop4020 220920
+
+commit 99735bb0740115f79c50396989deff05b66bf3d7
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Tue Sep 20 21:14:42 2022 -0400
+
+    Update main.py
+
+commit 35b61be0af14458d56ef117be2c8015a71a0c8f5
+Merge: bbcac80 3ad44de
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Tue Sep 20 20:51:33 2022 -0400
+
+    Merge pull request #6 from chuongle1994/COP4020-new
+    
+    Add files via upload
+
+commit 3ad44de699cc18fa9f576f8471dd6f8518cbb92e
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Tue Sep 20 20:50:55 2022 -0400
+
+    Add files via upload
+
+commit 002143c3ed9618f734d4f806f35136e950a98e33
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Tue Sep 20 16:42:02 2022 -0400
+
+    function for found contact in InCollege
+
+commit ca7b0b658dc490dbc1b661b89ce997e5329e6f2b
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Tue Sep 20 16:41:05 2022 -0400
+
+    Can post job with validations
+
+commit bbcac8081f9c3f0a4198ef89fd6328bceb301027
+Merge: 10829e2 c3e635c
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Sun Sep 18 16:14:51 2022 -0400
+
+    Merge pull request #5 from chuongle1994/COP4020-220915
+    
+    Cop4020 220915
+
+commit c3e635c62f2ddb0a97c7ae35cd0658b251259462
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Sat Sep 17 18:28:42 2022 -0400
+
+    Updating functions path
+
+commit 50f519b01f5aae45ae0e71417858eecae7b7fdf8
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Sat Sep 17 15:17:44 2022 -0400
+
+    Fixed login function and created login tests
+
+commit f54daede7e700e952cbae022e199d25cd0ed568c
+Merge: 7728cd3 e8cb56d
+Author: thedanhle <69592206+thedanhle@users.noreply.github.com>
+Date:   Sat Sep 17 14:56:14 2022 -0400
+
+    Merge pull request #4 from chuongle1994/newFunc
+    
+    Added new tests in test file
+
+commit e8cb56df5b8c07a34d91d218662baf5b17b58d3a
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Sat Sep 17 14:54:09 2022 -0400
+
+    New test
+
+commit 7728cd36bfe493736ff1347fd221ff4b5812bf78
+Merge: cb46c97 f98f4c6
+Author: Tri Le <107281308+LeTri01@users.noreply.github.com>
+Date:   Sat Sep 17 14:28:40 2022 -0400
+
+    Merge pull request #2 from chuongle1994/newFunc
+    
+    New function again
+
+commit f98f4c6af6323d50414c2136b9fa0326cc80ae60
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Sat Sep 17 14:18:21 2022 -0400
+
+    New function
+
+commit cb46c97f61d2c49f47844e496f48679d073087db
+Merge: df7baaf 0f0eef0
+Author: thedanhle <69592206+thedanhle@users.noreply.github.com>
+Date:   Sat Sep 17 13:54:20 2022 -0400
+
+    Merge pull request #1 from chuongle1994/newFunc
+    
+    Merge this
+
+commit 0f0eef05002a70e1738e8ae72acb861bca304cad
+Author: LeTri01 <trile0125@gmail.com>
+Date:   Sat Sep 17 13:49:46 2022 -0400
+
+    Added functions
+
+commit df7baafb0747d845d7d79126014afb82444edf15
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Fri Sep 16 21:15:49 2022 -0400
+
+    Modulated files and added tests
+
+commit a9a1f9269b28a466dd5c5e825a702e5c465e2d05
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Fri Sep 16 21:05:43 2022 -0400
+
+    Structured for modulation and pytests
+
+commit 149db6ce95b869176de8331199fa983957f28f32
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Thu Sep 15 01:33:33 2022 -0400
+
+    user and password txt files must end in new line
+
+commit 610c676a74a08ccaededea62a248e6ab934288d9
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Thu Sep 15 01:26:11 2022 -0400
+
+    Reinitialize userFound and passwordFound
+
+commit abc74cfefdb93fbaa3a57daef835ef24ac98fee6
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Thu Sep 15 01:18:07 2022 -0400
+
+    update function call and naming error
+
+commit 9f37e3b98a430a9ffae689e569edecc45d06631d
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Wed Sep 14 23:42:51 2022 -0400
+
+    Validate user login, options menu, skills menu
+
+commit 10829e2164f9f6b8276de0a612ded93a16be2e93
+Author: LeTri01 <107281308+LeTri01@users.noreply.github.com>
+Date:   Wed Sep 14 20:09:41 2022 -0400
+
+    Initial commit
+
+commit 55591f9075aef68de5ada93155ceaec696e7b4eb
+Author: LeTri01 <107281308+LeTri01@users.noreply.github.com>
+Date:   Wed Sep 14 18:46:23 2022 -0400
+
+    Delete main.py
+
+commit 84c9ec78a9b451ea28fde22608f74a35e13c1c62
+Author: LeTri01 <107281308+LeTri01@users.noreply.github.com>
+Date:   Wed Sep 14 18:45:40 2022 -0400
+
+    Create main file
+
+commit 7f3d46883228567d1630e96adce18cf034e2dedc
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Tue Sep 13 00:17:50 2022 -0400
+
+    change
+
+commit 2ddfd0f9204a142787d2d0076d00f914397e5305
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Mon Sep 12 23:53:14 2022 -0400
+
+    Hello World
+
+commit 1958738d093de98055f4a355ab47dc8b7e6f963a
+Author: Chuong <46336426+chuongle1994@users.noreply.github.com>
+Date:   Mon Sep 12 23:52:47 2022 -0400
+
+    Initial commit
