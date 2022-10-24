@@ -43,7 +43,7 @@ def createAcc():
         storeData(newUser, newPass, newFirstname, newLastname, newFullname)
         linkFunctions.firstControlsSetting(newFullname)
         linkFunctions.firstLanguageSetting(newFullname)
-        profileFunctions.createProfile(newFullname, newUser)
+        profileFunctions.createProfile(newFullname, newLastname)
         friendList.createFriendList(newFullname)
 
     return
