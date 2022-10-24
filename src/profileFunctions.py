@@ -437,19 +437,6 @@ def currentEdu(usersName):
     
     return eduList
 
-# Allows user to view profile
-def printProfile():
-    print("\nDo you want to view your profile?")
-    print("[1] Yes")
-    print("[2] No")
-    select = input("Please pick an option: ")
-    if select == "1":
-        currentProfile()
-    elif select == "2":
-        return
-    else:
-        print("Invalid input. Try selecting an option again.")
-        printProfile()
 
 #   user's friends profile interface
 def printFriendProfile():
