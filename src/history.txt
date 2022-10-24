@@ -1,3 +1,15 @@
+commit e4305a72a0a5e522eebe628cffd52fff763aacc4
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Sun Oct 23 21:50:39 2022 -0400
+
+    fixing createAccountFunctions
+
+commit 172a611bbd01db3437ca79ed3d2f44bbca9d570e
+Author: Danh Le <danhthanhle@usf.edu>
+Date:   Sun Oct 23 20:36:34 2022 -0400
+
+    adding history.txt
+
 commit b2ebf14147015999711c752f2d0931a0ee939936
 Merge: e99553d 46ae93d
 Author: thedanhle <69592206+thedanhle@users.noreply.github.com>
