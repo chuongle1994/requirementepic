@@ -19,7 +19,7 @@ def search():
     print("[2] Search by university")
     print("[3] Search by major")
 
-    select = input("Please pick an option(0 to exit): ")
+    select = input("Please pick an option (0 to exit): ")
     if select == "1":
         inputLastName()
     elif select == "2":
