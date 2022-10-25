@@ -10,7 +10,8 @@ def searchForAJob():
         print("\nPlease select an option:")
         print("[1] Post a job")
         print("[2] Delete a job post")
-        print("[3] Return to previous page")
+        print("[3] Display all job titles")
+        print("[4] Return to previous page")
 
         selection = input("Selection: ")
         if selection == "1":
@@ -20,12 +21,57 @@ def searchForAJob():
             inputJobID()
             break
         elif selection == "3":
+            displayAllJobTitles()
+            selectJobTitle()
+            break
+        elif selection == "4":
             displayOptions()
             break
         else:
             print("\nInvalid input. Try selecting an option again.")
             searchForAJob()
     return
+
+def selectJobTitle():
+    print("\nWould you like to select and display a job?")
+    print("[1] Yes")
+    print("[2] No")
+    selection = input("Selection: ")
+
+    if selection == "1":
+        index = int(input("Enter the title index: "))
+        displaySelectedJob(index-1)
+        return
+    elif selection == "2":
+        print("Exiting")
+        return
+    else:
+        print("\nInvalid input. Try selecting an option again.")
+        selectJobTitle()
+
+    return
+
+
+
+def displaySelectedJob(index):
+    obj = json.load(open("jobPosts.json"))
+    if(len(obj) != 0):
+        print("Title: " + obj["job-posts"][index]["title"])
+        print("Description: " + obj["job-posts"][index]["description"])
+        print("Employer: " + obj["job-posts"][index]["employer"])
+        print("Location: " + obj["job-posts"][index]["location"])
+        print("Salary: " + obj["job-posts"][index]["salary"])
+    return;
+
+
+def displayAllJobTitles():
+    obj = json.load(open("jobPosts.json"))
+    if(len(obj) != 0):
+        for i in range(len(obj["job-posts"])):
+            print("\n[" + str(i+1) + "] " + obj["job-posts"][i]["title"])
+    else:
+        print("No job posts to be displayed")
+    return;
 
 def inputJobID():
     jobID = input("Enter the Job ID you'd like to delete: ")  
