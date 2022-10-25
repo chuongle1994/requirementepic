@@ -18,7 +18,9 @@ def searchForAJob():
             inputJobInfo()
             break
         elif selection == "2":
-            inputJobID()
+            existsJobs = displayAllJobTitles()
+            if(existsJobs == True):
+                inputJobID()
             break
         elif selection == "3":
             existsJobs = displayAllJobTitles()
@@ -72,41 +74,46 @@ def displaySelectedJob(index):
 def displayAllJobTitles():
     isFound = False
     if(os.stat("jobPosts.json").st_size == 0):
-        print("No jobs found")
+        print("\nNo jobs found")
         return isFound
     obj = json.load(open("jobPosts.json"))
-    if(len(obj) != 0):
+    if(len(obj["job-posts"]) != 0):
         for i in range(len(obj["job-posts"])):
-            print("\n[" + str(i+1) + "] " + obj["job-posts"][i]["title"])
+            print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
         isFound = True
     else:
-        print("No job posts to be displayed")
-    return isFound;
+        print("\nNo job posts to be displayed")
+    return isFound
 
 def inputJobID():
-    jobID = input("Enter the Job ID you'd like to delete: ")  
+    jobID = input("\nEnter the Job ID you'd like to delete: ")  
     deleteJobByID(jobID)
     return
 
 def deleteJobByID(id):
     found = False
+    currentUser = getUsersName()
 
     obj = json.load(open("jobPosts.json"))
     if(len(obj) != 0):
         for i in range(len(obj["job-posts"])):
             if obj["job-posts"][i]["jobID"] == id:
-                obj["job-posts"].pop(i)
-                found = True
-                break
+                if(obj["job-posts"][i]["poster-name"] == currentUser):
+                    obj["job-posts"].pop(i)
+                    found = True
+                    break
+                else:
+                    print("\nYou cannot delete a post you did not create.")
+                    return
         if(found == True):
-            print("Deleting ID " + id)
+            print("\nDeleting ID: " + id)
             open("jobPosts.json", "w").write(
                 json.dumps(obj, indent=4)
             )
         else:
-            print("Job ID not found")
+            print("\nJob ID not found")
     else:
-        print("Job ID not found")
+        print("\nJob ID not found")
 
     return
 
