@@ -21,8 +21,9 @@ def searchForAJob():
             inputJobID()
             break
         elif selection == "3":
-            displayAllJobTitles()
-            selectJobTitle()
+            existsJobs = displayAllJobTitles()
+            if(existsJobs == True):
+                selectJobTitle()
             break
         elif selection == "4":
             displayOptions()
@@ -54,6 +55,10 @@ def selectJobTitle():
 
 
 def displaySelectedJob(index):
+    if(os.stat("jobPosts.json").st_size == 0):
+        print("No jobs found")
+        return
+    
     obj = json.load(open("jobPosts.json"))
     if(len(obj) != 0):
         print("Title: " + obj["job-posts"][index]["title"])
@@ -65,13 +70,18 @@ def displaySelectedJob(index):
 
 
 def displayAllJobTitles():
+    isFound = False
+    if(os.stat("jobPosts.json").st_size == 0):
+        print("No jobs found")
+        return isFound
     obj = json.load(open("jobPosts.json"))
     if(len(obj) != 0):
         for i in range(len(obj["job-posts"])):
             print("\n[" + str(i+1) + "] " + obj["job-posts"][i]["title"])
+        isFound = True
     else:
         print("No job posts to be displayed")
-    return;
+    return isFound;
 
 def inputJobID():
     jobID = input("Enter the Job ID you'd like to delete: ")  
