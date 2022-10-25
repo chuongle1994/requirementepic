@@ -1,5 +1,6 @@
 from os.path import exists
 import os
+import uuid
 import json
 import linkFunctions, friendList, profileFunctions
 
@@ -33,18 +34,20 @@ def inputJobInfo():
 
 
     print("\nPlease provide the following information for the job posting.")
+    jobID = str(uuid.uuid4())[:8]
     title = input("Title: ")                      
     description = input("Description: ")     
     employer = input("Employer: ")        
     location = input("Location: ")
     salary = input("Salary: ")    
-    createJobPost(title, description, employer, location, salary)
+    applicantsList = []
+    createJobPost(jobID, title, description, employer, location, salary, applicantsList)
     return
 
 def getNumberOfJobPosts():
     with open("jobPosts.json") as file:
         file_data = json.load(file)
-        numberOfJobs = len(file_data["jobs"])
+        numberOfJobs = len(file_data["job-posts"])
         return numberOfJobs;
 
 def getUsersName():
@@ -55,29 +58,33 @@ def getUsersName():
             break
     return usersName
 
-def createJobPost(title, description, employer, location, salary):
+def createJobPost(jobID, title, description, employer, location, salary, applicantsList):
 
     usersName = getUsersName()
 
     new_data = {
-        'jobs' : [
+        'job-posts' : [
             {
+                "jobID": jobID,
                 "title": title,
                 "description": description,
                 "employer": employer,
                 "location": location,
                 "salary": salary,
-                "poster-name": usersName
+                "poster-name": usersName,
+                "applicants-list": applicantsList
             }
         ]
     }
 
-    appendingData = {"title": title,
+    appendingData = {"jobID": jobID,
+                    "title": title,
                     "description": description,
                     "employer": employer,
                     "location": location,
                     "salary": salary,
-                    "poster-name": usersName
+                    "poster-name": usersName,
+                    "applicants-list": applicantsList
                     }
 
     writeJobPost(new_data, appendingData, "jobPosts.json")
@@ -93,7 +100,7 @@ def writeJobPost(jobObject, appendingData, fileName):
         with open(fileName, "r+") as file:
             file_data = json.load(file)
 
-            file_data["jobs"].append(appendingData)
+            file_data["job-posts"].append(appendingData)
             file.seek(0)
             json.dump(file_data, file, indent = 4)
     print("\nYour job has been posted.") 
