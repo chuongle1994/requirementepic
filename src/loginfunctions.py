@@ -9,13 +9,17 @@ def searchForAJob():
     while(True):
         print("\nPlease select an option:")
         print("[1] Post a job")
-        print("[2] Return to previous page")
+        print("[2] Delete a job post")
+        print("[3] Return to previous page")
 
         selection = input("Selection: ")
         if selection == "1":
             inputJobInfo()
             break
         elif selection == "2":
+            inputJobID()
+            break
+        elif selection == "3":
             displayOptions()
             break
         else:
@@ -23,6 +27,32 @@ def searchForAJob():
             searchForAJob()
     return
 
+def inputJobID():
+    jobID = input("Enter the Job ID you'd like to delete: ")  
+    deleteJobByID(jobID)
+    return
+
+def deleteJobByID(id):
+    found = False
+
+    obj = json.load(open("jobPosts.json"))
+    if(len(obj) != 0):
+        for i in range(len(obj["job-posts"])):
+            if obj["job-posts"][i]["jobID"] == id:
+                obj["job-posts"].pop(i)
+                found = True
+                break
+        if(found == True):
+            print("Deleting ID " + id)
+            open("jobPosts.json", "w").write(
+                json.dumps(obj, indent=4)
+            )
+        else:
+            print("Job ID not found")
+    else:
+        print("Job ID not found")
+
+    return
 
 def inputJobInfo():
 
