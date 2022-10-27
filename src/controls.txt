@@ -1,2 +1,0 @@
-{'Username': 'Tri Le', 'Email': 1, 'SMS': 1, 'Advertising': 1}
-{'Username': 'Din Le', 'Email': 1, 'SMS': 1, 'Advertising': 1}
