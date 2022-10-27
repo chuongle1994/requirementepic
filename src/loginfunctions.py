@@ -3,6 +3,7 @@ import os
 import uuid
 import json
 import linkFunctions, friendList, profileFunctions
+import ast
 
 #search for job page
 def searchForAJob():
@@ -11,7 +12,10 @@ def searchForAJob():
         print("[1] Post a job")
         print("[2] Delete a job post")
         print("[3] Display all job titles")
-        print("[4] Return to previous page")
+        print("[4] Display jobs you have applied for")
+        print("[5] Display jobs you have not applied for")
+        print("[6] Display saved jobs")
+        print("[7] Return to previous page")
 
         selection = input("Selection: ")
         if selection == "1":
@@ -28,6 +32,15 @@ def searchForAJob():
                 selectJobTitle()
             break
         elif selection == "4":
+            displayApps()
+            break
+        elif selection == "5":
+            displayNotApps()
+            break
+        elif selection == "6":
+            displaySave()
+            break
+        elif selection == "7":
             displayOptions()
             break
         else:
@@ -68,7 +81,19 @@ def displaySelectedJob(index):
         print("Employer: " + obj["job-posts"][index]["employer"])
         print("Location: " + obj["job-posts"][index]["location"])
         print("Salary: " + obj["job-posts"][index]["salary"])
-    return;
+        applyInput = input("Which of the following would you like to do?\n[1] Apply for the job\n[2] Save the listing\n[3] Return\nInput: ")
+        if applyInput == '1':
+            applyForJob(index, getUsersName())
+            return
+        elif applyInput == '2':
+            saveJob(index, getUsersName())
+            return
+        elif applyInput == '3':
+            print("Returning...")
+            return
+        else:
+            print("Invalid input, returning to home screen.")
+            return
 
 
 def displayAllJobTitles():
@@ -141,7 +166,158 @@ def getNumberOfJobPosts():
     with open("jobPosts.json") as file:
         file_data = json.load(file)
         numberOfJobs = len(file_data["job-posts"])
-        return numberOfJobs;
+        return numberOfJobs
+
+def applyForJob(index, name):
+    fileExist = exists("applications.txt")
+    jobListing = []
+
+    if fileExist == 0:
+        file = open("applications.txt", "a")
+        file.close()
+
+    obj = json.load(open("jobPosts.json"))
+    print(obj["job-posts"][index]["poster-name"])
+    if obj["job-posts"][index]["poster-name"] == name:
+        print("You cannot apply for your own posted job")
+        return
+
+    with open("applications.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            jobListing.append(data)
+    file.close()
+
+    for user in jobListing:
+        if user["Name"] == name:
+            if user["Index"] == index:
+                print("You have already applied for this job")
+                return
+
+    gradDate = input("Enter your graduation date: ")
+    workDate = input("Enter the your preferred starting date: ")
+    desc = input("Why do you think you're fit for this job?\nInput: ")
+    writeApp(index, name, gradDate, workDate, desc)
+
+def writeApp(index, name, gradDate, workDate, desc):
+    output = { "Index" : index, "Name" : name, "gradDate" : gradDate, "workDate" : workDate, "Desc" : desc}
+    appFile = open("applications.txt", "a")
+    appFile.write("{}\n".format(output))
+    appFile.close()
+
+def displayApps(name):
+    jobListing = []
+    indices = []
+    fileExist = exists("applications.txt")
+    if fileExist == 0:
+        file = open("applications.txt", "a")
+        file.close()
+
+    if os.stat("jobPosts.json").st_size == 0:
+        print("\nNo jobs found")
+        return
+
+    with open("applications.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            jobListing.append(data)
+    file.close()
+
+    if len(jobListing) == 0:
+        print("You have not applied to any jobs")
+        return
+
+    for user in jobListing:
+        if user["Name"] == name:
+            indices.append(user["Index"])
+    
+    obj = json.load(open("jobPosts.json"))
+    if(len(obj["job-posts"]) != 0):
+        for i in range(len(obj["job-posts"])):
+            flag = 0
+            for j in range(len(indices)):
+                if i == indices[j]:
+                    flag = 1
+                    break
+            if flag == 1:
+                print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
+
+    selectJobTitle()
+
+def displayNotApps(name):
+    jobListing = []
+    indices = []
+    fileExist = exists("applications.txt")
+    if fileExist == 0:
+        file = open("applications.txt", "a")
+        file.close()
+        
+    if os.stat("jobPosts.json").st_size == 0:
+        print("\nNo jobs found")
+        return
+
+    with open("applications.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            jobListing.append(data)
+    file.close()
+
+    if len(jobListing) == 0:
+        print("You have not applied to any jobs")
+        return
+
+    for user in jobListing:
+        if user["Name"] == name:
+            indices.append(user["Index"])
+    
+    obj = json.load(open("jobPosts.json"))
+    if(len(obj["job-posts"]) != 0):
+        for i in range(len(obj["job-posts"])):
+            flag = 0
+            for j in range(len(indices)):
+                if i == indices[j]:
+                    flag = 1
+                    break
+            if flag == 0:
+                print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
+
+    selectJobTitle()
+
+def saveJob(index, name):
+    output = { "Index" : index, "Name" : name}
+    saveFile = open("savedListings.txt", "a")
+    saveFile.write("{}\n".format(output))
+    saveFile.close()
+
+def displaySave(name):
+    saved = []
+    indices = []
+
+    with open("savedListings.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            saved.append(data)
+
+    if len(saved) == 0:
+        print("You have nothing saved")
+        return
+    
+    for user in saved:
+        if user["Name"] == name:
+            indices.append(user["Index"])
+
+    obj = json.load(open("jobPosts.json"))
+    if(len(obj["job-posts"]) != 0):
+        for i in range(len(obj["job-posts"])):
+            flag = 0
+            for j in range(len(indices)):
+                if i == indices[j]:
+                    flag = 1
+                    break
+            if flag == 1:
+                print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
+    
+    selectJobTitle()
 
 def getUsersName():
     usersName = ""
