@@ -28,7 +28,7 @@ def searchForAJob():
             if(existsJobs == True):
                 jobIndex = inputJobIndex()
                 sendNotificationsToUsers("deleted", int(jobIndex) - 1)
-                unsaveJob(int(jobIndex) - 1)
+                deleteSavedJobByIndex(int(jobIndex) - 1)
                 deleteJobByIndex(int(jobIndex) - 1)
             break
         elif selection == "3":
@@ -52,6 +52,32 @@ def searchForAJob():
             print("\nInvalid input. Try selecting an option again.")
             searchForAJob()
     return
+
+def deleteSavedJobByIndex(index):
+    obj = json.load(open("jobPosts.json"))
+    jobID = obj["job-posts"][index]["jobID"]
+
+    index = 0
+    arrIndexFound = []
+    with open("savedListings.txt", 'r') as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            if(data["jobID"] == jobID):
+                print("index found: " + str(index))
+                arrIndexFound.append(index)
+            index = index + 1
+        lines = file.readlines() 
+
+    with open("savedListings.txt", 'w') as file:
+        for id, line in enumerate(lines):
+            print(id)
+            print(line)
+            for position in arrIndexFound:
+                if(id == position):
+                    print("deleting line?")
+                    file.write(line)
+
+    print("Successfully removed saved job")
 
 def selectJobTitle():
     print("\nWould you like to select and display a job?")
