@@ -138,6 +138,8 @@ def displaySelectedJob(index):
         else:
             print("Invalid input, returning to home screen.")
             return
+    else:
+        print("No jobs found")
 
 
 def displayAllJobTitles():
@@ -164,7 +166,12 @@ def displayAllJobTitles():
 
 def inputJobIndex():
     jobIndex = input("\nEnter the Job index you'd like to delete: ")
-    return jobIndex
+    numJobs = getNumberOfJobPosts()
+    if(jobIndex >= 1 or jobIndex <= numJobs ):
+        return jobIndex
+    else:
+        print("Input is out of bounds. Try again.")
+        inputJobIndex()
 
 def deleteJobByIndex(index):
     found = False
