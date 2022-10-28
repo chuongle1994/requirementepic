@@ -28,6 +28,7 @@ def searchForAJob():
             if(existsJobs == True):
                 jobIndex = inputJobIndex()
                 sendNotificationsToUsers("deleted", int(jobIndex) - 1)
+                unsaveJob(int(jobIndex) - 1)
                 deleteJobByIndex(int(jobIndex) - 1)
             break
         elif selection == "3":
@@ -98,7 +99,7 @@ def displaySelectedJob(index):
             saveJob(index, getUsersName())
             return
         elif applyInput == '3':
-            unsaveJob(index, getUsersName())
+            unsaveJob(index)
             return
         elif applyInput == '4':
             print("Returning...")
@@ -218,15 +219,6 @@ def deleteNotificationPrompt(jobID):
         deleteNotificationPrompt(jobID)
 
 def deleteNotification(jobID):
-    # index = 0
-    # with open("userNotifications.txt", "r") as file:
-    #     for line in file:
-    #         data = ast.literal_eval(line)
-    #         if(data["jobID"] == jobID):
-    #             print("deleting notification...")
-    #             file.write(line)
-    #         index = index + 1
-    # file.close()
     index = 0
     with open("userNotifications.txt", 'r') as file:
         for line in file:
@@ -309,24 +301,10 @@ def applyForJob(index, name):
                 json.dumps(obj, indent=4)
     )
 
-    # Adds file information into array
-    # with open("applications.txt", "r") as file:
-    #     for line in file:
-    #         data = ast.literal_eval(line)
-    #         jobListing.append(data)
-    # file.close()
-
-    # Checks if the user has already applied to a job
-    # for user in jobListing:
-    #     if user["Name"] == name:
-    #         if user["Index"] == index:
-    #             print("You have already applied for this job")
-    #             return
-
     # Input for job application
     gradDate = input("Enter your graduation date: ")
     workDate = input("Enter the your preferred starting date: ")
-    desc = input("Why do you think you're fit for this job?\nInput: ")
+    desc = input("Why do you think you're fit for this job?\nParagraph: ")
     writeApp(jobID, index, name, gradDate, workDate, desc)
 
 def writeApp(jobID, index, name, gradDate, workDate, desc):
@@ -430,6 +408,8 @@ def displayNotApps(name):
 def saveJob(index, name):
     saved = []
     fileExist = exists("savedListings.txt")
+    obj = json.load(open("jobPosts.json"))
+    jobID = obj["job-posts"][index]["jobID"]
 
     # Checks if the save file exists
     if fileExist == 0:
@@ -451,45 +431,34 @@ def saveJob(index, name):
                 return
 
     # Write job saved listing into file
-    output = { "Index" : index, "Name" : name}
+    output = {"jobID": jobID, "Index" : index, "Name" : name}
     saveFile = open("savedListings.txt", "a")
     saveFile.write("{}\n".format(output))
     saveFile.close()
 
-def unsaveJob(index, name):
-    saved = []
-    fileExist = exists("savedListings.txt")
+def unsaveJob(index):
+    obj = json.load(open("jobPosts.json"))
+    jobID = obj["job-posts"][index]["jobID"]
 
-    # Check if the file exists
-    if fileExist == 0:
-        file = open("savedListings.txt", "a")
-        file.close()
-
-    # Reads file into the array
-    with open("savedListings.txt", "r") as file:
+    index = 0
+    with open("savedListings.txt", 'r') as file:
         for line in file:
             data = ast.literal_eval(line)
-            saved.append(data)
-    file.close()
+            if(data["jobID"] == jobID):
+                print("index found: " + str(index))
+                break
+            index = index + 1
+        lines = file.readlines() 
 
-    # Checks if saved jobs exists
-    if len("savedListings.txt") == 0:
-        print("You do not have any saved jobs")
-        return
+    with open("savedListings.txt", 'w') as file:
+        for id, line in enumerate(lines):
+            print(id)
+            print(line)
+            if(id == index):
+                print("deleting line?")
+                file.write(line)
 
-    # Identifies the element to be removed, and removes them
-    for user in saved:
-        if user["Name"] == name:
-            if user["Index"] == index:
-                saved.remove(user)
-                print("Successfully removed listing from 'Saved'")
-
-    # Writes modified array into the file
-    for i in range(len(saved)):
-        saved[i] = str(saved[i]) + "\n"
-
-    with open("profile.txt", "w") as fw:
-        fw.writelines(saved)
+    print("Successfully removed saved job")
 
 def displaySave(name):
     saved = []
