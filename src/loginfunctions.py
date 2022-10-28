@@ -480,9 +480,6 @@ def unsaveJob(index):
     if fileExist == 0:
         file = open("savedListings.txt", "a")
         file.close()
-    else:
-        print("This job was not saved")
-        return
 
     obj = json.load(open("jobPosts.json"))
     jobID = obj["job-posts"][index]["jobID"]
