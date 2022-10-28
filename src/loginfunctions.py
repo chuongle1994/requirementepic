@@ -63,18 +63,14 @@ def deleteSavedJobByIndex(index):
         for line in file:
             data = ast.literal_eval(line)
             if(data["jobID"] == jobID):
-                print("index found: " + str(index))
                 arrIndexFound.append(index)
             index = index + 1
         lines = file.readlines() 
 
     with open("savedListings.txt", 'w') as file:
         for id, line in enumerate(lines):
-            print(id)
-            print(line)
             for position in arrIndexFound:
                 if(id == position):
-                    print("deleting line?")
                     file.write(line)
 
     print("Successfully removed saved job")
@@ -188,15 +184,12 @@ def sendNotificationsToUsers(status, index):
     if(len(obj) != 0):
         if(len(obj["job-posts"]) != 0):
             for i in range(len(obj["job-posts"])):
-                print("going through job posts")
                 if(i == index):
                     for j in range(len(obj["job-posts"][i]["applicants-list"])):
-                        print("going through applicants list")
                         name = obj["job-posts"][i]["applicants-list"][j]["name"]
                         jobID = obj["job-posts"][i]["jobID"]
                         title = obj["job-posts"][i]["title"]
                         employer = obj["job-posts"][i]["employer"]
-                        print("writing notification to file")
                         writeNotification(status, name, jobID, title, employer)
 
 
@@ -257,11 +250,10 @@ def deleteNotification(jobID):
 
     with open("userNotifications.txt", 'w') as file:
         for id, line in enumerate(lines):
-            print(id)
-            print(line)
             if(id == index):
-                print("deleting line?")
                 file.write(line)
+
+    print("Successfully deleted notification")
     return
 
 def inputJobInfo():
@@ -311,14 +303,9 @@ def applyForJob(index, name):
         if(len(obj["job-posts"]) != 0):
             for i in range(len(obj["job-posts"])):
                 if (i == index):
-                    print("going through job posts")
                     for j in range(len(obj["job-posts"][i]["applicants-list"])):
-                        print("going through applicants list")
-                        print(i)
-
                         if(name == obj["job-posts"][i]["applicants-list"][j]["name"]):
                             print("You have already applied for this job")
-                            print(i)
                             return
 
     print("Poster: " + obj["job-posts"][index]["poster-name"])
@@ -471,17 +458,13 @@ def unsaveJob(index):
         for line in file:
             data = ast.literal_eval(line)
             if(data["jobID"] == jobID):
-                print("index found: " + str(index))
                 break
             index = index + 1
         lines = file.readlines() 
 
     with open("savedListings.txt", 'w') as file:
         for id, line in enumerate(lines):
-            print(id)
-            print(line)
             if(id == index):
-                print("deleting line?")
                 file.write(line)
 
     print("Successfully removed saved job")
