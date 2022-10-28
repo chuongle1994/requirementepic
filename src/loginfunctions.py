@@ -7,6 +7,8 @@ import ast
 
 #search for job page
 def searchForAJob():
+    displayNotifications()
+
     while(True):
         print("\nPlease select an option:")
         print("[1] Post a job")
@@ -24,7 +26,9 @@ def searchForAJob():
         elif selection == "2":
             existsJobs = displayAllJobTitles()
             if(existsJobs == True):
-                inputJobIndex()
+                jobIndex = inputJobIndex()
+                sendNotificationsToUsers("deleted", int(jobIndex) - 1)
+                deleteJobByIndex(int(jobIndex) - 1)
             break
         elif selection == "3":
             existsJobs = displayAllJobTitles()
@@ -120,9 +124,7 @@ def displayAllJobTitles():
 
 def inputJobIndex():
     jobIndex = input("\nEnter the Job index you'd like to delete: ")
-
-    deleteJobByIndex(int(jobIndex) - 1)
-    return
+    return jobIndex
 
 def deleteJobByIndex(index):
     found = False
@@ -138,7 +140,7 @@ def deleteJobByIndex(index):
                 print("\nYou cannot delete a post you did not create.")
                 return
         if(found == True):
-            print("Deleting job at index " + (index + 1))
+            print("Deleting job at index " + (str(index + 1)))
             open("jobPosts.json", "w").write(
                 json.dumps(obj, indent=4)
             )
@@ -147,6 +149,101 @@ def deleteJobByIndex(index):
     else:
         print("\nJob ID not found")
 
+    return
+
+def sendNotificationsToUsers(status, index):
+    fileExist = exists("userNotifications.txt")
+    if fileExist == 0:
+        file = open("userNotifications.txt", "a")
+        file.close()
+
+    obj = json.load(open("jobPosts.json"))
+    if(len(obj) != 0):
+        if(len(obj["job-posts"]) != 0):
+            for i in range(len(obj["job-posts"])):
+                print("going through job posts")
+                if(i == index):
+                    for j in range(len(obj["job-posts"][i]["applicants-list"])):
+                        print("going through applicants list")
+                        name = obj["job-posts"][i]["applicants-list"][j]["name"]
+                        jobID = obj["job-posts"][i]["jobID"]
+                        title = obj["job-posts"][i]["title"]
+                        employer = obj["job-posts"][i]["employer"]
+                        print("writing notification to file")
+                        writeNotification(status, name, jobID, title, employer)
+
+
+def writeNotification(status, name, jobID, title, employer):
+    output = {"status": status, "name": name, "jobID" : jobID, "title" : title, "employer" : employer}
+    notificationFile = open("userNotifications.txt", "a")
+    notificationFile.write("{}\n".format(output))
+    notificationFile.close()
+
+def displayNotifications():
+    # Adds file information into array
+    currentUser = getUsersName()
+    fileExist = exists("userNotifications.txt")
+    notifications = []
+
+
+    # Checks if the file exists in the system
+    if fileExist == 0:
+        file = open("userNotifications.txt", "a")
+        file.close()
+
+    with open("userNotifications.txt", "r") as file:
+         for line in file:
+             data = ast.literal_eval(line)
+             notifications.append(data)
+    file.close()
+
+    # Checks if the user has already applied to a job
+    for user in notifications:
+         if user["name"] == currentUser:
+            print("Your application " + user["jobID"] + " for " + user["title"] + " at " + user["employer"] + " has been " + user["status"])
+            deleteNotificationPrompt(user["jobID"])
+    return
+
+def deleteNotificationPrompt(jobID):
+    print("Would you like to delete this notification?")
+    print("[1] Yes")
+    print("[2] No")
+    answer = input("Selection: ")
+    if(answer == "1"):
+        deleteNotification(jobID)
+    elif answer == "2":
+        return
+    else:
+        print("Invalid input. Try again")
+        deleteNotificationPrompt(jobID)
+
+def deleteNotification(jobID):
+    # index = 0
+    # with open("userNotifications.txt", "r") as file:
+    #     for line in file:
+    #         data = ast.literal_eval(line)
+    #         if(data["jobID"] == jobID):
+    #             print("deleting notification...")
+    #             file.write(line)
+    #         index = index + 1
+    # file.close()
+    index = 0
+    with open("userNotifications.txt", 'r') as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            if(data["jobID"] == jobID):
+                print("index found: " + str(index))
+                break
+            index = index + 1
+        lines = file.readlines() 
+
+    with open("userNotifications.txt", 'w') as file:
+        for id, line in enumerate(lines):
+            print(id)
+            print(line)
+            if(id == index):
+                print("deleting line?")
+                file.write(line)
     return
 
 def inputJobInfo():
@@ -177,46 +274,63 @@ def getNumberOfJobPosts():
 
 def applyForJob(index, name):
     fileExist = exists("applications.txt")
-    jobListing = []
+    # jobListing = []
+    jobID = ""
 
     # Checks if the file exists in the system
     if fileExist == 0:
         file = open("applications.txt", "a")
         file.close()
 
-    # Checks if the user is applying to their own job listing
     obj = json.load(open("jobPosts.json"))
     if obj["job-posts"][index]["poster-name"] == name:
         print("You cannot apply for your own posted job")
         return
+    else:
+        jobID = obj["job-posts"][index]["jobID"]
+
+    if(len(obj) != 0):
+        if(len(obj["job-posts"]) != 0):
+            for i in range(len(obj["job-posts"])):
+                if (i == index):
+                    print("going through job posts")
+                    for j in range(len(obj["job-posts"][i]["applicants-list"])):
+                        print("going through applicants list")
+                        print(i)
+
+                        if(name == obj["job-posts"][i]["applicants-list"][j]["name"]):
+                            print("You have already applied for this job")
+                            print(i)
+                            return
+
     print("Poster: " + obj["job-posts"][index]["poster-name"])
-    obj["job-posts"][index-1]["applicants-list"].append({"name":name})
+    obj["job-posts"][index]["applicants-list"].append({"name":name})
     open("jobPosts.json", "w").write(
                 json.dumps(obj, indent=4)
     )
 
     # Adds file information into array
-    with open("applications.txt", "r") as file:
-        for line in file:
-            data = ast.literal_eval(line)
-            jobListing.append(data)
-    file.close()
+    # with open("applications.txt", "r") as file:
+    #     for line in file:
+    #         data = ast.literal_eval(line)
+    #         jobListing.append(data)
+    # file.close()
 
     # Checks if the user has already applied to a job
-    for user in jobListing:
-        if user["Name"] == name:
-            if user["Index"] == index:
-                print("You have already applied for this job")
-                return
+    # for user in jobListing:
+    #     if user["Name"] == name:
+    #         if user["Index"] == index:
+    #             print("You have already applied for this job")
+    #             return
 
     # Input for job application
     gradDate = input("Enter your graduation date: ")
     workDate = input("Enter the your preferred starting date: ")
     desc = input("Why do you think you're fit for this job?\nInput: ")
-    writeApp(index, name, gradDate, workDate, desc)
+    writeApp(jobID, index, name, gradDate, workDate, desc)
 
-def writeApp(index, name, gradDate, workDate, desc):
-    output = { "Index" : index, "Name" : name, "gradDate" : gradDate, "workDate" : workDate, "Desc" : desc}
+def writeApp(jobID, index, name, gradDate, workDate, desc):
+    output = { "jobID": jobID, "Index" : index, "Name" : name, "gradDate" : gradDate, "workDate" : workDate, "Desc" : desc}
     appFile = open("applications.txt", "a")
     appFile.write("{}\n".format(output))
     appFile.close()
