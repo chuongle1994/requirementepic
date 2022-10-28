@@ -473,7 +473,10 @@ def saveJob(index, name):
     saveFile.write("{}\n".format(output))
     saveFile.close()
 
+    print("Successfully saved the job listing")
+
 def unsaveJob(index):
+    currentUser = getUsersName()
     fileExist = exists("savedListings.txt")
 
     # Checks if the save file exists
@@ -485,13 +488,20 @@ def unsaveJob(index):
     jobID = obj["job-posts"][index]["jobID"]
 
     index = 0
+    found = False
+
     with open("savedListings.txt", 'r') as file:
         for line in file:
             data = ast.literal_eval(line)
-            if(data["jobID"] == jobID):
+            if(data["jobID"] == jobID and data["Name"] == currentUser):
+                found = True
                 break
             index = index + 1
         lines = file.readlines() 
+
+    if(found == False):
+        print("This job was not saved originally")
+        return
 
     with open("savedListings.txt", 'w') as file:
         for id, line in enumerate(lines):
