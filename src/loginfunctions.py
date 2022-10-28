@@ -487,26 +487,31 @@ def unsaveJob(index):
     obj = json.load(open("jobPosts.json"))
     jobID = obj["job-posts"][index]["jobID"]
 
-    index = 0
+    countIndex = 1
     found = False
 
+    with open("savedListings.txt", 'r') as file:
+        lines = file.readlines()
+    file.close()
+    
     with open("savedListings.txt", 'r') as file:
         for line in file:
             data = ast.literal_eval(line)
             if(data["jobID"] == jobID and data["Name"] == currentUser):
                 found = True
                 break
-            index = index + 1
-        lines = file.readlines() 
+            countIndex = countIndex + 1 
 
     if(found == False):
         print("This job was not saved originally")
         return
 
+    lineNumber = 1
     with open("savedListings.txt", 'w') as file:
-        for id, line in enumerate(lines):
-            if(id == index):
+        for line in (lines):
+            if(lineNumber != countIndex):
                 file.write(line)
+            lineNumber += 1
 
     print("Successfully removed saved job")
 
