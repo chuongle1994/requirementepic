@@ -24,7 +24,7 @@ def searchForAJob():
         elif selection == "2":
             existsJobs = displayAllJobTitles()
             if(existsJobs == True):
-                inputJobID()
+                inputJobIndex()
             break
         elif selection == "3":
             existsJobs = displayAllJobTitles()
@@ -56,7 +56,12 @@ def selectJobTitle():
 
     if selection == "1":
         index = int(input("Enter the title index: "))
-        displaySelectedJob(index-1)
+        numJobs = getNumberOfJobPosts()
+        if(index <= numJobs and index > 0):
+            displaySelectedJob(index-1)
+        else:
+            print("Incorrect input. Please try again.")
+            selectJobTitle()
         return
     elif selection == "2":
         print("Exiting")
@@ -76,12 +81,12 @@ def displaySelectedJob(index):
     
     obj = json.load(open("jobPosts.json"))
     if(len(obj) != 0):
-        print("Title: " + obj["job-posts"][index]["title"])
+        print("\nTitle: " + obj["job-posts"][index]["title"])
         print("Description: " + obj["job-posts"][index]["description"])
         print("Employer: " + obj["job-posts"][index]["employer"])
         print("Location: " + obj["job-posts"][index]["location"])
         print("Salary: " + obj["job-posts"][index]["salary"])
-        applyInput = input("Which of the following would you like to do?\n[1] Apply for the job\n[2] Save the listing\n[3] Unsave the listing\n[4] Return\nInput: ")
+        applyInput = input("\nWhich of the following would you like to do?\n[1] Apply for the job\n[2] Save the listing\n[3] Unsave the listing\n[4] Return\nInput: ")
         if applyInput == '1':
             applyForJob(index, getUsersName())
             return
@@ -89,7 +94,7 @@ def displaySelectedJob(index):
             saveJob(index, getUsersName())
             return
         elif applyInput == '3':
-            print("Returning...")
+            unsaveJob(index, getUsersName())
             return
         elif applyInput == '4':
             print("Returning...")
@@ -113,28 +118,27 @@ def displayAllJobTitles():
         print("\nNo job posts to be displayed")
     return isFound
 
-def inputJobID():
-    jobID = input("\nEnter the Job ID you'd like to delete: ")  
-    deleteJobByID(jobID)
+def inputJobIndex():
+    jobIndex = input("\nEnter the Job index you'd like to delete: ")
+
+    deleteJobByIndex(int(jobIndex) - 1)
     return
 
-def deleteJobByID(id):
+def deleteJobByIndex(index):
     found = False
     currentUser = getUsersName()
 
     obj = json.load(open("jobPosts.json"))
     if(len(obj) != 0):
-        for i in range(len(obj["job-posts"])):
-            if obj["job-posts"][i]["jobID"] == id:
-                if(obj["job-posts"][i]["poster-name"] == currentUser):
-                    obj["job-posts"].pop(i)
-                    found = True
-                    break
-                else:
-                    print("\nYou cannot delete a post you did not create.")
-                    return
+        if(len(obj["job-posts"]) != 0):
+            if(obj["job-posts"][index]["poster-name"] == currentUser):
+                obj["job-posts"].pop(index)
+                found = True
+            else:
+                print("\nYou cannot delete a post you did not create.")
+                return
         if(found == True):
-            print("\nDeleting ID: " + id)
+            print("Deleting job at index " + (index + 1))
             open("jobPosts.json", "w").write(
                 json.dumps(obj, indent=4)
             )
@@ -182,10 +186,14 @@ def applyForJob(index, name):
 
     # Checks if the user is applying to their own job listing
     obj = json.load(open("jobPosts.json"))
-    print(obj["job-posts"][index]["poster-name"])
     if obj["job-posts"][index]["poster-name"] == name:
         print("You cannot apply for your own posted job")
         return
+    print("Poster: " + obj["job-posts"][index]["poster-name"])
+    obj["job-posts"][index-1]["applicants-list"].append({"name":name})
+    open("jobPosts.json", "w").write(
+                json.dumps(obj, indent=4)
+    )
 
     # Adds file information into array
     with open("applications.txt", "r") as file:
