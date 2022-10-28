@@ -133,13 +133,21 @@ def displaySelectedJob(index):
 
 def displayAllJobTitles():
     isFound = False
+    currentUser = getUsersName()
     if(os.stat("jobPosts.json").st_size == 0):
         print("\nNo jobs found")
         return isFound
     obj = json.load(open("jobPosts.json"))
     if(len(obj["job-posts"]) != 0):
         for i in range(len(obj["job-posts"])):
-            print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
+            if(len(obj["job-posts"][i]["applicants-list"]) != 0):
+                for j in range(len(obj["job-posts"][i]["applicants-list"])):
+                    if( obj["job-posts"][i]["applicants-list"][j]["name"] == currentUser):
+                        print("\n[" + str(i+1) + "] " + "[Applied] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
+                    else:
+                        print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
+            else:
+                print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
         isFound = True
     else:
         print("\nNo job posts to be displayed")
