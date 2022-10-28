@@ -54,6 +54,15 @@ def searchForAJob():
     return
 
 def deleteSavedJobByIndex(index):
+
+    fileExist = exists("savedListings.txt")
+
+    # Checks if the save file exists
+    if fileExist == 0:
+        file = open("savedListings.txt", "a")
+        file.close()
+
+    
     obj = json.load(open("jobPosts.json"))
     jobID = obj["job-posts"][index]["jobID"]
 
