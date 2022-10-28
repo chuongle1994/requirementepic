@@ -9,6 +9,7 @@ def clear_all_files():
     loginfunctions.clearFile("passwords.txt")
     loginfunctions.clearFile("currentUserData.txt")
     loginfunctions.clearFile("jobPosts.json")
+    loginfunctions.clearFile("savedListings.txt")
 
 # Testing for the number of job posting
 def test_numberOfJobPosts():
@@ -84,13 +85,13 @@ def test_saveJobPost():
     loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "")
     loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "")
 
-    # save
+    # Save a job post
     loginfunctions.saveJob(0, "tri le")
     loginfunctions.saveJob(0, "dinh le")
     loginfunctions.saveJob(1, "tri le")
     loginfunctions.saveJob(2, "dinh le")
 
-    # check saving
+    # Testing for saving a job
     assert checkSaved(0, "tri le") == 1
     assert checkSaved(0, "dinh le") == 1
     assert checkSaved(1, "tri le") == 1
@@ -99,7 +100,20 @@ def test_saveJobPost():
     assert checkSaved(2, "tri le") == 0
     assert checkSaved(3, "dinh le") == 0
 
-    # unsave
-    # loginfunctions.unsaveJob()
+    # Change current user
+    loginfunctions.clearFile("currentUserData.txt")
+    loginfunctions.storeUserData("trile")
+
+    # Testing for unsaving a job
+    loginfunctions.unsaveJob(0)
+    assert checkSaved(0, "tri le") == 0
+    assert checkSaved(0, "dinh le") == 1
+    assert checkSaved(1, "tri le") == 1
+    assert checkSaved(2, "dinh le") == 1
+
+    loginfunctions.unsaveJob(1)
+    assert checkSaved(1, "tri le") == 0
+    assert checkSaved(0, "dinh le") == 1
+    assert checkSaved(2, "dinh le") == 1
 
     clear_all_files()
