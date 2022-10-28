@@ -167,7 +167,7 @@ def displayAllJobTitles():
 def inputJobIndex():
     jobIndex = input("\nEnter the Job index you'd like to delete: ")
     numJobs = getNumberOfJobPosts()
-    if(jobIndex >= 1 or jobIndex <= numJobs ):
+    if(int(jobIndex) >= 1 or int(jobIndex) <= numJobs):
         return jobIndex
     else:
         print("Input is out of bounds. Try again.")
