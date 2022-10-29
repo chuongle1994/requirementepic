@@ -117,3 +117,27 @@ def test_saveJobPost():
     assert checkSaved(2, "dinh le") == 1
 
     clear_all_files()
+
+# Test for displaying jobs applied and not applied
+def test_appliedJob():
+    loginfunctions.existsJobPostsFile()
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "")
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "")
+    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "")
+    
+    loginfunctions.writeApp("1", 1, "Hyunjung Lee", "2023", "2023", "Best")
+    loginfunctions.writeApp("2", 2, "Hyunjung Lee", "2023", "2023", "Good")
+    loginfunctions.writeApp("2", 2, "Tri Le", "2022", "2023", "Great")
+    loginfunctions.writeApp("2", 2, "Danh Le", "2023", "2023", "Best")
+    loginfunctions.writeApp("3", 3, "Danh Le", "2023", "2023", "Good")
+    loginfunctions.writeApp("3", 3, "Dinh Le", "2022", "2023", "Great")
+
+    # Check displaying jobs applied function works correctly
+    assert loginfunctions.displayApps("Hyunjung Lee") == [1, 2]
+    assert loginfunctions.displayApps("Tri Le") == [2]
+    # Check displaying jobs not appliced fucntion works correctly
+    assert loginfunctions.displayNotApps("Danh Le") == [2, 3]
+    assert loginfunctions.displayNotApps("Dinh Le") == [3]
+
+    loginfunctions.clearFile("jobPosts.json")
+    loginfunctions.clearFile("applications.txt")

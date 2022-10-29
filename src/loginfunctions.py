@@ -38,9 +38,11 @@ def searchForAJob():
             break
         elif selection == "4":
             displayApps(getUsersName())
+            selectJobTitle()
             break
         elif selection == "5":
             displayNotApps(getUsersName())
+            selectJobTitle()
             break
         elif selection == "6":
             displaySave(getUsersName())
@@ -394,7 +396,7 @@ def displayApps(name):
             if flag == 1:
                 print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
 
-    selectJobTitle()
+    return indices
 
 def displayNotApps(name):
     jobListing = []
@@ -440,7 +442,8 @@ def displayNotApps(name):
             if flag == 0:
                 print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
 
-    selectJobTitle()
+    return indices
+    
 
 def saveJob(index, name):
     saved = []
