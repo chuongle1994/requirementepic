@@ -46,6 +46,7 @@ def searchForAJob():
             break
         elif selection == "6":
             displaySave(getUsersName())
+            selectJobTitle()
             break
         elif selection == "7":
             displayOptions()
@@ -556,7 +557,7 @@ def displaySave(name):
             if flag == 1:
                 print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
     
-    selectJobTitle()
+    return indices
 
 def getUsersName():
     usersName = ""

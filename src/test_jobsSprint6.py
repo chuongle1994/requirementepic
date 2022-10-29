@@ -14,25 +14,39 @@ def clear_all_files():
 # Testing for the number of job posting
 def test_numberOfJobPosts():
     createAccountFunctions.storeData("hyunjungl", "!Hello123", "Hyunjung", "Lee", "Hyunjung Lee")
-    loginfunctions.storeUserData("hyunjungl")
+    loginfunctions.storeUserData("hyunjungl") # current user
 
     loginfunctions.existsJobPostsFile()
     loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "")
     loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "")
     loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "")
     loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "")
-    assert loginfunctions.getNumberOfJobPosts() == 4
     loginfunctions.createJobPost("5", "title5", "description5", "employer5", "location5", "50000", "")
     loginfunctions.createJobPost("6", "title6", "description6", "employer6", "location6", "60000", "")
     loginfunctions.createJobPost("7", "title7", "description7", "employer7", "location7", "70000", "")
     loginfunctions.createJobPost("8", "title8", "description8", "employer8", "location8", "80000", "")
-    assert loginfunctions.getNumberOfJobPosts() == 8
     loginfunctions.createJobPost("9", "title9", "description9", "employer9", "location9", "90000", "")
     loginfunctions.createJobPost("10", "title10", "description10", "employer10", "location10", "100000", "")
     loginfunctions.createJobPost("11", "title11", "description11", "employer11", "location11", "110000", "")  
     assert loginfunctions.inputJobInfo() ==  "\nThe system can only permit up to 10 jobs to be posted."
 
     clear_all_files()
+
+
+# Testing for display all job title
+def test_displayAllJob():
+    createAccountFunctions.storeData("hyunjungl", "!Hello123", "Hyunjung", "Lee", "Hyunjung Lee")
+    loginfunctions.storeUserData("hyunjungl") # current user
+
+    loginfunctions.existsJobPostsFile()
+    assert loginfunctions.displayAllJobTitles() == False
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "")
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "")
+    assert loginfunctions.displayAllJobTitles() == True
+    assert loginfunctions.getNumberOfJobPosts() == 2
+
+    clear_all_files()
+
 
 # Test for deleting the job posts
 def test_deleteJobPosts():
@@ -45,8 +59,7 @@ def test_deleteJobPosts():
     loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "")
     loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "")
     loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "")
-    # Check for existing job post
-    assert loginfunctions.displayAllJobTitles() == True
+    # Checking for the number of existing job post
     assert loginfunctions.getNumberOfJobPosts() == 4
 
     # Checking for the person who has posted a job can delete a job
@@ -63,6 +76,8 @@ def test_deleteJobPosts():
 
     clear_all_files()
 
+
+# Function that reads the file for checking save and unsave
 def checkSaved(index, name):
     found = 0
     with open("savedListings.txt", "r") as file:
@@ -72,7 +87,7 @@ def checkSaved(index, name):
                 found = 1
     return found
 
-# Test for saving and unsaving jobs
+# Testing for saving and unsaving jobs and displaying saved jobs
 def test_saveJobPost():
     createAccountFunctions.storeData("hyunjungl", "!Hello123", "Hyunjung", "Lee", "Hyunjung Lee")
     createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le")
@@ -100,6 +115,10 @@ def test_saveJobPost():
     assert checkSaved(2, "tri le") == 0
     assert checkSaved(3, "dinh le") == 0
 
+    # Testing for displaying saved jobs
+    assert loginfunctions.displaySave("tri le") == [0, 1]
+    assert loginfunctions.displaySave("dinh le") == [0, 2]
+
     # Change current user
     loginfunctions.clearFile("currentUserData.txt")
     loginfunctions.storeUserData("trile")
@@ -111,12 +130,22 @@ def test_saveJobPost():
     assert checkSaved(1, "tri le") == 1
     assert checkSaved(2, "dinh le") == 1
 
-    loginfunctions.unsaveJob(1)
-    assert checkSaved(1, "tri le") == 0
-    assert checkSaved(0, "dinh le") == 1
+    # Change current user
+    loginfunctions.clearFile("currentUserData.txt")
+    loginfunctions.storeUserData("dinhle")
+
+    # Testing for unsaving a job
+    loginfunctions.unsaveJob(0)
+    assert checkSaved(0, "dinh le") == 0
+    assert checkSaved(1, "tri le") == 1
     assert checkSaved(2, "dinh le") == 1
 
+    # Testing for displaying saved jobs
+    assert loginfunctions.displaySave("tri le") == [1]
+    assert loginfunctions.displaySave("dinh le") == [2]
+
     clear_all_files()
+
 
 # Test for displaying jobs applied and not applied
 def test_appliedJob():
