@@ -10,6 +10,8 @@ def clear_all_files():
     loginfunctions.clearFile("currentUserData.txt")
     loginfunctions.clearFile("jobPosts.json")
     loginfunctions.clearFile("savedListings.txt")
+    loginfunctions.clearFile("userNotifications.txt")
+    loginfunctions.clearFile("applications.txt")
 
 # Testing for the number of job posting
 def test_numberOfJobPosts():
@@ -170,3 +172,70 @@ def test_appliedJob():
 
     loginfunctions.clearFile("jobPosts.json")
     loginfunctions.clearFile("applications.txt")
+
+# test notification showed when delete an applied job
+def test_notification(capsys, monkeypatch):
+    # create 2 accs
+    createAccountFunctions.storeData("hyunjungl", "!Hello123", "Hyunjung", "Lee", "Hyunjung Lee")
+    createAccountFunctions.storeData("trile", "Abcdef1!", "Tri", "Le", "Tri Le")
+    # create job post
+    loginfunctions.storeUserData("hyunjungl")
+    loginfunctions.existsJobPostsFile()
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", [])
+
+    inputs = iter(["2022", "2025", "I like it"])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    loginfunctions.applyForJob(0, "Tri Le")
+
+    # delete job
+    loginfunctions.sendNotificationsToUsers("deleted", 0)
+    loginfunctions.deleteJobByIndex(0)
+    # change current user
+    loginfunctions.clearFile("currentUserData.txt")
+    loginfunctions.storeUserData("trile")
+
+    monkeypatch.setattr('builtins.input', lambda _: "2")
+    loginfunctions.displayNotifications()
+    
+    # test notification
+    captured = capsys.readouterr()
+    assert captured.out == "storing user data\n\nYour job has been posted.\n\nYour job has been posted.\nPoster: Hyunjung Lee\nDeleting job at index 1\nstoring user data\nYour application 1 for title1 at employer1 has been deleted\nWould you like to delete this notification?\n[1] Yes\n[2] No\n"
+    clear_all_files()
+
+# test applying for a job function
+def test_applyForJob(capsys, monkeypatch):
+    # create 2 accs
+    createAccountFunctions.storeData("hyunjungl", "!Hello123", "Hyunjung", "Lee", "Hyunjung Lee")
+    createAccountFunctions.storeData("trile", "Abcdef1!", "Tri", "Le", "Tri Le")
+    # create job post
+    loginfunctions.storeUserData("hyunjungl")
+    loginfunctions.existsJobPostsFile()
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", [])
+
+    # test if applying for a job is saved
+    inputs = iter(["2000", "2002", "I love it"])
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    loginfunctions.applyForJob(0, "Tri Le")
+    with open("applications.txt", "r") as file:
+            for line in file:
+                data = ast.literal_eval(line)
+                assert data["jobID"] == "1"
+                assert data["Index"] == 0
+                assert data["Name"] == "Tri Le"
+                assert data["gradDate"] == "2000"
+                assert data["workDate"] == "2002"
+                assert data["Desc"] == "I love it"
+
+    # test can't apply for same job
+    loginfunctions.applyForJob(0, "Tri Le")
+    captured = capsys.readouterr()
+    assert captured.out == "storing user data\n\nYour job has been posted.\n\nYour job has been posted.\nPoster: Hyunjung Lee\nYou have already applied for this job\n"
+    
+    # test can't apply your own post
+    loginfunctions.applyForJob(0, "Hyunjung Lee")
+    captured = capsys.readouterr()
+    assert captured.out == "You cannot apply for your own posted job\n"
+    
+    clear_all_files()
