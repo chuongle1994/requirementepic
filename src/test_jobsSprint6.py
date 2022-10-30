@@ -200,7 +200,8 @@ def test_notification(capsys, monkeypatch):
     
     # test notification
     captured = capsys.readouterr()
-    assert captured.out == "storing user data\n\nYour job has been posted.\n\nYour job has been posted.\nPoster: Hyunjung Lee\nDeleting job at index 1\nstoring user data\nYour application 1 for title1 at employer1 has been deleted\nWould you like to delete this notification?\n[1] Yes\n[2] No\n"
+    assert captured.out == "storing user data\n\nYour job has been posted.\n\nYour job has been posted.\nPoster: Hyunjung Lee\nstoring user data\nYour application 1 for title1 at employer1 has been deleted\nWould you like to delete this notification?\n[1] Yes\n[2] No\n"
+    assert 1 == 1
     clear_all_files()
 
 # test applying for a job function
