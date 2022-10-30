@@ -29,6 +29,7 @@ def searchForAJob():
                 jobIndex = inputJobIndex()
                 sendNotificationsToUsers("deleted", int(jobIndex) - 1)
                 deleteSavedJobByIndex(int(jobIndex) - 1)
+                deleteApplicationsByIndex(int(jobIndex) - 1)
                 deleteJobByIndex(int(jobIndex) - 1)
             break
         elif selection == "3":
@@ -56,6 +57,44 @@ def searchForAJob():
             searchForAJob()
     return
 
+def deleteApplicationsByIndex(index):
+
+    fileExist = exists("applications.txt")
+
+    # Checks if the save file exists
+    if fileExist == 0:
+        file = open("applications.txt", "a")
+        file.close()
+
+    
+    obj = json.load(open("jobPosts.json"))
+    jobID = obj["job-posts"][index]["jobID"]
+
+    countIndex = 1
+    arrIndexes = []
+
+    with open("applications.txt", 'r') as file:
+        lines = file.readlines()
+    file.close()
+    
+    with open("applications.txt", 'r') as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            if(data["jobID"] == jobID):
+                arrIndexes.append(countIndex)
+            countIndex = countIndex + 1 
+
+
+    lineNumber = 1
+    with open("applications.txt", 'w') as file:
+        for line in (lines):
+            for position in arrIndexes:
+                if(lineNumber != position):
+                    file.write(line)
+                lineNumber += 1
+
+    print("Successfully removed applications from job post")
+
 def deleteSavedJobByIndex(index):
 
     fileExist = exists("savedListings.txt")
@@ -69,23 +108,30 @@ def deleteSavedJobByIndex(index):
     obj = json.load(open("jobPosts.json"))
     jobID = obj["job-posts"][index]["jobID"]
 
-    index = 0
-    arrIndexFound = []
+    countIndex = 1
+    arrIndexes = []
+
+    with open("savedListings.txt", 'r') as file:
+        lines = file.readlines()
+    file.close()
+    
     with open("savedListings.txt", 'r') as file:
         for line in file:
             data = ast.literal_eval(line)
             if(data["jobID"] == jobID):
-                arrIndexFound.append(index)
-            index = index + 1
-        lines = file.readlines() 
+                arrIndexes.append(countIndex)
+            countIndex = countIndex + 1 
 
+
+    lineNumber = 1
     with open("savedListings.txt", 'w') as file:
-        for id, line in enumerate(lines):
-            for position in arrIndexFound:
-                if(id == position):
+        for line in (lines):
+            for position in arrIndexes:
+                if(lineNumber != position):
                     file.write(line)
+                lineNumber += 1
 
-    print("Successfully removed saved job")
+    print("Successfully removed saved status from users for this job posting")
 
 def selectJobTitle():
     print("\nWould you like to select and display a job?")
@@ -190,7 +236,6 @@ def deleteJobByIndex(index):
                 print("\nYou cannot delete a post you did not create.")
                 return
         if(found == True):
-            print("Deleting job at index " + (str(index + 1)))
             open("jobPosts.json", "w").write(
                 json.dumps(obj, indent=4)
             )
