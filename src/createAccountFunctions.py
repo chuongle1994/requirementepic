@@ -1,35 +1,4 @@
-import linkFunctions, friendList, profileFunctions, loginfunctions, ast
-def membership(username):
-    membershipList = {"Username": username, "type": ""}
-    membershipFile = open("membership.txt", "a")
-    membershipFile.write("{}\n".format(membershipList))
-    membershipFile.close()      
-def membershipOption():
-    userName = loginfunctions.getUsersName()    
-    option_membership = input("Do you want to be a plus member? You will be charged $10 per month.(1 = yes or 0 = no):")
-    if (option_membership == "1"):
-        #membership_type = "Plus"
-        write_membership(userName,"Plus)")
-    elif (option_membership == "0"):
-        #membership_type = "Standard"
-        write_membership(userName,"Standard")
-    else:
-        print("Invalid input")
-def write_membership(username,type):
-    memberOption =[]
-    with open("membership.txt", "r") as file:
-        for line in file:
-            data = ast.literal_eval(line)
-            memberOption.append(data)
-    # Retrieve data from the array
-    for user in memberOption:
-        if user["Username"] == username:
-            user["type"] = type           
-    # Write the data into the file
-    for index in range(len(memberOption)):
-        memberOption[index] = str(memberOption[index]) + "\n"
-    with open("membership.txt", "w") as fw:
-        fw.writelines(memberOption)
+import linkFunctions, friendList, profileFunctions
 def checkAccNum():
     #Count the current number of account created
         numAccounts = 0
@@ -69,10 +38,18 @@ def createAcc():
         newFirstname = input("Enter your first name: ")
         newLastname = input("Enter your last name: ")
         newFullname = newFirstname + " " + newLastname
-        membership(newUser)
-        membershipOption()
-        #If requirements are met, store data into files
         storeData(newUser, newPass, newFirstname, newLastname, newFullname)
+        membership = input("Do you want to be a plus member? You will be charged $10 per month.(1 = yes or 0 = no):")
+        if membership == "1":
+            mem = {'Username': newUser, 'Membership_Type':'Plus'}
+            with open('membership.txt','a') as data: 
+                data.write(f"{str(mem)}\n")
+            data.close()
+        else:
+            mem = {'Username': newUser, 'Membership_Type':'Standars'}
+            with open('profileText.txt','a') as data: 
+                data.write(f"{str(mem)}\n")
+            data.close()
         linkFunctions.firstControlsSetting(newFullname)
         linkFunctions.firstLanguageSetting(newFullname)
         profileFunctions.createProfile(newFullname, newLastname)
@@ -132,4 +109,5 @@ def storeData(newUser, newPass, newFirstname, newLastname, newFullname):
     passFile = open("fullname.txt", "a")
     passFile.write("{}\n".format(newFullname))
     passFile.close()
+    
     return
