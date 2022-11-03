@@ -47,7 +47,7 @@ def createAcc():
             data.close()
         else:
             mem = {'Username': newUser, 'Membership_Type':'Standars'}
-            with open('profileText.txt','a') as data: 
+            with open('membership.txt','a') as data: 
                 data.write(f"{str(mem)}\n")
             data.close()
         linkFunctions.firstControlsSetting(newFullname)
