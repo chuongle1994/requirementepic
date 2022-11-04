@@ -2,10 +2,12 @@ from os.path import exists
 import os
 import uuid
 import json
-import linkFunctions, friendList, profileFunctions
+import linkFunctions, friendList, profileFunctions, message
 import ast
 
 #search for job page
+logged_in = []
+
 def searchForAJob():
     displayNotifications()
 
@@ -130,6 +132,7 @@ def deleteSavedJobByIndex(index):
                 if(lineNumber != position):
                     file.write(line)
                 lineNumber += 1
+                
 
     print("Successfully removed saved status from users for this job posting")
 
@@ -746,6 +749,7 @@ def displayOptions():
     print("[6] Edit profile")
     print("[7] View profile")
     print("[8] Return to previous level")
+    print("[9] Send message")
     selection = input("Selection: ")
 
     if selection == "1":
@@ -772,7 +776,10 @@ def displayOptions():
     elif selection == "8":
         clearFile("currentUserData.txt")
         return
-    else:
+    elif selection == "9":
+        message.send_message(getUsersName())
+        return
+    else: 
         print("\nInvalid input. Try selecting an option again.")
         displayOptions()
 

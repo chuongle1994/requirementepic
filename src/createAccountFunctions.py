@@ -41,7 +41,7 @@ def createAcc():
         storeData(newUser, newPass, newFirstname, newLastname, newFullname)
         membership = input("Do you want to be a plus member? You will be charged $10 per month.(1 = yes or 0 = no):")
         if membership == "1":
-            mem = {'Username': newUser, 'Membership_Type':'Plus'}
+            mem = {'Username': newFullname, 'Membership_Type':'Plus'}
             with open('membership.txt','a') as data: 
                 data.write(f"{str(mem)}\n")
             data.close()
