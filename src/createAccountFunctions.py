@@ -40,7 +40,7 @@ def createAcc():
         newFullname = newFirstname + " " + newLastname
         storeData(newUser, newPass, newFirstname, newLastname, newFullname)
         membership = input("Do you want to be a plus member? You will be charged $10 per month.(1 = yes or 0 = no):")
-        promptMembership(membership, newFullname, newUser)
+        promptMembership(membership, newFullname)
 
         linkFunctions.firstControlsSetting(newFullname)
         linkFunctions.firstLanguageSetting(newFullname)
