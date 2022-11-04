@@ -40,22 +40,28 @@ def createAcc():
         newFullname = newFirstname + " " + newLastname
         storeData(newUser, newPass, newFirstname, newLastname, newFullname)
         membership = input("Do you want to be a plus member? You will be charged $10 per month.(1 = yes or 0 = no):")
+        promptMembership(membership, newFullname, newUser)
+        
+        linkFunctions.firstControlsSetting(newFullname)
+        linkFunctions.firstLanguageSetting(newFullname)
+        profileFunctions.createProfile(newFullname, newLastname)
+        friendList.createFriendList(newFullname)
+    return
+
+def promptMembership(membership, newFullname, newUser):
         if membership == "1":
             mem = {'Username': newFullname, 'Membership_Type':'Plus'}
             with open('membership.txt','a') as data: 
                 data.write(f"{str(mem)}\n")
             data.close()
-        else:
-            mem = {'Username': newUser, 'Membership_Type':'Standars'}
+        elif membership == "0":
+            mem = {'Username': newUser, 'Membership_Type':'Standard'}
             with open('membership.txt','a') as data: 
                 data.write(f"{str(mem)}\n")
             data.close()
-        linkFunctions.firstControlsSetting(newFullname)
-        linkFunctions.firstLanguageSetting(newFullname)
-        profileFunctions.createProfile(newFullname, newLastname)
-        friendList.createFriendList(newFullname)
-
-    return
+        else:
+            print("Incorrect input. Please try again.")
+            promptMembership()
 
 def checkUser(newUser):
     #Check if there is a duplicate username
