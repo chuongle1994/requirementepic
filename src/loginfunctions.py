@@ -6,7 +6,6 @@ import linkFunctions, friendList, profileFunctions, message
 import ast
 
 #search for job page
-logged_in = []
 
 def searchForAJob():
     displayNotifications()
@@ -748,8 +747,8 @@ def displayOptions():
     print("[5] Create profile")
     print("[6] Edit profile")
     print("[7] View profile")
-    print("[8] Return to previous level")
-    print("[9] Send message")
+    print("[8] Send message")
+    print("[9] Return to previous level")
     selection = input("Selection: ")
 
     if selection == "1":
@@ -774,10 +773,10 @@ def displayOptions():
         profileFunctions.printProfile()
         return 
     elif selection == "8":
-        clearFile("currentUserData.txt")
+        message.send_message(getUsersName())
         return
     elif selection == "9":
-        message.send_message(getUsersName())
+        clearFile("currentUserData.txt")
         return
     else: 
         print("\nInvalid input. Try selecting an option again.")

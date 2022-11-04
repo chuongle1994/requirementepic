@@ -27,14 +27,3 @@ def send_message(usersName):
                 else:
                     print("I'm sorry, This person is not in the system yet.")
                     return
-         
-        
-            
-        
-                            
-    
-                
-            
-            
-            
-    
