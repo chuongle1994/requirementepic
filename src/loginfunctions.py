@@ -358,7 +358,6 @@ def getNumberOfJobPosts():
 
 def applyForJob(index, name):
     fileExist = exists("applications.txt")
-    # jobListing = []
     jobID = ""
 
     # Checks if the file exists in the system
@@ -773,7 +772,7 @@ def displayOptions():
         profileFunctions.printProfile()
         return 
     elif selection == "8":
-        message.send_message(getUsersName())
+        message.send_message_prompt(getUsersName())
         return
     elif selection == "9":
         clearFile("currentUserData.txt")
