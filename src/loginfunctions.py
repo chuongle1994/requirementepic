@@ -737,6 +737,7 @@ def displayOptions():
     # Add navigation links
     linkFunctions.navigationLinks()
     linkFunctions.selectLinks()
+    message.displayInbox()
     
     print("\nPlease select an option:")
     print("[1] Search for a job / internship")
