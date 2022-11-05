@@ -18,17 +18,20 @@ def displayInbox():
                 if(obj["all-messages"][messageIndex]["user"] == currentUser):
                     if(obj["all-messages"][messageIndex]["original-count"] != obj["all-messages"][messageIndex]["new-count"]):
                         numNewMessages = obj["all-messages"][messageIndex]["new-count"] - obj["all-messages"][messageIndex]["original-count"]
-                        print("You have " + str(numNewMessages) +  " new message(s) from: " + obj["all-messages"][messageIndex]["message-from"])
-                        decideReadMessage(currentUser, obj["all-messages"][messageIndex]["message-from"], numNewMessages, obj)
-                        decideSaveOrDeleteMessage(currentUser, obj["all-messages"][messageIndex]["message-from"], numNewMessages)
+                        print("\nYou have " + str(numNewMessages) +  " new message(s) from: " + obj["all-messages"][messageIndex]["message-from"])
+                        decision = decideReadMessage(currentUser, obj["all-messages"][messageIndex]["message-from"], numNewMessages, obj)
+                        if(decision == 2):
+                            return
+                        else:
+                            decideSaveOrDeleteMessage(currentUser, obj["all-messages"][messageIndex]["message-from"], numNewMessages)
                     
     return
 
 def decideSaveOrDeleteMessage(user, messageFrom, numNewMessages):
     print("\nWould you like to save or delete the message(s)?:")
     print("\nPlease select an option:")
-    print("[1] Save the message")
-    print("[2] Delete the message")
+    print("[1] Save the message(s)")
+    print("[2] Delete the message(s)")
     selection = input("Selection: ")
     
     if selection == "1":
@@ -44,7 +47,7 @@ def decideSaveOrDeleteMessage(user, messageFrom, numNewMessages):
 def decideReadMessage(user, messageFrom, numNewMessages, obj):
     print("\nWould you like to read to the message(s)?:")
     print("\nPlease select an option:")
-    print("[1] Yes, read the message")
+    print("[1] Yes, read the message(s)")
     print("[2] No, exit")
     selection = input("Selection: ")
     
@@ -52,10 +55,11 @@ def decideReadMessage(user, messageFrom, numNewMessages, obj):
         readNewMessage(user, messageFrom, numNewMessages, obj)
         return
     elif selection == "2":
-        return
+        return 2
     else:
         print("Incorrect input. Please try again.")
-        decideReadMessage(user, messageFrom, numNewMessages)
+        decideReadMessage(user, messageFrom, numNewMessages, obj)
+        return
 
 def readNewMessage(user, messageFrom, numNewMessages, obj):
     if(len(obj) != 0):
@@ -63,14 +67,14 @@ def readNewMessage(user, messageFrom, numNewMessages, obj):
             for messageIndex in range(len(obj["all-messages"])):
                 if(obj["all-messages"][messageIndex]["user"] == user and obj["all-messages"][messageIndex]["message-from"] == messageFrom):
                     messageLength = len(obj["all-messages"][messageIndex]["message-list"])
+                    print("\nUnread Messages: ")
                     for message in range(messageLength-numNewMessages, messageLength):
                         latestMessage = obj["all-messages"][messageIndex]["message-list"][message]["message"]
-                        print(messageFrom + ": " + latestMessage)
+                        print("[" + str(message) + "]: " + messageFrom + ": " + latestMessage)
     return
 
 def saveMessage(user, messageFrom):
     obj = json.load(open("messagesList.json"))
-
     if(len(obj) != 0):
         if(len(obj["all-messages"]) != 0):
             for messageIndex in range(len(obj["all-messages"])):
@@ -92,11 +96,12 @@ def deleteMessage(user, messageFrom, numNewMessages):
             for messageIndex in range(len(obj["all-messages"])):
                 if(obj["all-messages"][messageIndex]["user"] == user and obj["all-messages"][messageIndex]["message-from"] == messageFrom):
                     messageLength = len(obj["all-messages"][messageIndex]["message-list"])
-                    obj["all-messages"][messageIndex]["original-count"] += 1
-                    obj["all-messages"][messageIndex]["message-list"].pop(messageLength-numNewMessages)
-                    open("messagesList.json", "w").write(
-                        json.dumps(obj, indent=4)
-                    )
+                    for message in range(messageLength-numNewMessages, messageLength):
+                        obj["all-messages"][messageIndex]["original-count"] += 1
+                        obj["all-messages"][messageIndex]["message-list"].pop(messageLength-numNewMessages)
+                        open("messagesList.json", "w").write(
+                            json.dumps(obj, indent=4)
+                        )
                     print("Message successfully deleted")
                     return
     return
@@ -109,7 +114,22 @@ def send_message_prompt(usersName):
     decide_message_type(usersName, membershipStatus)
 
 def decide_message_type(usersName, membershipStatus):
+    if membershipStatus == "Standard":
+        print("\nList of friends you can message: ")
+        friends = displayFriends(usersName)
+        if(friends == "None"):
+            return
+    elif membershipStatus == "Plus":
+        print("\nList of people you can message: ")
+        displayAllUsers()
+    else:
+        print("membership status not found. Aborting")
+        return
     recipient = input("\nEnter the full name of the person you want to send a message to: ")
+    if(recipient == usersName):
+        print("You cannot message yourself. Please try again.")
+        decide_message_type(usersName, membershipStatus)
+        return
     message = input("\nEnter the message: ")
     existsRecipient = isRecipient(recipient)
     friendStatus = isFriend(usersName, recipient)
@@ -136,14 +156,12 @@ def sendMessage(usersName, recipient, message):
 
 def sendMessageType(usersName, membershipStatus, existsRecipient, friendStatus, recipient):
     if membershipStatus == "Standard":
-        displayFriends()
         if friendStatus == True:
             setupMessage(usersName, recipient)
         else:
             print("I'm sorry, you are not friends with that person")
     elif membershipStatus == "Plus":
         if existsRecipient == True:
-            displayAllUsers()
             setupMessage(usersName, recipient)
         else:
             print("User not found")
@@ -155,7 +173,6 @@ def searchMessage(sender, receiver, messageList):
     countSenderRecevier = 0
     countRecevierSender = 0
     if(os.stat("messagesList.json").st_size == 0):
-        print("file is empty")
         createMessage(sender, receiver, messageList)
         createMessage(receiver, sender, messageList)
         return
@@ -257,8 +274,9 @@ def displayFriends(usersName):
                     for friend in friendsList["Friend Lists"]:
                         print(friend)
                 else:
-                    #print("You have no friends to display.")
-                    return
+                    print("You have no friends to message.")
+                    return "None"
+    return
 
 def displayAllUsers():
     with open("friendList.txt", "r") as file:
@@ -292,9 +310,10 @@ def isFriend(usersName, recipient):
                             print("friend has been found!")
                             isFriend = True
                         else:
-                            print("friend not found")
+                            print("Friend not found")
                 else:
-                    print("You have no friends")
+                    #print("You have no friends")
+                    return
     return isFriend
 
 def existsFriendList():
