@@ -5,9 +5,10 @@ from os.path import exists
 import loginfunctions
 
 def displayInbox():
+    existsMessages()
     currentUser = loginfunctions.getUsersName()
     if(os.stat("messagesList.json").st_size == 0):
-        print("No new notifications")
+        #print("No new notifications")
         return
 
     obj = json.load(open("messagesList.json"))
@@ -24,7 +25,7 @@ def displayInbox():
     return
 
 def decideSaveOrDeleteMessage(user, messageFrom, numNewMessages):
-    print("\nWould you like to save or delete this message?:")
+    print("\nWould you like to save or delete the message(s)?:")
     print("\nPlease select an option:")
     print("[1] Save the message")
     print("[2] Delete the message")
@@ -41,7 +42,7 @@ def decideSaveOrDeleteMessage(user, messageFrom, numNewMessages):
         decideSaveOrDeleteMessage(user, messageFrom, numNewMessages)
 
 def decideReadMessage(user, messageFrom, numNewMessages, obj):
-    print("\nWould you like to read to this message?:")
+    print("\nWould you like to read to the message(s)?:")
     print("\nPlease select an option:")
     print("[1] Yes, read the message")
     print("[2] No, exit")
@@ -63,8 +64,8 @@ def readNewMessage(user, messageFrom, numNewMessages, obj):
                 if(obj["all-messages"][messageIndex]["user"] == user and obj["all-messages"][messageIndex]["message-from"] == messageFrom):
                     messageLength = len(obj["all-messages"][messageIndex]["message-list"])
                     for message in range(messageLength-numNewMessages, messageLength):
-                        latestMessage = obj["all-messages"][messageIndex]["message-list"][message]
-                        print(latestMessage)
+                        latestMessage = obj["all-messages"][messageIndex]["message-list"][message]["message"]
+                        print(messageFrom + ": " + latestMessage)
     return
 
 def saveMessage(user, messageFrom):
@@ -89,10 +90,10 @@ def deleteMessage(user, messageFrom, numNewMessages):
     if(len(obj) != 0):
         if(len(obj["all-messages"]) != 0):
             for messageIndex in range(len(obj["all-messages"])):
-                if(obj["all-messages"][messageIndex]["user"] == user) and obj["all-messages"][messageIndex]["message-from"] == messageFrom:
+                if(obj["all-messages"][messageIndex]["user"] == user and obj["all-messages"][messageIndex]["message-from"] == messageFrom):
+                    messageLength = len(obj["all-messages"][messageIndex]["message-list"])
                     obj["all-messages"][messageIndex]["original-count"] += 1
-                    for i in range(numNewMessages):
-                        obj["all-messages"][messageIndex]["message-list"].pop()
+                    obj["all-messages"][messageIndex]["message-list"].pop(messageLength-numNewMessages)
                     open("messagesList.json", "w").write(
                         json.dumps(obj, indent=4)
                     )
