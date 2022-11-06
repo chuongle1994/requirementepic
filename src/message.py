@@ -182,9 +182,11 @@ def sendMessageType(usersName, membershipStatus, existsRecipient, friendStatus, 
             setupMessage(usersName, recipient)
         else:
             print("I'm sorry, you are not friends with that person")
+            return "I'm sorry, you are not friends with that person"
     elif membershipStatus == "Plus":
         if existsRecipient == True:
             setupMessage(usersName, recipient)
+            return True
         else:
             print("User not found")
     else:
@@ -276,6 +278,9 @@ def existsMessages():
     if messages == 0:
         userFile = open("messagesList.json", "w")
         userFile.close()
+        return False
+    else:
+        return True
 
     
 def isRecipient(recipient):
@@ -344,9 +349,15 @@ def existsFriendList():
     if fileExist == 0:
         file = open("friendList.txt", "a")
         file.close()
+        return False
+    else:
+        return True
 
 def existsMembershipList():
     fileExist = exists("membership.txt")
     if fileExist == 0:
         file = open("membership.txt", "a")
         file.close()
+        return False
+    else:
+        return True

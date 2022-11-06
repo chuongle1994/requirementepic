@@ -1,0 +1,28 @@
+import createAccountFunctions, message
+def test_sendMessage():
+    createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le")
+    createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le")
+    createAccountFunctions.promptMembership("1", "tri le")
+    createAccountFunctions.promptMembership("0", "danh le")
+
+    #Check if the membership has been logged when registered
+    assert message.existsMembershipList() == True
+
+    #Check if message does not exist
+    assert message.existsMessages() == False
+
+    #Check if an unfriended user can message another user
+    assert message.sendMessageType("danh le", "Standard", True, False, "tri le") == "I'm sorry, you are not friends with that person"
+
+    #Check if a plus member can send a message to another user
+    assert message.sendMessageType("tri le", "Plus", True, False, "danh le") == True
+
+    #Check if the message shows up when sent
+    message.sendMessage("tri le", "danh le", "test")
+    assert message.existsMessages() == True
+
+
+
+
+
+
