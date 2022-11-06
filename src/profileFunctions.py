@@ -6,7 +6,7 @@ from os.path import exists
 
 # Function to create a personal profile with friend lists
 def createProfile(username, lastname):
-    profile = {"Username": username, "Lastname": lastname,"Title": "", "University": "", "Major": "", "About": "", "Experience": "None", "Education": "None"}
+    profile = {"Username": username, "Lastname": lastname, "Title": "", "University": "", "Major": "", "About": "", "Experience": "None", "Education": "None"}
     profileFile = open("profile.txt", "a")
     profileFile.write("{}\n".format(profile))
     profileFile.close()
