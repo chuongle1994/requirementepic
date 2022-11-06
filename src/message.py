@@ -24,8 +24,27 @@ def displayInbox():
                             return
                         else:
                             decideSaveOrDeleteMessage(currentUser, obj["all-messages"][messageIndex]["message-from"], numNewMessages)
+                            decideToRespond(currentUser, obj["all-messages"][messageIndex]["message-from"], numNewMessages)
                     
     return
+
+def decideToRespond(user, messageFrom, numNewMessages):
+    print("\nWould you like to respond the message(s)?:")
+    print("\nPlease select an option:")
+    print("[1] Yes, respond the message(s)")
+    print("[2] No, exit")
+    selection = input("Selection: ")
+    
+    if selection == "1":
+        message = input("Enter the message: ")
+        sendMessage(user, messageFrom, message)
+        return
+    elif selection == "2":
+        return
+    else:
+        print("Incorrect input. Please try again.")
+        decideToRespond(user, messageFrom, numNewMessages)
+        return
 
 def decideSaveOrDeleteMessage(user, messageFrom, numNewMessages):
     print("\nWould you like to save or delete the message(s)?:")
@@ -35,7 +54,7 @@ def decideSaveOrDeleteMessage(user, messageFrom, numNewMessages):
     selection = input("Selection: ")
     
     if selection == "1":
-        saveMessage(user, messageFrom)
+        saveMessage(user, messageFrom, numNewMessages)
         return
     elif selection == "2":
         deleteMessage(user, messageFrom, numNewMessages)
@@ -43,6 +62,7 @@ def decideSaveOrDeleteMessage(user, messageFrom, numNewMessages):
     else:
         print("Incorrect input. Please try again.")
         decideSaveOrDeleteMessage(user, messageFrom, numNewMessages)
+        return
 
 def decideReadMessage(user, messageFrom, numNewMessages, obj):
     print("\nWould you like to read to the message(s)?:")
@@ -70,20 +90,22 @@ def readNewMessage(user, messageFrom, numNewMessages, obj):
                     print("\nUnread Messages: ")
                     for message in range(messageLength-numNewMessages, messageLength):
                         latestMessage = obj["all-messages"][messageIndex]["message-list"][message]["message"]
-                        print("[" + str(message) + "]: " + messageFrom + ": " + latestMessage)
+                        print(messageFrom + ": " + latestMessage)
     return
 
-def saveMessage(user, messageFrom):
+def saveMessage(user, messageFrom, numNewMessages):
     obj = json.load(open("messagesList.json"))
     if(len(obj) != 0):
         if(len(obj["all-messages"]) != 0):
             for messageIndex in range(len(obj["all-messages"])):
                 if(obj["all-messages"][messageIndex]["user"] == user) and obj["all-messages"][messageIndex]["message-from"] == messageFrom:
-                    obj["all-messages"][messageIndex]["original-count"] += 1
-                    open("messagesList.json", "w").write(
-                        json.dumps(obj, indent=4)
-                    )
-                    print("Message has been saved")
+                    messageLength = len(obj["all-messages"][messageIndex]["message-list"])
+                    for message in range(messageLength-numNewMessages, messageLength):
+                        obj["all-messages"][messageIndex]["original-count"] += 1
+                        open("messagesList.json", "w").write(
+                            json.dumps(obj, indent=4)
+                        )
+                    print("Message(s) has been saved")
                     return
             
     return
@@ -121,7 +143,7 @@ def decide_message_type(usersName, membershipStatus):
             return
     elif membershipStatus == "Plus":
         print("\nList of people you can message: ")
-        displayAllUsers()
+        displayAllUsers(usersName)
     else:
         print("membership status not found. Aborting")
         return
@@ -278,11 +300,12 @@ def displayFriends(usersName):
                     return "None"
     return
 
-def displayAllUsers():
+def displayAllUsers(usersName):
     with open("friendList.txt", "r") as file:
         for line in file:
             friendsList = ast.literal_eval(line)
-            print(friendsList["Username"])
+            if(friendsList["Username"] != usersName):
+                print(friendsList["Username"])
 
 
 def get_membership_status(usersName):
