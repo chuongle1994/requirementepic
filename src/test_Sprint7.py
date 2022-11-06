@@ -1,4 +1,16 @@
-import createAccountFunctions, message, friendList, loginfunctions
+import createAccountFunctions, message, friendList, loginfunctions, os
+# clear all created files
+def delete_files():
+    os.remove("currentUserData.txt")
+    os.remove("firstname.txt")
+    os.remove("friendList.txt")
+    os.remove("fullname.txt")
+    os.remove("lastname.txt")
+    os.remove("membership.txt")
+    os.remove("messagesList.json")
+    os.remove("passwords.txt")
+    os.remove("users.txt")
+
 def test_Messages():
     createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le")
     createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le")
@@ -32,6 +44,7 @@ def test_Messages():
     loginfunctions.storeUserData("danhle")
     friendList.accept("tri le", "danh le")
     assert message.displayFriends("tri le") == True
+    delete_files()
 
 
 
