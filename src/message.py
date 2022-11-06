@@ -300,6 +300,7 @@ def displayFriends(usersName):
                 if(len(friendsList["Friend Lists"]) != 0):
                     for friend in friendsList["Friend Lists"]:
                         print(friend)
+                    return True
                 else:
                     print("You have no friends to message.")
                     return "None"

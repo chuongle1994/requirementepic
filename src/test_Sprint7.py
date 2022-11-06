@@ -1,5 +1,5 @@
-import createAccountFunctions, message
-def test_sendMessage():
+import createAccountFunctions, message, friendList, loginfunctions
+def test_Messages():
     createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le")
     createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le")
     createAccountFunctions.promptMembership("1", "tri le")
@@ -20,6 +20,19 @@ def test_sendMessage():
     #Check if the message shows up when sent
     message.sendMessage("tri le", "danh le", "test")
     assert message.existsMessages() == True
+
+    #Check if an empty friends list generate correct output
+    friendList.createFriendList("tri le")
+    assert message.displayFriends("tri le") == "None"
+
+    #Check if the friends list generates
+    friendList.createFriendList("danh le")
+    friendList.requestFriend("tri le", "danh le")
+    friendList.accept("danh le", "tri le")
+    loginfunctions.storeUserData("danhle")
+    friendList.accept("tri le", "danh le")
+    assert message.displayFriends("tri le") == True
+
 
 
 
