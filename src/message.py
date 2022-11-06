@@ -155,7 +155,9 @@ def decide_message_type(usersName, membershipStatus):
     message = input("\nEnter the message: ")
     existsRecipient = isRecipient(recipient)
     friendStatus = isFriend(usersName, recipient)
-    sendMessageType(usersName, membershipStatus, existsRecipient, friendStatus, recipient)
+    findUser = sendMessageType(usersName, membershipStatus, existsRecipient, friendStatus, recipient) 
+    if(findUser == "User not found"):
+        return
     sendMessage(usersName, recipient, message)
     return
 
@@ -188,7 +190,8 @@ def sendMessageType(usersName, membershipStatus, existsRecipient, friendStatus, 
             setupMessage(usersName, recipient)
             return True
         else:
-            print("User not found")
+            print("\nUser not found")
+            return "User not found"
     else:
         print("membership status not found. Aborting")
         return
