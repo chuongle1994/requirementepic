@@ -906,6 +906,7 @@ def loginPage():
         if validation == True: 
             print("\nYou have successfully logged in")
             storeUserData(user)
+            profileFunctions.profileNotification()
             friendList.pendingScreen()
             friendList.search()
             isSuccessfulLogin = True

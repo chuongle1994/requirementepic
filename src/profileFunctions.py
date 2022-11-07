@@ -198,9 +198,7 @@ def editProfile():
     userName = loginfunctions.getUsersName()
 
     # Check if the profile has been completely created
-    complete = checkComplete(loginfunctions.getUsersName())
-    if complete == "You have not finished creating your profile.":
-        print("You have not finished creating your profile.")
+    if checkComplete(userName) == 0:
         return
 
     # Read data from the file to the array
@@ -474,7 +472,7 @@ def friendProfile(friendIndex, usersName):
     friendName =  data["Friend Lists"][friendIndex]
 
     # quit if friend has not create profile
-    if checkComplete(friendName) == "You have not finished creating your account.":
+    if checkComplete(friendName) == 0:
         return 0
 
     print("\nProfile of: ", friendName)
@@ -495,7 +493,7 @@ def displayFriendProfileOption(usersName):
                 if data["Friend Lists"]:
                     numFriends = len(data["Friend Lists"])
                     for friend in data["Friend Lists"]:
-                        if checkComplete(friend) == "You have not finished creating your account.":
+                        if checkComplete(friend) == 0:
                             print(f"{friend:20}  No profile")
                             option+=1
                         else:
@@ -590,6 +588,7 @@ def getExperience():
             break
 
 def checkComplete(name):
+    complete = 1
     profileList = []
 
     # Read data from the file to the array
@@ -601,15 +600,23 @@ def checkComplete(name):
     # Retrieve data from the array
     for user in profileList:
         if user["Username"] == name:
-                title = user["Title"]
-                major = user["Major"]
-                university = user["University"]
-                information = user["About"]
-                experience = user["Experience"]
-                edu = user["Education"]
+            title = user["Title"]
+            major = user["Major"]
+            university = user["University"]
+            information = user["About"]
+            experience = user["Experience"]
+            edu = user["Education"]
 
     # If the profile creation is incomplete, terminate
     if title == "" or major == "" or university == "" or information == "" or experience == "None" or edu == "None":
         file.close()
-        return "You have not finished creating your profile."
+        complete = 0
+        print("\nDon't forget to complete creating your profile")
+        return complete
     file.close()
+
+# If a student has not yet created a profile, the system will notify them
+def profileNotification():
+    if checkComplete(loginfunctions.getUsersName()) == 0:
+        addProfile()
+        return
