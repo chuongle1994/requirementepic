@@ -2,10 +2,11 @@ from os.path import exists
 import os
 import uuid
 import json
-import linkFunctions, friendList, profileFunctions
+import linkFunctions, friendList, profileFunctions, message
 import ast
 
 #search for job page
+
 def searchForAJob():
     displayNotifications()
 
@@ -130,6 +131,7 @@ def deleteSavedJobByIndex(index):
                 if(lineNumber != position):
                     file.write(line)
                 lineNumber += 1
+                
 
     print("Successfully removed saved status from users for this job posting")
 
@@ -356,7 +358,6 @@ def getNumberOfJobPosts():
 
 def applyForJob(index, name):
     fileExist = exists("applications.txt")
-    # jobListing = []
     jobID = ""
 
     # Checks if the file exists in the system
@@ -736,6 +737,7 @@ def displayOptions():
     # Add navigation links
     linkFunctions.navigationLinks()
     linkFunctions.selectLinks()
+    message.displayInbox()
     
     print("\nPlease select an option:")
     print("[1] Search for a job / internship")
@@ -745,7 +747,8 @@ def displayOptions():
     print("[5] Create profile")
     print("[6] Edit profile")
     print("[7] View profile")
-    print("[8] Return to previous level")
+    print("[8] Send message")
+    print("[9] Return to previous level")
     selection = input("Selection: ")
 
     if selection == "1":
@@ -770,9 +773,12 @@ def displayOptions():
         profileFunctions.printProfile()
         return 
     elif selection == "8":
+        message.send_message_prompt(getUsersName())
+        return
+    elif selection == "9":
         clearFile("currentUserData.txt")
         return
-    else:
+    else: 
         print("\nInvalid input. Try selecting an option again.")
         displayOptions()
 
