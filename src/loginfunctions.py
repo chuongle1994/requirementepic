@@ -2,7 +2,7 @@ from os.path import exists
 import os
 import uuid
 import json
-import linkFunctions, friendList, profileFunctions, message
+import linkFunctions, friendList, profileFunctions, message, homeFunctions
 import ast
 
 #search for job page
@@ -664,9 +664,8 @@ def writeJobPost(jobObject, appendingData, fileName):
 
 #find someone you know page
 def findSomeone():
-    print("\nunder construction")
-    response = "\nunder construction"
-    return response
+    homeFunctions.connectPeople()
+    return
 
 #skill1 page
 def frontendDevelopment():
@@ -776,6 +775,7 @@ def displayOptions():
         message.send_message_prompt(getUsersName())
         return
     elif selection == "9":
+        displayOptions()
         clearFile("currentUserData.txt")
         return
     else: 
