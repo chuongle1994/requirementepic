@@ -776,7 +776,7 @@ def displayOptions():
         return
     elif selection == "9":
         displayOptions()
-        clearFile("currentUserData.txt")
+        # clearFile("currentUserData.txt")
         return
     else: 
         print("\nInvalid input. Try selecting an option again.")

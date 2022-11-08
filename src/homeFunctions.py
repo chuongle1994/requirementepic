@@ -28,10 +28,10 @@ def successStory():
 
 def signInScreen():
     # Login screen
-    print("\nPlease select an option to login (0 to exit): ")
+    print("\nPlease select an option to login (0 to exit program): ")
     print("[1] Log in")
     print("[2] Create an Account")
-    
+
     select = input("Selection: ")
     # Selection functions
     if select == "1":
@@ -41,17 +41,17 @@ def signInScreen():
     elif select == "2":
         # Perform account creation process
         createAccountFunctions.createAcc()
-        login()
+        signInOption()
 
     elif select == "0":
-        loginfunctions.displayOptions()
-        return
+        print("Terminating program")
+        exit()
 
     else:
         print("Invalid option, try again")
         signInScreen()
 
-def login():
+def signInOption():
     print("\nDo you want to login now?")
     print("[1] Yes")
     print("[2] No")
@@ -59,14 +59,13 @@ def login():
     if select == "1":
         loginfunctions.loginPage()
     elif select == "2":
-        loginfunctions.displayOptions()
         return
     else:
         print("Invalid selection. Try again")
-        login()
+        signInOption()
 
 def goBackToMainOption():
-    print("\nWould you like to return to our main options?")
+    print("\nWould you like to continue to our main options?")
     print("[1] Yes")
     print("[2] No")
     select = input("Please pick an option: ")
@@ -102,7 +101,6 @@ def connectPeople():
         contactFound()
     else:
         goBackToMainOption()
-        return
 
 def contactFound():
     print("\nContact was found in InCollege. Please select from the following options: ")
@@ -115,11 +113,12 @@ def contactFound():
     #Selection functions
     if select == "1":
         loginfunctions.loginPage()
+        loginfunctions.clearFile("currentUserData.txt")
         return
     elif select == "2":
         #Perform account creation process
         createAccountFunctions.createAcc()
-        login()
+        signInOption()
         return
     elif select == "3":
         loginfunctions.displayOptions()
