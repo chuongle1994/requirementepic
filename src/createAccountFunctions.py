@@ -39,7 +39,7 @@ def createAcc():
         newLastname = input("Enter your last name: ")
         newFullname = newFirstname + " " + newLastname
         storeData(newUser, newPass, newFirstname, newLastname, newFullname)
-        membership = input("Do you want to be a plus member? You will be charged $10 per month.(1 = yes or 0 = no):")
+        membership = input("Do you want to be a plus member? You will be charged $10 per month.(1 = yes or 0 = no): ")
         promptMembership(membership, newFullname)
 
         linkFunctions.firstControlsSetting(newFullname)
@@ -49,19 +49,20 @@ def createAcc():
     return
 
 def promptMembership(membership, newFullname):
-        if membership == "1":
-            mem = {'fullName': newFullname, 'Membership_Type':'Plus'}
-            with open('membership.txt','a') as data: 
-                data.write(f"{str(mem)}\n")
-            data.close()
-        elif membership == "0":
-            mem = {'fullName': newFullname, 'Membership_Type':'Standard'}
-            with open('membership.txt','a') as data: 
-                data.write(f"{str(mem)}\n")
-            data.close()
-        else:
-            print("Incorrect input. Please try again.")
-            promptMembership()
+    if membership == "1":
+        mem = {'fullName': newFullname, 'Membership_Type':'Plus'}
+        with open('membership.txt','a') as data: 
+            data.write(f"{str(mem)}\n")
+        data.close()
+    elif membership == "0":
+        mem = {'fullName': newFullname, 'Membership_Type':'Standard'}
+        with open('membership.txt','a') as data: 
+            data.write(f"{str(mem)}\n")
+        data.close()
+    else:
+        print("Incorrect input. Please try again.")
+        membership = input("Do you want to be a plus member? You will be charged $10 per month.(1 = yes or 0 = no): ")
+        promptMembership(membership, newFullname)
 
 def checkUser(newUser):
     #Check if there is a duplicate username
