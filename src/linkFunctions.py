@@ -1,5 +1,5 @@
 import os
-import loginfunctions
+import loginfunctions, homeFunctions
 import ast
 
 def navigationLinks():  
@@ -143,7 +143,7 @@ def previousToNavi():
     
 # Useful Links: General: 1. Sign Up
 def signUp():
-    loginfunctions.loginPage()
+    homeFunctions.signInScreen()
 
 # Useful Links: General: 2. Help Center
 def helpCenter():
