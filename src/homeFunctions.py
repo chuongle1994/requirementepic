@@ -122,7 +122,7 @@ def contactFound():
         login()
         return
     elif select == "3":
-        goBackToMainOption() 
+        loginfunctions.displayOptions()
     else:
         print("Invalid selection. Try again")
         contactFound()

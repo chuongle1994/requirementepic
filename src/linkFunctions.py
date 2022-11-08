@@ -71,7 +71,6 @@ def general():
     select = input("Please select an option (0 to exit): ")
     if select == "1":
         signUp()
-        previousToGeneral()
     elif select == "2":
         helpCenter()
         previousToGeneral()
@@ -143,6 +142,7 @@ def previousToNavi():
     
 # Useful Links: General: 1. Sign Up
 def signUp():
+    loginfunctions.clearFile("currentUserData.txt")
     homeFunctions.signInScreen()
 
 # Useful Links: General: 2. Help Center
