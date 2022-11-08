@@ -1,4 +1,4 @@
-import linkFunctions, friendList, profileFunctions
+import linkFunctions, friendList, profileFunctions, notification
 def checkAccNum():
     #Count the current number of account created
         numAccounts = 0
@@ -46,6 +46,8 @@ def createAcc():
         linkFunctions.firstLanguageSetting(newFullname)
         profileFunctions.createProfile(newFullname, newLastname)
         friendList.createFriendList(newFullname)
+        notification.createNewStudentList(newFullname)
+        notification.addNewStudentList(newFullname)
     return
 
 def promptMembership(membership, newFullname):

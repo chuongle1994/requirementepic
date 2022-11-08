@@ -2,7 +2,7 @@ from os.path import exists
 import os
 import uuid
 import json
-import linkFunctions, friendList, profileFunctions, message, homeFunctions
+import linkFunctions, friendList, profileFunctions, message, homeFunctions, notification
 import ast
 
 #search for job page
@@ -907,6 +907,7 @@ def loginPage():
             print("\nYou have successfully logged in")
             storeUserData(user)
             profileFunctions.profileNotification()
+            notification.newStudentNotification()
             friendList.pendingScreen()
             friendList.search()
             isSuccessfulLogin = True

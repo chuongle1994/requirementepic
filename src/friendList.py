@@ -12,7 +12,7 @@ def createFriendList(username):
 # Function for providing options to search students
 def search():
     #clear screen
-    os.system('cls' if os.name == 'nt' else 'clear')
+    # os.system('cls' if os.name == 'nt' else 'clear')
 
     print("\nDo you want to connect with other students?")
     print("[1] Search by lastname")

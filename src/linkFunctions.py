@@ -71,6 +71,7 @@ def general():
     select = input("Please select an option (0 to exit): ")
     if select == "1":
         signUp()
+        exit()
     elif select == "2":
         helpCenter()
         previousToGeneral()
