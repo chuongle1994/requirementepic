@@ -616,9 +616,3 @@ def checkComplete(name):
         return complete
     file.close()
     return complete
-
-# Notification for a student has not yet created a profile
-def profileNotification():
-    if checkComplete(loginfunctions.getUsersName()) == 0:
-        addProfile()
-        return

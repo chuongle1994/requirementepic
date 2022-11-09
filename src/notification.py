@@ -1,5 +1,14 @@
-import ast, loginfunctions
+import ast, loginfunctions, profileFunctions
 from datetime import date, datetime
+
+# Notification for a student has not yet created a profile
+def profileNotification(name):
+    notification = 0
+    if profileFunctions.checkComplete(name) == 0:
+        notification = 1
+        profileFunctions.addProfile()
+    return notification
+
 
 # Creating an empty new student data list for user
 def createNewStudentList(name):
@@ -28,8 +37,8 @@ def addNewStudentList(name):
         fw.writelines(saveList)
 
 # Notification with new user
-def newStudentNotification():
-    name = loginfunctions.getUsersName()
+def newStudentNotification(name):
+    notification = 0
     saveList = []
 
     with open("newStudent.txt", "r") as file:
@@ -42,6 +51,7 @@ def newStudentNotification():
             print("\nNew Student Notification: ")
             for newStudent in user["newStudent"]:
                 print("{} has joined InCollege".format(newStudent))
+                notification += 1
             user["newStudent"].clear()
             
     for index in range(len(saveList)):
@@ -49,6 +59,9 @@ def newStudentNotification():
         
     with open("newStudent.txt", "w") as file:
         file.writelines(saveList)
+    
+    return notification
+
 
 # Creating the file for saving current date
 def createDate(name):
@@ -60,20 +73,18 @@ def createDate(name):
     settingFile.close()
 
 # Checking the date that have not applied for job in the past 7 days and notified
-def NotApplyNotification():
+def NotApplyNotification(name, str_date):
     check = 0
-    today = date.today()
-    name = loginfunctions.getUsersName()
 
     with open("checkDate.txt", "r") as file:
         for line in file:
             data = ast.literal_eval(line)
             if data["Name"] == name:
                 str_date1 = data["Last Date"]
-                str_date2 = today.strftime("%m/%d/%Y")
+                # change type for calculation
                 date1 = datetime.strptime(str_date1, "%m/%d/%Y")
-                date2 = datetime.strptime(str_date2, "%m/%d/%Y")
-                delta = date2 - date1
+                today = datetime.strptime(str_date, "%m/%d/%Y")
+                delta = today - date1
                 if delta.days >= 7:
                     check = 1
                     break
@@ -102,10 +113,7 @@ def applyJobOption():
 
 
 # Update the date when applied a job
-def updateDate():
-    today = date.today()
-    dateFormat = today.strftime("%m/%d/%Y")
-    name = loginfunctions.getUsersName()
+def updateDate(name, today):
     saveList = []
 
     with open("checkDate.txt", "r") as file:
@@ -115,7 +123,7 @@ def updateDate():
 
     for user in saveList:
         if user["Name"] == name:
-            user["Last Date"] = dateFormat
+            user["Last Date"] = today
             break
     
     for index in range(len(saveList)):

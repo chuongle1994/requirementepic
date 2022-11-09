@@ -4,6 +4,7 @@ import uuid
 import json
 import linkFunctions, friendList, profileFunctions, message, homeFunctions, notification
 import ast
+from datetime import date, datetime
 
 #search for job page
 
@@ -357,6 +358,10 @@ def getNumberOfJobPosts():
         return numberOfJobs
 
 def applyForJob(index, name):
+    # save date of today with string format
+    today = date.today()
+    str_date = today.strftime("%m/%d/%Y")
+
     fileExist = exists("applications.txt")
     jobID = ""
 
@@ -392,7 +397,7 @@ def applyForJob(index, name):
     workDate = input("Enter the your preferred starting date: ")
     desc = input("Why do you think you're fit for this job?\nParagraph: ")
     writeApp(jobID, index, name, gradDate, workDate, desc)
-    notification.updateDate()
+    notification.updateDate(getUsersName(), str_date)
 
 def writeApp(jobID, index, name, gradDate, workDate, desc):
     output = { "jobID": jobID, "Index" : index, "Name" : name, "gradDate" : gradDate, "workDate" : workDate, "Desc" : desc}
@@ -893,6 +898,9 @@ def storeUserData(user):
 
     
 def loginPage():
+    # save date of today with string format
+    today = date.today()
+    str_date = today.strftime("%m/%d/%Y")
 
     isSuccessfulLogin = False     
 
@@ -910,9 +918,9 @@ def loginPage():
         if validation == True: 
             print("\nYou have successfully logged in")
             storeUserData(user)
-            notification.NotApplyNotification()
-            profileFunctions.profileNotification()
-            notification.newStudentNotification()
+            notification.NotApplyNotification(getUsersName(), str_date)
+            notification.profileNotification(getUsersName())
+            notification.newStudentNotification(getUsersName())
             friendList.pendingScreen()
             friendList.search()
             isSuccessfulLogin = True
