@@ -48,6 +48,7 @@ def createAcc():
         friendList.createFriendList(newFullname)
         notification.createNewStudentList(newFullname)
         notification.addNewStudentList(newFullname)
+        notification.createDate(newFullname)
     return
 
 def promptMembership(membership, newFullname):

@@ -392,6 +392,7 @@ def applyForJob(index, name):
     workDate = input("Enter the your preferred starting date: ")
     desc = input("Why do you think you're fit for this job?\nParagraph: ")
     writeApp(jobID, index, name, gradDate, workDate, desc)
+    notification.updateDate()
 
 def writeApp(jobID, index, name, gradDate, workDate, desc):
     output = { "jobID": jobID, "Index" : index, "Name" : name, "gradDate" : gradDate, "workDate" : workDate, "Desc" : desc}
@@ -733,6 +734,9 @@ def learnSkill():
 
 #select options menu
 def displayOptions():
+    #clear screen
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     # Add navigation links
     linkFunctions.navigationLinks()
     linkFunctions.selectLinks()
@@ -906,6 +910,7 @@ def loginPage():
         if validation == True: 
             print("\nYou have successfully logged in")
             storeUserData(user)
+            notification.NotApplyNotification()
             profileFunctions.profileNotification()
             notification.newStudentNotification()
             friendList.pendingScreen()
