@@ -4,7 +4,7 @@ import uuid
 import json
 import linkFunctions, friendList, profileFunctions, message, homeFunctions, notification
 import ast
-from datetime import date, datetime
+from datetime import date
 
 #search for job page
 
@@ -920,6 +920,7 @@ def loginPage():
             storeUserData(user)
             notification.NotApplyNotification(getUsersName(), str_date)
             notification.profileNotification(getUsersName())
+            notification.messageNotification(getUsersName())
             notification.newStudentNotification(getUsersName())
             friendList.pendingScreen()
             friendList.search()

@@ -1,4 +1,5 @@
-import ast, loginfunctions, profileFunctions
+import json, os
+import ast, loginfunctions, profileFunctions, message
 from datetime import date, datetime
 
 # Notification for a student has not yet created a profile
@@ -6,7 +7,7 @@ def profileNotification(name):
     notification = 0
     if profileFunctions.checkComplete(name) == 0:
         notification = 1
-        profileFunctions.addProfile()
+        # profileFunctions.addProfile()
     return notification
 
 
@@ -91,25 +92,26 @@ def NotApplyNotification(name, str_date):
 
     if check == 1:
         print("\nRemember - you're going to want to have a job when you graduate. Make sure that you start to apply for jobs today!")
-        applyJobOption()
+        # applyJobOption()
 
     return check
 
-def applyJobOption():
-    print("\nDo you want to apply job now?")
-    print("[1] Yes")
-    print("[2] No")
-    select = input("Please pick an option: ")
+# def applyJobOption():
+#     print("\nDo you want to apply job now?")
+#     print("[1] Yes")
+#     print("[2] No")
+#     select = input("Please pick an option: ")
 
-    if select == "1":
-        existsJobs = loginfunctions.displayAllJobTitles()
-        if(existsJobs == True):
-            loginfunctions.selectJobTitle()
-    elif select == "2":
-        return
-    else:
-        print("Invalid selection. Try again")
-        applyJobOption()
+#     if select == "1":
+#         existsJobs = loginfunctions.displayAllJobTitles()
+#         if(existsJobs == True):
+#             loginfunctions.selectJobTitle()
+#     elif select == "2":
+#         return
+#     else:
+#         print("Invalid selection. Try again")
+#         applyJobOption()
+
 
 
 # Update the date when applied a job
@@ -131,6 +133,29 @@ def updateDate(name, today):
 
     with open("checkDate.txt", "w") as fw:
         fw.writelines(saveList)
+
+
+# Notification for a student who has new messages from another studet
+def messageNotification(name):
+    message.existsMessages()
+    numNewMessages = 0
+
+    if(os.stat("messagesList.json").st_size == 0):
+        return
+    obj = json.load(open("messagesList.json"))
+
+    if(len(obj) != 0):
+        if(len(obj["all-messages"]) != 0):
+            for messageIndex in range(len(obj["all-messages"])):
+                if(obj["all-messages"][messageIndex]["user"] == name):
+                    if(obj["all-messages"][messageIndex]["original-count"] != obj["all-messages"][messageIndex]["new-count"]):
+                        numNewMessages = obj["all-messages"][messageIndex]["new-count"] - obj["all-messages"][messageIndex]["original-count"]
+
+    if numNewMessages > 0:
+        print("You have messages waiting for you.")
+    return numNewMessages
+
+
 #Notify number of applied job
 def total_appliedJob():
     name = loginfunctions.getUsersName()
