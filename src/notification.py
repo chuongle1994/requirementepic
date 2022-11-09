@@ -131,3 +131,12 @@ def updateDate(name, today):
 
     with open("checkDate.txt", "w") as fw:
         fw.writelines(saveList)
+#Notify number of applied job
+def total_appliedJob():
+    name = loginfunctions.getUsersName()
+    with open("application.txt", 'r') as fp:
+        for line in fp:
+            data = ast.literal_eval(line)
+            x = len(fp.readlines())
+            if data['Name'] == name:
+                print("You have currently applied for" + x +"jobs")
