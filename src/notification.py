@@ -80,8 +80,26 @@ def NotApplyNotification():
 
     if check == 1:
         print("\nRemember - you're going to want to have a job when you graduate. Make sure that you start to apply for jobs today!")
+        applyJobOption()
 
     return check
+
+def applyJobOption():
+    print("\nDo you want to apply job now?")
+    print("[1] Yes")
+    print("[2] No")
+    select = input("Please pick an option: ")
+
+    if select == "1":
+        existsJobs = loginfunctions.displayAllJobTitles()
+        if(existsJobs == True):
+            loginfunctions.selectJobTitle()
+    elif select == "2":
+        return
+    else:
+        print("Invalid selection. Try again")
+        applyJobOption()
+
 
 # Update the date when applied a job
 def updateDate():
