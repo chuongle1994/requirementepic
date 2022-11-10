@@ -190,9 +190,11 @@ def total_appliedJob(name):
     with open("applications.txt", 'r') as fp:
         for line in fp:
             data = ast.literal_eval(line)
-            numAppliedJob = len(fp.readlines())
-            if numAppliedJob > 0 and data['Name'] == name:
-                print("\nYou have currently applied for {} jobs".format(numAppliedJob))
+            if data['Name'] == name:
+                numAppliedJob += 1          
+
+    if numAppliedJob > 0:
+        print("\nYou have currently applied for {} jobs".format(numAppliedJob))
     
     return numAppliedJob
 
