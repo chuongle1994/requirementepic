@@ -1,5 +1,6 @@
 import json, os
-import ast, loginfunctions, profileFunctions, message
+import ast, profileFunctions, message
+from os.path import exists
 from datetime import date, datetime
 
 # Notification for a student has not yet created a profile
@@ -29,19 +30,7 @@ def addNewStudentList(name):
     
     with open("friendList.txt", "w") as fw:
         fw.writelines(saveList)
-#Add notification when students already applied for a deleted job
-def delete_job():
-    with open("userNotifications.txt", "r") as file:
-        for line in file:
-            data = ast.literal_eval(line)
-            if data["status"] == "deleted":
-                with open("applications.txt", "r") as file1:
-                    for line1 in file1:
-                        data1 = ast.literal_eval(line1)
-                        if data["jobID"] == data1["jobID"]:
-                            print ("A job" + data["title"] + "that you applied for has been deleted")
-                        return  
-            return
+
 # Notification with new user
 def newStudentNotification(name):
     notification = 0
@@ -80,7 +69,7 @@ def storeJobData(name):
 
 # Checking the date that have not applied for job in the past 7 days and notified
 def NotApplyNotification(name, str_date):
-    check = 0
+    notification = 0
 
     with open("jobNotification.txt", "r") as file:
         for line in file:
@@ -92,13 +81,13 @@ def NotApplyNotification(name, str_date):
                 today = datetime.strptime(str_date, "%m/%d/%Y")
                 delta = today - date1
                 if delta.days >= 7:
-                    check = 1
+                    notification = 1
                     break
 
-    if check == 1:
+    if notification == 1:
         print("\nRemember - you're going to want to have a job when you graduate. Make sure that you start to apply for jobs today!")
 
-    return check
+    return notification
 
 # Update the date when applied a job
 def updateDate(name, today):
@@ -188,12 +177,39 @@ def newJobNotification(name):
     return notification
 
 
-#Notify number of applied job
-def total_appliedJob():
-    name = loginfunctions.getUsersName()
-    with open("application.txt", 'r') as fp:
+# Notification for the number of applied job
+def total_appliedJob(name):
+    numAppliedJob = 0
+    fileExist = exists("applications.txt")
+
+    # Checks if the save file exists
+    if fileExist == 0:
+        file = open("applications.txt", "a")
+        file.close()
+
+    with open("applications.txt", 'r') as fp:
         for line in fp:
             data = ast.literal_eval(line)
-            x = len(fp.readlines())
-            if data['Name'] == name:
-                print("You have currently applied for" + x +"jobs")
+            numAppliedJob = len(fp.readlines())
+            if numAppliedJob > 0 and data['Name'] == name:
+                print("\nYou have currently applied for {} jobs".format(numAppliedJob))
+    
+    return numAppliedJob
+
+#Add notification when students already applied for a deleted job
+def delete_job(name):
+    notification = 0
+    fileExist = exists("userNotifications.txt")
+
+    if fileExist == 0:
+        file = open("userNotifications.txt", "a")
+        file.close()
+    
+    with open("userNotifications.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            if data["name"] == name and data["status"] == "deleted":
+                print ("A job " + data["title"] + " that you applied for has been deleted")
+                notification = 1
+
+    return notification

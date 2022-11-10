@@ -924,7 +924,7 @@ def loginPage():
             notification.messageNotification(getUsersName())
             notification.newJobNotification(getUsersName())
             notification.total_appliedJob(getUsersName())
-            notification.delete_job()
+            notification.delete_job(getUsersName())
             notification.newStudentNotification(getUsersName())
             friendList.pendingScreen()
             friendList.search()
