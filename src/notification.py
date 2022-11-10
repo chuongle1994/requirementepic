@@ -11,30 +11,23 @@ def profileNotification(name):
     return notification
 
 
-# Creating an empty new student data list for user
-def createNewStudentList(name):
-    setting = {"Name": name, "newStudent": []}
-    settingFile = open("newStudent.txt", "a")
-    settingFile.write("{}\n".format(setting))
-    settingFile.close()
-
 # Add new student info to current user
 def addNewStudentList(name):
     saveList = []
 
-    with open("newStudent.txt", "r") as f:
+    with open("friendList.txt", "r") as f:
         for line in f:
             data = ast.literal_eval(line)
             saveList.append(data)
     
     for user in saveList:
-        if user["Name"] != name:
+        if user["Username"] != name:
             user["newStudent"].append(name)
     
     for index in range(len(saveList)):
         saveList[index] = str(saveList[index]) + "\n"
     
-    with open("newStudent.txt", "w") as fw:
+    with open("friendList.txt", "w") as fw:
         fw.writelines(saveList)
 
 # Notification with new user
@@ -42,14 +35,14 @@ def newStudentNotification(name):
     notification = 0
     saveList = []
 
-    with open("newStudent.txt", "r") as file:
+    with open("friendList.txt", "r") as file:
         for line in file:
             data = ast.literal_eval(line)
             saveList.append(data)
     
     for user in saveList:
-        if user["Name"] == name and user["newStudent"]:
-            print("\nNew Student Notification: ")
+        if user["Username"] == name and user["newStudent"]:
+            print("\nNew Student: ")
             for newStudent in user["newStudent"]:
                 print("{} has joined InCollege".format(newStudent))
                 notification += 1
@@ -58,18 +51,18 @@ def newStudentNotification(name):
     for index in range(len(saveList)):
         saveList[index] = str(saveList[index]) + "\n"
         
-    with open("newStudent.txt", "w") as file:
+    with open("friendList.txt", "w") as file:
         file.writelines(saveList)
     
     return notification
 
 
-# Creating the file for saving current date
-def createDate(name):
+# Creating the file for saving current date, empty list for new job
+def storeJobData(name):
     today = date.today()
     dateFormat = today.strftime("%m/%d/%Y")
-    setting = {"Name": name, "Last Date": dateFormat}
-    settingFile = open("checkDate.txt", "a")
+    setting = {"Name": name, "Last Date": dateFormat, "New Job": []}
+    settingFile = open("jobNotification.txt", "a")
     settingFile.write("{}\n".format(setting))
     settingFile.close()
 
@@ -77,7 +70,7 @@ def createDate(name):
 def NotApplyNotification(name, str_date):
     check = 0
 
-    with open("checkDate.txt", "r") as file:
+    with open("jobNotification.txt", "r") as file:
         for line in file:
             data = ast.literal_eval(line)
             if data["Name"] == name:
@@ -92,33 +85,14 @@ def NotApplyNotification(name, str_date):
 
     if check == 1:
         print("\nRemember - you're going to want to have a job when you graduate. Make sure that you start to apply for jobs today!")
-        # applyJobOption()
 
     return check
-
-# def applyJobOption():
-#     print("\nDo you want to apply job now?")
-#     print("[1] Yes")
-#     print("[2] No")
-#     select = input("Please pick an option: ")
-
-#     if select == "1":
-#         existsJobs = loginfunctions.displayAllJobTitles()
-#         if(existsJobs == True):
-#             loginfunctions.selectJobTitle()
-#     elif select == "2":
-#         return
-#     else:
-#         print("Invalid selection. Try again")
-#         applyJobOption()
-
-
 
 # Update the date when applied a job
 def updateDate(name, today):
     saveList = []
 
-    with open("checkDate.txt", "r") as file:
+    with open("jobNotification.txt", "r") as file:
         for line in file:
             data = ast.literal_eval(line)
             saveList.append(data)
@@ -131,7 +105,7 @@ def updateDate(name, today):
     for index in range(len(saveList)):
         saveList[index] = str(saveList[index]) + "\n"
 
-    with open("checkDate.txt", "w") as fw:
+    with open("jobNotification.txt", "w") as fw:
         fw.writelines(saveList)
 
 
@@ -152,8 +126,54 @@ def messageNotification(name):
                         numNewMessages = obj["all-messages"][messageIndex]["new-count"] - obj["all-messages"][messageIndex]["original-count"]
 
     if numNewMessages > 0:
-        print("You have messages waiting for you.")
+        print("\nYou have messages waiting for you.")
     return numNewMessages
+
+
+# Save the new job info in user data
+def saveNewJob(name, jobTitle):
+    saveList = []
+
+    with open("jobNotification.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            saveList.append(data)
+
+    for user in saveList:
+        if user["Name"] != name:
+            user["New Job"].append(jobTitle)
+    
+    for index in range(len(saveList)):
+        saveList[index] = str(saveList[index]) + "\n"
+
+    with open("jobNotification.txt", "w") as fw:
+        fw.writelines(saveList)
+
+# Notification for a new job
+def newJobNotification(name):
+    notification = 0
+    saveList = []
+
+    with open("jobNotification.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            saveList.append(data)
+
+    for user in saveList:
+        if user["Name"] == name and user["New Job"]:
+            print("\nNew Job: ")
+            for job in user["New Job"]:
+                print("A new job {} has been posted".format(job))
+                notification += 1
+            user["New Job"].clear()
+            
+    for index in range(len(saveList)):
+        saveList[index] = str(saveList[index]) + "\n"
+
+    with open("jobNotification.txt", "w") as fw:
+        fw.writelines(saveList)
+    
+    return notification
 
 
 #Notify number of applied job

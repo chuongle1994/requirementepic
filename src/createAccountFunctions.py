@@ -46,9 +46,8 @@ def createAcc():
         linkFunctions.firstLanguageSetting(newFullname)
         profileFunctions.createProfile(newFullname, newLastname)
         friendList.createFriendList(newFullname)
-        notification.createNewStudentList(newFullname)
         notification.addNewStudentList(newFullname)
-        notification.createDate(newFullname)
+        notification.storeJobData(newFullname)
     return
 
 def promptMembership(membership, newFullname):

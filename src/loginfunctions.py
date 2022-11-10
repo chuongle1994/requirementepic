@@ -349,6 +349,7 @@ def inputJobInfo():
     salary = input("Salary: ")    
     applicantsList = []
     createJobPost(jobID, title, description, employer, location, salary, applicantsList)
+    notification.saveNewJob(getUsersName(), title)
     return
 
 def getNumberOfJobPosts():
@@ -664,7 +665,7 @@ def writeJobPost(jobObject, appendingData, fileName):
             file_data["job-posts"].append(appendingData)
             file.seek(0)
             json.dump(file_data, file, indent = 4)
-    print("\nYour job has been posted.") 
+    print("\nYour job has been posted.")
     return
 
 
@@ -921,6 +922,7 @@ def loginPage():
             notification.NotApplyNotification(getUsersName(), str_date)
             notification.profileNotification(getUsersName())
             notification.messageNotification(getUsersName())
+            notification.newJobNotification(getUsersName())
             notification.newStudentNotification(getUsersName())
             friendList.pendingScreen()
             friendList.search()

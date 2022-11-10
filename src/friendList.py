@@ -4,7 +4,7 @@ import loginfunctions
 
 # Function for creating an empty friend list and pending list for user
 def createFriendList(username):
-    friendList = {"Username": username, "Friend Lists": [], "Pending Lists": []}
+    friendList = {"Username": username, "Friend Lists": [], "Pending Lists": [], "newStudent": []}
     friendListFile = open("friendList.txt", "a")
     friendListFile.write("{}\n".format(friendList))
     friendListFile.close()
