@@ -29,7 +29,19 @@ def addNewStudentList(name):
     
     with open("friendList.txt", "w") as fw:
         fw.writelines(saveList)
-
+#Add notification when students already applied for a deleted job
+def delete_job():
+    with open("userNotifications.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            if data["status"] == "deleted":
+                with open("applications.txt", "r") as file1:
+                    for line1 in file1:
+                        data1 = ast.literal_eval(line1)
+                        if data["jobID"] == data1["jobID"]:
+                            print ("A job" + data["title"] + "that you applied for has been deleted")
+                        return  
+            return
 # Notification with new user
 def newStudentNotification(name):
     notification = 0
