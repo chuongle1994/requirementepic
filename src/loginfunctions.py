@@ -10,6 +10,7 @@ from datetime import date
 
 def searchForAJob():
     displayNotifications()
+    notification.total_appliedJob(getUsersName())
 
     while(True):
         print("\nPlease select an option:")
@@ -870,7 +871,6 @@ def validateLogin(user, password):
         return False
 
 def storeUserData(user):
-    print("storing user data")
     userIndex = 0
     nameIndex = 0
     userFullName = ""
@@ -923,7 +923,6 @@ def loginPage():
             notification.profileNotification(getUsersName())
             notification.messageNotification(getUsersName())
             notification.newJobNotification(getUsersName())
-            notification.total_appliedJob(getUsersName())
             notification.delete_job(getUsersName())
             notification.newStudentNotification(getUsersName())
             friendList.pendingScreen()

@@ -194,7 +194,7 @@ def total_appliedJob(name):
                 numAppliedJob += 1          
 
     if numAppliedJob > 0:
-        print("\nYou have currently applied for {} jobs".format(numAppliedJob))
+        print("\nYou have currently applied for {} job(s)".format(numAppliedJob))
     
     return numAppliedJob
 
@@ -211,7 +211,7 @@ def delete_job(name):
         for line in file:
             data = ast.literal_eval(line)
             if data["name"] == name and data["status"] == "deleted":
-                print ("A job " + data["title"] + " that you applied for has been deleted")
+                print ("A job that you applied for has been deleted: " + data["title"])
                 notification = 1
 
     return notification

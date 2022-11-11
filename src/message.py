@@ -32,7 +32,7 @@ def decideToRespond(user, messageFrom, numNewMessages):
     print("\nWould you like to respond the message(s)?:")
     print("\nPlease select an option:")
     print("[1] Yes, respond the message(s)")
-    print("[2] No, exit")
+    print("[2] No, continue")
     selection = input("Selection: ")
     
     if selection == "1":
@@ -68,7 +68,7 @@ def decideReadMessage(user, messageFrom, numNewMessages, obj):
     print("\nWould you like to read to the message(s)?:")
     print("\nPlease select an option:")
     print("[1] Yes, read the message(s)")
-    print("[2] No, exit")
+    print("[2] No, continue")
     selection = input("Selection: ")
     
     if selection == "1":
