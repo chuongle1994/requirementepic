@@ -53,7 +53,24 @@ def test_newMember():
     os.remove("passwords.txt")
     os.remove("users.txt")
     os.remove("profile.txt")
-    
 
+def test_sevenDays():
+    # Checks if student hasn't applied in 7 days, reminder appears
+    createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le")
+    notification.storeJobData("danh le")
 
+    #if has NOT applied in 7 days. Last date applied 11/11/2022
+    assert notification.NotApplyNotification("danh le", "11/18/2022") == 1
 
+    #update last date applied to 11/10/2022, today is 11/11/2022
+    notification.updateDate("danh le", "11/10/2022")
+
+    #if HAS applied in 7 days
+    assert notification.NotApplyNotification("tri le", "11/11/2022") == 0
+
+    os.remove("firstname.txt")
+    os.remove("fullname.txt")
+    os.remove("lastname.txt")
+    os.remove("passwords.txt")
+    os.remove("users.txt")
+    os.remove("jobNotification.txt")
