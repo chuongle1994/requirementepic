@@ -74,3 +74,40 @@ def test_sevenDays():
     os.remove("passwords.txt")
     os.remove("users.txt")
     os.remove("jobNotification.txt")
+
+def test_newJobPosted():
+    createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le")
+    createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le")
+    loginfunctions.existsJobPostsFile()
+    loginfunctions.existsCurrentUserData()
+    loginfunctions.storeUserData("danhle")
+    notification.storeJobData("danh le")
+    applicants = []
+    loginfunctions.createJobPost("12345", "engineer", "code", "google", "remote", "50k", applicants)
+    loginfunctions.createJobPost("54321", "engineer 2", "code 2", "google 2", "remote2", "150k", applicants)
+    #applied for no jobs
+    assert notification.total_appliedJob("tri le") == 0
+
+    loginfunctions.applyForJob(0, "tri le")
+    loginfunctions.writeApp("12345", 0, "tri le", "graddate", "workdate", "description")
+    os.remove("currentUserData.txt")
+    loginfunctions.storeUserData("trile")
+
+    assert notification.total_appliedJob("tri le") == 1
+    
+    loginfunctions.applyForJob(1, "tri le")
+    loginfunctions.writeApp("54321", 0, "tri le", "graddate", "workdate", "description")
+    assert notification.total_appliedJob("tri le") == 2
+
+    os.remove("firstname.txt")
+    os.remove("fullname.txt")
+    os.remove("lastname.txt")
+    os.remove("passwords.txt")
+    os.remove("users.txt")
+    os.remove("jobNotification.txt")
+    os.remove("applications.txt")
+    os.remove("currentUserData.txt")
+    os.remove("jobPosts.json")
+
+# def test_numAppliedJobs():
+#     return

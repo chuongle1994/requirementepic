@@ -177,7 +177,8 @@ def displaySelectedJob(index):
         print("Salary: " + obj["job-posts"][index]["salary"])
         applyInput = input("\nWhich of the following would you like to do?\n[1] Apply for the job\n[2] Save the listing\n[3] Unsave the listing\n[4] Return\nInput: ")
         if applyInput == '1':
-            applyForJob(index, getUsersName())
+            jobID, jobindex, name, str_date = applyForJob(index, getUsersName())
+            fillJobApplication(jobID, jobindex, name, str_date)
             return
         elif applyInput == '2':
             saveJob(index, getUsersName())
@@ -393,7 +394,9 @@ def applyForJob(index, name):
     open("jobPosts.json", "w").write(
                 json.dumps(obj, indent=4)
     )
+    return jobID, index, name, str_date
 
+def fillJobApplication(jobID, index, name, str_date):
     # Input for job application
     gradDate = input("Enter your graduation date: ")
     workDate = input("Enter the your preferred starting date: ")
