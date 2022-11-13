@@ -218,11 +218,16 @@ def displayAllJobTitles():
 def inputJobIndex():
     jobIndex = input("\nEnter the Job index you'd like to delete: ")
     numJobs = getNumberOfJobPosts()
-    if(int(jobIndex) >= 1 and int(jobIndex) <= numJobs):
-        return str(jobIndex)
+    if(jobIndex.isdigit()):
+        if(int(jobIndex) >= 1 and int(jobIndex) <= numJobs):
+            return str(jobIndex)
+        else:
+            print("Input is out of bounds. Try again.")
+            return inputJobIndex()
     else:
-        print("Input is out of bounds. Try again.")
+        print("Input is not an integer. Try again.")
         return inputJobIndex()
+
 
 def deleteJobByIndex(index):
     found = False
