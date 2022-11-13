@@ -750,7 +750,6 @@ def displayOptions():
     # Add navigation links
     linkFunctions.navigationLinks()
     linkFunctions.selectLinks()
-    message.displayInbox()
     
     print("\nPlease select an option:")
     print("[1] Search for a job / internship")
@@ -761,7 +760,8 @@ def displayOptions():
     print("[6] Edit profile")
     print("[7] View profile")
     print("[8] Send message")
-    print("[9] Return to previous level")
+    print("[9] View message")
+    print("[0] Return to previous level")
     selection = input("Selection: ")
 
     if selection == "1":
@@ -789,6 +789,9 @@ def displayOptions():
         message.send_message_prompt(getUsersName())
         return
     elif selection == "9":
+        message.displayInbox()
+        return
+    elif selection == "0":
         displayOptions()
         # clearFile("currentUserData.txt")
         return

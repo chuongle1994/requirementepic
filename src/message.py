@@ -25,7 +25,8 @@ def displayInbox():
                         else:
                             decideSaveOrDeleteMessage(currentUser, obj["all-messages"][messageIndex]["message-from"], numNewMessages)
                             decideToRespond(currentUser, obj["all-messages"][messageIndex]["message-from"], numNewMessages)
-                    
+                    else:
+                        print("No new message")
     return
 
 def decideToRespond(user, messageFrom, numNewMessages):
