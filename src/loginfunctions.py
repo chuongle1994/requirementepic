@@ -141,14 +141,19 @@ def selectJobTitle():
     selection = input("Selection: ")
 
     if selection == "1":
-        index = int(input("Enter the title index: "))
+        index = input("Enter the title index: ")
         numJobs = getNumberOfJobPosts()
-        if(index <= numJobs and index > 0):
-            displaySelectedJob(index-1)
+        if(index.isdigit()):
+            if(int(index) <= numJobs and int(index) > 0):
+                displaySelectedJob(int(index)-1)
+            else:
+                print("Incorrect input. Please try again.")
+                selectJobTitle()
+            return
         else:
-            print("Incorrect input. Please try again.")
+            print("Input is not an integer. Try again.")
             selectJobTitle()
-        return
+            return
     elif selection == "2":
         print("Exiting")
         return
