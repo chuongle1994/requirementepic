@@ -211,7 +211,7 @@ def delete_job(name):
         for line in file:
             data = ast.literal_eval(line)
             if data["name"] == name and data["status"] == "deleted":
-                print ("A job that you applied for has been deleted: " + data["title"])
+                print ("\nA job that you applied for has been deleted: " + data["title"])
                 notification = 1
 
     return notification

@@ -8,7 +8,7 @@ def displayInbox():
     existsMessages()
     currentUser = loginfunctions.getUsersName()
     if(os.stat("messagesList.json").st_size == 0):
-        #print("No new notifications")
+        print("No new message")
         return
 
     obj = json.load(open("messagesList.json"))
