@@ -30,9 +30,6 @@ def searchForAJob():
             existsJobs = displayAllJobTitles()
             if(existsJobs == True):
                 jobIndex = inputJobIndex()
-                sendNotificationsToUsers("deleted", int(jobIndex) - 1)
-                deleteSavedJobByIndex(int(jobIndex) - 1)
-                deleteApplicationsByIndex(int(jobIndex) - 1)
                 deleteJobByIndex(int(jobIndex) - 1)
             break
         elif selection == "3":
@@ -237,6 +234,9 @@ def deleteJobByIndex(index):
             if(obj["job-posts"][index]["poster-name"] == currentUser):
                 obj["job-posts"].pop(index)
                 found = True
+                sendNotificationsToUsers("deleted", index)
+                deleteSavedJobByIndex(index)
+                deleteApplicationsByIndex(index)
             else:
                 print("\nYou cannot delete a post you did not create.")
                 return
