@@ -232,11 +232,11 @@ def deleteJobByIndex(index):
     if(len(obj) != 0):
         if(len(obj["job-posts"]) != 0):
             if(obj["job-posts"][index]["poster-name"] == currentUser):
-                obj["job-posts"].pop(index)
-                found = True
                 sendNotificationsToUsers("deleted", index)
                 deleteSavedJobByIndex(index)
                 deleteApplicationsByIndex(index)
+                obj["job-posts"].pop(index)
+                found = True
             else:
                 print("\nYou cannot delete a post you did not create.")
                 return
