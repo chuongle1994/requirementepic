@@ -193,9 +193,7 @@ def total_appliedJob(name):
             if data['Name'] == name:
                 numAppliedJob += 1          
 
-    if numAppliedJob > 0:
-        print("\nYou have currently applied for {} job(s)".format(numAppliedJob))
-    
+    print("\nYou have currently applied for {} job(s)".format(numAppliedJob))
     return numAppliedJob
 
 #Add notification when students already applied for a deleted job
