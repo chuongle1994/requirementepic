@@ -59,8 +59,8 @@ def test_sevenDays():
     createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le")
     notification.storeJobData("danh le")
 
-    # if has NOT applied in 7 days. Last date applied 11/11/2022
-    assert notification.NotApplyNotification("danh le", "11/18/2022") == 1
+    # if has NOT applied in 7 days. Last date applied 11/13/2022
+    assert notification.NotApplyNotification("danh le", "11/21/2022") == 1
 
     # update last date applied to 11/10/2022, today is 11/11/2022
     notification.updateDate("danh le", "11/10/2022")

@@ -179,9 +179,12 @@ def displaySelectedJob(index):
         print("Salary: " + obj["job-posts"][index]["salary"])
         applyInput = input("\nWhich of the following would you like to do?\n[1] Apply for the job\n[2] Save the listing\n[3] Unsave the listing\n[4] Return\nInput: ")
         if applyInput == '1':
-            jobID, jobindex, name, str_date = applyForJob(index, getUsersName())
-            fillJobApplication(jobID, jobindex, name, str_date)
-            return
+            jobID, jobindex, name, str_date, access = applyForJob(index, getUsersName())
+            if(access == "access denied"):
+                return
+            else:
+                fillJobApplication(jobID, jobindex, name, str_date)
+                return
         elif applyInput == '2':
             saveJob(index, getUsersName())
             return
@@ -386,7 +389,7 @@ def applyForJob(index, name):
     obj = json.load(open("jobPosts.json"))
     if obj["job-posts"][index]["poster-name"] == name:
         print("You cannot apply for your own posted job")
-        return
+        return jobID, index, name, str_date, "access denied"
     else:
         jobID = obj["job-posts"][index]["jobID"]
 
@@ -397,14 +400,14 @@ def applyForJob(index, name):
                     for j in range(len(obj["job-posts"][i]["applicants-list"])):
                         if(name == obj["job-posts"][i]["applicants-list"][j]["name"]):
                             print("You have already applied for this job")
-                            return
+                            return jobID, index, name, str_date, "access denied"
 
     print("Poster: " + obj["job-posts"][index]["poster-name"])
     obj["job-posts"][index]["applicants-list"].append({"name":name})
     open("jobPosts.json", "w").write(
                 json.dumps(obj, indent=4)
     )
-    return jobID, index, name, str_date
+    return jobID, index, name, str_date, "access granted"
 
 def fillJobApplication(jobID, index, name, str_date):
     # Input for job application
