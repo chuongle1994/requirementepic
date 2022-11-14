@@ -15,11 +15,11 @@ def test_completeProfile():
     profileFunctions.writeProfileBase("Tri Le", "Tester", "ce", "uf", "Test4", "None", "None")
     profileFunctions.writeProfileBase("Dinh Le", "Data Analysist", "CS", "university", "", "None", "None")
 
-    assert profileFunctions.checkComplete("Hyunjung Lee") == "You have not finished creating your profile."
-    assert profileFunctions.checkComplete("Danh Le") == "You have not finished creating your profile."
-    assert profileFunctions.checkComplete("Chuong Le") == "You have not finished creating your profile."
-    assert profileFunctions.checkComplete("Tri Le") == "You have not finished creating your profile."
-    assert profileFunctions.checkComplete("Dinh Le") == "You have not finished creating your profile."
+    assert profileFunctions.checkComplete("Hyunjung Lee") == 0
+    assert profileFunctions.checkComplete("Danh Le") == 0
+    assert profileFunctions.checkComplete("Chuong Le") == 0
+    assert profileFunctions.checkComplete("Tri Le") == 0
+    assert profileFunctions.checkComplete("Dinh Le") == 0
 
     loginfunctions.clearFile("profile.txt")
 

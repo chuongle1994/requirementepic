@@ -4,16 +4,13 @@ import loginfunctions
 
 # Function for creating an empty friend list and pending list for user
 def createFriendList(username):
-    friendList = {"Username": username, "Friend Lists": [], "Pending Lists": []}
+    friendList = {"Username": username, "Friend Lists": [], "Pending Lists": [], "newStudent": []}
     friendListFile = open("friendList.txt", "a")
     friendListFile.write("{}\n".format(friendList))
     friendListFile.close()
 
 # Function for providing options to search students
 def search():
-    #clear screen
-    os.system('cls' if os.name == 'nt' else 'clear')
-
     print("\nDo you want to connect with other students?")
     print("[1] Search by lastname")
     print("[2] Search by university")

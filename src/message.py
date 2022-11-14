@@ -8,7 +8,7 @@ def displayInbox():
     existsMessages()
     currentUser = loginfunctions.getUsersName()
     if(os.stat("messagesList.json").st_size == 0):
-        #print("No new notifications")
+        print("No new message")
         return
 
     obj = json.load(open("messagesList.json"))
@@ -25,14 +25,15 @@ def displayInbox():
                         else:
                             decideSaveOrDeleteMessage(currentUser, obj["all-messages"][messageIndex]["message-from"], numNewMessages)
                             decideToRespond(currentUser, obj["all-messages"][messageIndex]["message-from"], numNewMessages)
-                    
+                    else:
+                        print("No new message")
     return
 
 def decideToRespond(user, messageFrom, numNewMessages):
     print("\nWould you like to respond the message(s)?:")
     print("\nPlease select an option:")
     print("[1] Yes, respond the message(s)")
-    print("[2] No, exit")
+    print("[2] No, continue")
     selection = input("Selection: ")
     
     if selection == "1":
@@ -68,7 +69,7 @@ def decideReadMessage(user, messageFrom, numNewMessages, obj):
     print("\nWould you like to read to the message(s)?:")
     print("\nPlease select an option:")
     print("[1] Yes, read the message(s)")
-    print("[2] No, exit")
+    print("[2] No, continue")
     selection = input("Selection: ")
     
     if selection == "1":

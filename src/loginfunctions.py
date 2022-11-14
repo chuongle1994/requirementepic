@@ -2,13 +2,15 @@ from os.path import exists
 import os
 import uuid
 import json
-import linkFunctions, friendList, profileFunctions, message
+import linkFunctions, friendList, profileFunctions, message, homeFunctions, notification
 import ast
+from datetime import date
 
 #search for job page
 
 def searchForAJob():
     displayNotifications()
+    notification.total_appliedJob(getUsersName())
 
     while(True):
         print("\nPlease select an option:")
@@ -28,9 +30,6 @@ def searchForAJob():
             existsJobs = displayAllJobTitles()
             if(existsJobs == True):
                 jobIndex = inputJobIndex()
-                sendNotificationsToUsers("deleted", int(jobIndex) - 1)
-                deleteSavedJobByIndex(int(jobIndex) - 1)
-                deleteApplicationsByIndex(int(jobIndex) - 1)
                 deleteJobByIndex(int(jobIndex) - 1)
             break
         elif selection == "3":
@@ -142,14 +141,19 @@ def selectJobTitle():
     selection = input("Selection: ")
 
     if selection == "1":
-        index = int(input("Enter the title index: "))
+        index = input("Enter the title index: ")
         numJobs = getNumberOfJobPosts()
-        if(index <= numJobs and index > 0):
-            displaySelectedJob(index-1)
+        if(index.isdigit()):
+            if(int(index) <= numJobs and int(index) > 0):
+                displaySelectedJob(int(index)-1)
+            else:
+                print("Incorrect input. Please try again.")
+                selectJobTitle()
+            return
         else:
-            print("Incorrect input. Please try again.")
+            print("Input is not an integer. Try again.")
             selectJobTitle()
-        return
+            return
     elif selection == "2":
         print("Exiting")
         return
@@ -175,8 +179,12 @@ def displaySelectedJob(index):
         print("Salary: " + obj["job-posts"][index]["salary"])
         applyInput = input("\nWhich of the following would you like to do?\n[1] Apply for the job\n[2] Save the listing\n[3] Unsave the listing\n[4] Return\nInput: ")
         if applyInput == '1':
-            applyForJob(index, getUsersName())
-            return
+            jobID, jobindex, name, str_date, access = applyForJob(index, getUsersName())
+            if(access == "access denied"):
+                return
+            else:
+                fillJobApplication(jobID, jobindex, name, str_date)
+                return
         elif applyInput == '2':
             saveJob(index, getUsersName())
             return
@@ -218,11 +226,16 @@ def displayAllJobTitles():
 def inputJobIndex():
     jobIndex = input("\nEnter the Job index you'd like to delete: ")
     numJobs = getNumberOfJobPosts()
-    if(int(jobIndex) >= 1 or int(jobIndex) <= numJobs):
-        return jobIndex
+    if(jobIndex.isdigit()):
+        if(int(jobIndex) >= 1 and int(jobIndex) <= numJobs):
+            return str(jobIndex)
+        else:
+            print("Input is out of bounds. Try again.")
+            return inputJobIndex()
     else:
-        print("Input is out of bounds. Try again.")
-        inputJobIndex()
+        print("Input is not an integer. Try again.")
+        return inputJobIndex()
+
 
 def deleteJobByIndex(index):
     found = False
@@ -232,6 +245,9 @@ def deleteJobByIndex(index):
     if(len(obj) != 0):
         if(len(obj["job-posts"]) != 0):
             if(obj["job-posts"][index]["poster-name"] == currentUser):
+                sendNotificationsToUsers("deleted", index)
+                deleteSavedJobByIndex(index)
+                deleteApplicationsByIndex(index)
                 obj["job-posts"].pop(index)
                 found = True
             else:
@@ -348,6 +364,7 @@ def inputJobInfo():
     salary = input("Salary: ")    
     applicantsList = []
     createJobPost(jobID, title, description, employer, location, salary, applicantsList)
+    notification.saveNewJob(getUsersName(), title)
     return
 
 def getNumberOfJobPosts():
@@ -357,6 +374,10 @@ def getNumberOfJobPosts():
         return numberOfJobs
 
 def applyForJob(index, name):
+    # save date of today with string format
+    today = date.today()
+    str_date = today.strftime("%m/%d/%Y")
+
     fileExist = exists("applications.txt")
     jobID = ""
 
@@ -368,7 +389,7 @@ def applyForJob(index, name):
     obj = json.load(open("jobPosts.json"))
     if obj["job-posts"][index]["poster-name"] == name:
         print("You cannot apply for your own posted job")
-        return
+        return jobID, index, name, str_date, "access denied"
     else:
         jobID = obj["job-posts"][index]["jobID"]
 
@@ -379,19 +400,22 @@ def applyForJob(index, name):
                     for j in range(len(obj["job-posts"][i]["applicants-list"])):
                         if(name == obj["job-posts"][i]["applicants-list"][j]["name"]):
                             print("You have already applied for this job")
-                            return
+                            return jobID, index, name, str_date, "access denied"
 
     print("Poster: " + obj["job-posts"][index]["poster-name"])
     obj["job-posts"][index]["applicants-list"].append({"name":name})
     open("jobPosts.json", "w").write(
                 json.dumps(obj, indent=4)
     )
+    return jobID, index, name, str_date, "access granted"
 
+def fillJobApplication(jobID, index, name, str_date):
     # Input for job application
     gradDate = input("Enter your graduation date: ")
     workDate = input("Enter the your preferred starting date: ")
     desc = input("Why do you think you're fit for this job?\nParagraph: ")
     writeApp(jobID, index, name, gradDate, workDate, desc)
+    notification.updateDate(getUsersName(), str_date)
 
 def writeApp(jobID, index, name, gradDate, workDate, desc):
     output = { "jobID": jobID, "Index" : index, "Name" : name, "gradDate" : gradDate, "workDate" : workDate, "Desc" : desc}
@@ -658,15 +682,14 @@ def writeJobPost(jobObject, appendingData, fileName):
             file_data["job-posts"].append(appendingData)
             file.seek(0)
             json.dump(file_data, file, indent = 4)
-    print("\nYour job has been posted.") 
+    print("\nYour job has been posted.")
     return
 
 
 #find someone you know page
 def findSomeone():
-    print("\nunder construction")
-    response = "\nunder construction"
-    return response
+    homeFunctions.connectPeople()
+    return
 
 #skill1 page
 def frontendDevelopment():
@@ -734,10 +757,12 @@ def learnSkill():
 
 #select options menu
 def displayOptions():
+    #clear screen
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     # Add navigation links
     linkFunctions.navigationLinks()
     linkFunctions.selectLinks()
-    message.displayInbox()
     
     print("\nPlease select an option:")
     print("[1] Search for a job / internship")
@@ -748,7 +773,8 @@ def displayOptions():
     print("[6] Edit profile")
     print("[7] View profile")
     print("[8] Send message")
-    print("[9] Return to previous level")
+    print("[9] View message")
+    print("[0] Return to previous level")
     selection = input("Selection: ")
 
     if selection == "1":
@@ -776,7 +802,11 @@ def displayOptions():
         message.send_message_prompt(getUsersName())
         return
     elif selection == "9":
-        clearFile("currentUserData.txt")
+        message.displayInbox()
+        return
+    elif selection == "0":
+        displayOptions()
+        # clearFile("currentUserData.txt")
         return
     else: 
         print("\nInvalid input. Try selecting an option again.")
@@ -860,7 +890,6 @@ def validateLogin(user, password):
         return False
 
 def storeUserData(user):
-    print("storing user data")
     userIndex = 0
     nameIndex = 0
     userFullName = ""
@@ -889,6 +918,9 @@ def storeUserData(user):
 
     
 def loginPage():
+    # save date of today with string format
+    today = date.today()
+    str_date = today.strftime("%m/%d/%Y")
 
     isSuccessfulLogin = False     
 
@@ -906,6 +938,12 @@ def loginPage():
         if validation == True: 
             print("\nYou have successfully logged in")
             storeUserData(user)
+            notification.NotApplyNotification(getUsersName(), str_date)
+            notification.profileNotification(getUsersName())
+            notification.messageNotification(getUsersName())
+            notification.newJobNotification(getUsersName())
+            notification.delete_job(getUsersName())
+            notification.newStudentNotification(getUsersName())
             friendList.pendingScreen()
             friendList.search()
             isSuccessfulLogin = True

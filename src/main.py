@@ -1,4 +1,4 @@
-import loginfunctions, createAccountFunctions, homeFunctions, linkFunctions
+import loginfunctions, homeFunctions, linkFunctions
 
 
 def main():
@@ -16,29 +16,8 @@ def main():
     linkFunctions.navigationLinks()
     linkFunctions.selectLinks()
 
-    # Login screen
-    print("\nPlease select an option to login:")
-    print("[1] Log in")
-    print("[2] Create an Account")
-    print("[3] Connect with others")
-    select = input("Selection: ")
-    # Selection functions
-    if select == "1":
-        loginfunctions.loginPage()
-        loginfunctions.clearFile("currentUserData.txt")
-        main()
-
-    elif select == "2":
-        # Perform account creation process
-        createAccountFunctions.createAcc()
-
-    elif select == "3":
-        homeFunctions.connectPeople()
-        main()
-
-    else:
-        print("Invalid option, terminating program")
-        exit()
+    # Add sign-in screen
+    homeFunctions.signInScreen()
 
     loginfunctions.clearFile("currentUserData.txt")
     return

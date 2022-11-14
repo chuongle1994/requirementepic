@@ -1,5 +1,5 @@
 import os
-import loginfunctions
+import loginfunctions, homeFunctions
 import ast
 
 def navigationLinks():  
@@ -71,7 +71,7 @@ def general():
     select = input("Please select an option (0 to exit): ")
     if select == "1":
         signUp()
-        previousToGeneral()
+        exit()
     elif select == "2":
         helpCenter()
         previousToGeneral()
@@ -143,7 +143,8 @@ def previousToNavi():
     
 # Useful Links: General: 1. Sign Up
 def signUp():
-    loginfunctions.loginPage()
+    loginfunctions.clearFile("currentUserData.txt")
+    homeFunctions.signInScreen()
 
 # Useful Links: General: 2. Help Center
 def helpCenter():
