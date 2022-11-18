@@ -2,6 +2,7 @@ from os.path import exists
 import os
 import json
 import ast
+import loginfunctions
 # create jobAPI
 def createJobApi():
     if exists("MyCollege_jobs.txt") == 0:
@@ -39,17 +40,19 @@ def updateProfileApi():
             data = ast.literal_eval(line)
             profiles.append(data)
     
-    educarions = []
-    with open("profEducation.txt", "r") as file:
-        for line in file:
-            data = ast.literal_eval(line)
-            educarions.append(data)
+    educations = []
+    if exists("profEducation.txt"):
+        with open("profEducation.txt", "r") as file:
+            for line in file:
+                data = ast.literal_eval(line)
+                educations.append(data)
 
     experiences = []
-    with open("profExperience.txt", "r") as file:
-        for line in file:
-            data = ast.literal_eval(line)
-            experiences.append(data)
+    if exists("profExperience.txt"):
+        with open("profExperience.txt", "r") as file:
+            for line in file:
+                data = ast.literal_eval(line)
+                experiences.append(data)
 
 
     with open("MyCollege_profiles.txt", 'w') as file:
@@ -58,8 +61,14 @@ def updateProfileApi():
     with open("MyCollege_profiles.txt", 'a') as file:
         for i in profiles:
             file.write(f'{i["Title"]}\n{i["Major"]}\n{i["University"]}\n{i["About"]}\n{i["Experience"]}\n')
+            # write experience of user
             for exp in experiences:
-                file.write(f'{exp["Title"]}\n{exp["Employer"]}\n{exp["Start"]}\n{exp["End"]}\n{exp["Location"]}\n{exp["Description"]}\n')
+                if exp["Name"] == i["Username"]:
+                    file.write(f'{exp["Title"]}\n{exp["Employer"]}\n{exp["Start"]}\n{exp["End"]}\n{exp["Location"]}\n{exp["Description"]}\n')
             file.write(f'{i["Education"]}\n')
-            for edu in educarions:
-                file.write(f'{edu["School"]}\n {edu["Degree"]}\n {edu["Years"]}\n=====\n')
+            # write education of user
+            for edu in educations:
+                if edu["Name"] == i["Username"]:
+                    file.write(f'{edu["School"]}\n {edu["Degree"]}\n {edu["Years"]}\n')
+            
+            file.write("=====\n")
