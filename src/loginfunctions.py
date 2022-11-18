@@ -363,7 +363,7 @@ def inputJobInfo():
     location = input("Location: ")
     salary = input("Salary: ")    
     applicantsList = []
-    createJobPost(jobID, title, description, employer, location, salary, applicantsList)
+    createJobPost(jobID, title, description, employer, location, salary, getUsersName(), applicantsList)
     notification.saveNewJob(getUsersName(), title)
     return
 
@@ -637,9 +637,9 @@ def getUsersName():
             break
     return usersName
 
-def createJobPost(jobID, title, description, employer, location, salary, applicantsList):
+def createJobPost(jobID, title, description, employer, location, salary, postername, applicantsList):
 
-    usersName = getUsersName()
+    # usersName = getUsersName()
 
     new_data = {
         'job-posts' : [
@@ -650,7 +650,7 @@ def createJobPost(jobID, title, description, employer, location, salary, applica
                 "employer": employer,
                 "location": location,
                 "salary": salary,
-                "poster-name": usersName,
+                "poster-name": postername,
                 "applicants-list": applicantsList
             }
         ]
@@ -662,7 +662,7 @@ def createJobPost(jobID, title, description, employer, location, salary, applica
                     "employer": employer,
                     "location": location,
                     "salary": salary,
-                    "poster-name": usersName,
+                    "poster-name": postername,
                     "applicants-list": applicantsList
                     }
 
