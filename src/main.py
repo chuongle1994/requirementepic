@@ -11,13 +11,12 @@ def main():
     # Run all input APIs
     apiFunctions.inputAccountAPI()
     apiFunctions.inputJobsAPI()
-
     # Run all output APIs
     apiFunctions.outputUsersAPI()
     apiFunctions.outputAppliedJobsAPI()
     apiFunctions.outputSavedJobsAPI()
-    apiFunctions.updateJobApi()
-    apiFunctions.updateProfileApi()
+    apiFunctions.outputJobApi()
+    apiFunctions.outputProfileApi()
     
     # trigger success story
     homeFunctions.successStory()

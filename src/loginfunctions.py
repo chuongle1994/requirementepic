@@ -424,6 +424,8 @@ def writeApp(jobID, index, name, gradDate, workDate, desc):
     appFile.write("{}\n".format(output))
     appFile.close()
 
+    # api.appliedJobsApi()
+
 def displayApps(name):
     jobListing = []
     indices = []
@@ -688,7 +690,7 @@ def writeJobPost(jobObject, appendingData, fileName):
             json.dump(file_data, file, indent = 4)
     print("\nYour job has been posted.")
     # Re-run the output API
-    apiFunctions.updateJobApi()
+    apiFunctions.outputJobApi()
     return
 
 

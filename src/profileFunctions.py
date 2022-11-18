@@ -11,6 +11,8 @@ def createProfile(username, lastname):
     profileFile.write("{}\n".format(profile))
     profileFile.close()
 
+    apiFunctions.outputProfileApi()
+
 # Function to write data into the base profile
 def writeProfileBase(name, title, major, university, information, experience, education):
     profile = []
@@ -39,7 +41,7 @@ def writeProfileBase(name, title, major, university, information, experience, ed
         fw.writelines(profile)
 
     # Re-run the output API
-    apiFunctions.updateProfileApi()
+    apiFunctions.outputProfileApi()
 
 # Function to write data into the experience
 def writeExperience(name, title, employer, start, end, location, desc, newtitle):
@@ -75,6 +77,8 @@ def writeExperience(name, title, employer, start, end, location, desc, newtitle)
     with open("profExperience.txt", "w") as fw:
         fw.writelines(experience)
 
+    apiFunctions.outputProfileApi()
+
 # Function to write data into the education
 def writeEducation(name, university, degree, years, newuni):
     # If the file does not exist, then create it
@@ -105,6 +109,8 @@ def writeEducation(name, university, degree, years, newuni):
 
     with open("profEducation.txt", "w") as fw:
         fw.writelines(education)
+
+    apiFunctions.outputProfileApi()
 
 # Function to add data into the profile
 def personalProfile():

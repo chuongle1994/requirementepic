@@ -231,7 +231,7 @@ def createJobApi():
         file = open("MyCollege_jobs.txt", "w")
         file.close()
 
-def updateJobApi():
+def outputJobApi():
     createJobApi()
 
     if(os.stat("jobPosts.json").st_size == 0):
@@ -256,7 +256,7 @@ def createProfileApi():
         file = open("MyCollege_profiles.txt", "w")
         file.close()
 
-def updateProfileApi():
+def outputProfileApi():
     createProfileApi()
 
     # Checks if the profile file exists
