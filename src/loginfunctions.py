@@ -549,6 +549,7 @@ def saveJob(index, name):
     saveFile.close()
 
     print("Successfully saved the job listing")
+    apiFunctions.outputSavedJobsAPI()
 
 def unsaveJob(index):
     currentUser = getUsersName()

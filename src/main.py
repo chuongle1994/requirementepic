@@ -15,6 +15,7 @@ def main():
     # Run output APIs
     apiFunctions.outputUsersAPI()
     apiFunctions.outputAppliedJobsAPI()
+    apiFunctions.outputSavedJobsAPI()
 
     # trigger success story
     homeFunctions.successStory()

@@ -163,3 +163,43 @@ def outputAppliedJobsAPI():
                         break
                 fw.write("=====" + "\n")
         fw.close()
+
+# Output: Saved Jobs
+def outputSavedJobsAPI():
+    fileName = "MyCollege_savedJobs.txt"
+    jobList = []
+    savedList = []
+
+    if exists(fileName) == 0:
+        file = open(fileName, "a")
+        file.close()
+    else:
+        filesize = os.path.getsize("jobPosts.json")
+        if filesize != 0:
+            obj = json.load(open("jobPosts.json"))
+            if(len(obj) != 0):
+                if(len(obj["job-posts"]) != 0):
+                    for index in range(len(obj["job-posts"])):
+                        jobID = obj["job-posts"][index]["jobID"]
+                        title = obj["job-posts"][index]["title"]
+                        jobs = {"jobID": jobID, "title": title}
+                        jobList.append(jobs)
+        
+        if exists("savedListings.txt") == 0:
+            file = open("savedListings.txt", "a")
+            file.close()
+        
+        with open("savedListings.txt", "r") as file:
+            for line in file:
+                data = ast.literal_eval(line)
+                savedList.append(data)
+        file.close()
+
+        with open(fileName, "w") as fw:
+            for user in savedList:
+                for job in jobList:
+                    if job["jobID"] == user["jobID"]:
+                        fw.write(f'{user["Name"]} {job["title"]}\n')
+                        break
+                fw.write("=====" + "\n")
+        fw.close()
