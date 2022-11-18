@@ -2,7 +2,7 @@ from os.path import exists
 import os
 import uuid
 import json
-import linkFunctions, friendList, profileFunctions, message, homeFunctions, notification
+import linkFunctions, friendList, profileFunctions, message, homeFunctions, notification, apiFunctions
 import ast
 from datetime import date
 import api
@@ -180,6 +180,7 @@ def displaySelectedJob(index):
         applyInput = input("\nWhich of the following would you like to do?\n[1] Apply for the job\n[2] Save the listing\n[3] Unsave the listing\n[4] Return\nInput: ")
         if applyInput == '1':
             jobID, jobindex, name, str_date, access = applyForJob(index, getUsersName())
+            apiFunctions.outputAppliedJobsAPI()
             if(access == "access denied"):
                 return
             else:

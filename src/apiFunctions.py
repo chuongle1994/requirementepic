@@ -1,5 +1,5 @@
 from os.path import exists
-import uuid, os, ast
+import uuid, os, ast, json
 import createAccountFunctions, linkFunctions, profileFunctions, friendList, notification, loginfunctions
 
 # Input: Student Account API
@@ -13,7 +13,7 @@ def inputAccountAPI():
 
                 if line == "=====\n" or line == "=====":
                     createAccountFunctions.storeData(username, password, firstname, lastname, fullname)
-                    createAccountFunctions.promptMembership("0", fullname)
+                    createAccountFunctions.promptMembership("0", fullname, username)
                     linkFunctions.firstControlsSetting(fullname)
                     linkFunctions.firstLanguageSetting(fullname)
                     profileFunctions.createProfile(fullname, lastname)
@@ -97,6 +97,13 @@ def outputUsersAPI():
         file.close()
 
     else:
+        fileExist = exists("membership.txt")
+
+        # Checks if the file exists
+        if fileExist == 0:
+            file = open("membership.txt", "a")
+            file.close()
+
         with open("membership.txt", "r") as file:
             for line in file:
                 data = ast.literal_eval(line)
@@ -114,3 +121,45 @@ def outputUsersAPI():
         fw.close()
 
     return
+
+# Output: Applied Jobs
+def outputAppliedJobsAPI():
+    fileName = "MyCollege_appliedJobs.txt"
+    jobList = []
+    applicationList = []
+
+    if exists(fileName) == 0:
+        file = open(fileName, "a")
+        file.close()
+
+    else:
+        filesize = os.path.getsize("jobPosts.json")
+        if filesize != 0:
+            obj = json.load(open("jobPosts.json"))
+            if(len(obj) != 0):
+                if(len(obj["job-posts"]) != 0):
+                    for index in range(len(obj["job-posts"])):
+                        jobID = obj["job-posts"][index]["jobID"]
+                        title = obj["job-posts"][index]["title"]
+                        jobs = {"jobID": jobID, "title": title}
+                        jobList.append(jobs)
+        
+        if exists("applications.txt") == 0:
+            file = open("applications.txt", "a")
+            file.close()
+        
+        with open("applications.txt", "r") as file:
+            for line in file:
+                data = ast.literal_eval(line)
+                applicationList.append(data)
+        file.close()
+
+        with open(fileName, "w") as fw:
+            for job in jobList:
+                fw.write(f'{job["title"]}\n')
+                for user in applicationList:
+                    if job["jobID"] == user["jobID"]:
+                        fw.write(f'{user["Name"]}\n{user["Desc"]}\n')
+                        break
+                fw.write("=====" + "\n")
+        fw.close()
