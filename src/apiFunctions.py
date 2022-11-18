@@ -115,10 +115,8 @@ def outputUsersAPI():
         file.close()
 
     else:
-        fileExist = exists("membership.txt")
-
-        # Checks if the file exists
-        if fileExist == 0:
+        # Checks if the membership file exists
+        if exists("membership.txt") == 0:
             file = open("membership.txt", "a")
             file.close()
 
@@ -176,9 +174,8 @@ def outputAppliedJobsAPI():
             for job in jobList:
                 fw.write(f'{job["title"]}\n')
                 for user in applicationList:
-                    if job["jobID"] == user["jobID"]:
-                        fw.write(f'{user["Name"]}\n{user["Desc"]}\n')
-                        break
+                    if user["jobID"] == job["jobID"]:
+                        fw.write(f'{user["Name"]} {user["Desc"]}\n')
                 fw.write("=====" + "\n")
         fw.close()
 
@@ -255,6 +252,11 @@ def createProfileApi():
 
 def updateProfileApi():
     createProfileApi()
+
+    # Checks if the profile file exists
+    if exists("profile.txt") == 0:
+        file = open("profile.txt", "a")
+        file.close()
 
     profiles = []
     with open("profile.txt", "r") as file:

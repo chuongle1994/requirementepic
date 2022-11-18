@@ -179,8 +179,6 @@ def displaySelectedJob(index):
         applyInput = input("\nWhich of the following would you like to do?\n[1] Apply for the job\n[2] Save the listing\n[3] Unsave the listing\n[4] Return\nInput: ")
         if applyInput == '1':
             jobID, jobindex, name, str_date, access = applyForJob(index, getUsersName())
-            # Re-run the output API
-            apiFunctions.outputAppliedJobsAPI()
             if(access == "access denied"):
                 return
             else:
@@ -417,6 +415,8 @@ def fillJobApplication(jobID, index, name, str_date):
     desc = input("Why do you think you're fit for this job?\nParagraph: ")
     writeApp(jobID, index, name, gradDate, workDate, desc)
     notification.updateDate(getUsersName(), str_date)
+    # Re-run the output API
+    apiFunctions.outputAppliedJobsAPI()
 
 def writeApp(jobID, index, name, gradDate, workDate, desc):
     output = { "jobID": jobID, "Index" : index, "Name" : name, "gradDate" : gradDate, "workDate" : workDate, "Desc" : desc}
