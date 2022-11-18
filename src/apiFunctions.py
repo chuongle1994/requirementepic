@@ -55,6 +55,7 @@ def inputJobsAPI():
     fileName = "newJobs.txt"
     jobList = []
 
+    # Store the job title in our system
     filesize = os.path.getsize("jobPosts.json")
     if filesize != 0:
         obj = json.load(open("jobPosts.json"))
@@ -64,6 +65,7 @@ def inputJobsAPI():
                     title = obj["job-posts"][index]["title"]
                     jobList.append(title)
 
+    # Check the file exists
     if exists(fileName):
         with open(fileName) as file:
             lines = file.read()
@@ -72,18 +74,21 @@ def inputJobsAPI():
             for jobPost in jobPosts:
                 if jobPost == "":
                     break
+                # check maximum number of job posts
                 filesize = os.path.getsize("jobPosts.json")
                 if filesize != 0:
                     if loginfunctions.getNumberOfJobPosts() >= 10:
                         print("\nThe system can only permit up to 10 jobs to be posted.")
                         break
+                
                 jobPost = jobPost.split("&&&\n")
                 jobInfo1 = jobPost[0].split("\n")
                 jobInfo2 = jobPost[1].split("\n")
                 title = jobInfo1[0]
+                # check the title has a different name than the post already in the system
                 if title in jobList:
                     print("The title of the new job already exists.")
-                    break
+                    continue
                 description = jobInfo1[1]
                 postername = jobInfo2[0]
                 employer = jobInfo2[1]
@@ -93,7 +98,6 @@ def inputJobsAPI():
                 applicantsList = []
                 loginfunctions.createJobPost(jobID, title, description, employer, location, salary, postername, applicantsList)
                 notification.saveNewJob(postername, title)
-
         file.close()
 
     # else:
