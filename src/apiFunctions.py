@@ -175,7 +175,7 @@ def outputAppliedJobsAPI():
                 fw.write(f'{job["title"]}\n')
                 for user in applicationList:
                     if user["jobID"] == job["jobID"]:
-                        fw.write(f'{user["Name"]} {user["Desc"]}\n')
+                        fw.write(f'{user["Name"]}: {user["Desc"]}\n')
                 fw.write("=====" + "\n")
         fw.close()
 
@@ -184,6 +184,7 @@ def outputSavedJobsAPI():
     fileName = "MyCollege_savedJobs.txt"
     jobList = []
     savedList = []
+    userList = []
 
     if exists(fileName) == 0:
         file = open(fileName, "a")
@@ -208,15 +209,20 @@ def outputSavedJobsAPI():
             for line in file:
                 data = ast.literal_eval(line)
                 savedList.append(data)
+                username = data["Name"]
+                if username not in userList:
+                    userList.append(username)
         file.close()
 
         with open(fileName, "w") as fw:
-            for user in savedList:
-                for job in jobList:
-                    if job["jobID"] == user["jobID"]:
-                        fw.write(f'{user["Name"]} {job["title"]}\n')
-                        break
-                fw.write("=====" + "\n")
+            for user in userList:
+                fw.write(f'{user}: ')
+                for list in savedList:
+                    if list["Name"] == user:
+                        for job in jobList:
+                            if list["jobID"] == job["jobID"]:
+                                fw.write(f'{job["title"]} ')
+                fw.write("\n" + "=====" + "\n")
         fw.close()
     
 # create jobAPI
