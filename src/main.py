@@ -12,6 +12,9 @@ def main():
     apiFunctions.inputAccountAPI()
     apiFunctions.inputJobsAPI()
 
+    # Run output APIs
+    apiFunctions.outputUsersAPI()
+
     # trigger success story
     homeFunctions.successStory()
 

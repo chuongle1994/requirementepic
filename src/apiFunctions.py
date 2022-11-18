@@ -1,5 +1,5 @@
 from os.path import exists
-import uuid, os
+import uuid, os, ast
 import createAccountFunctions, linkFunctions, profileFunctions, friendList, notification, loginfunctions
 
 # Input: Student Account API
@@ -20,6 +20,7 @@ def inputAccountAPI():
                     friendList.createFriendList(fullname)
                     notification.addNewStudentList(fullname)
                     notification.storeJobData(fullname)
+                    outputUsersAPI()
                 elif ' ' in line:
                     accLimit = createAccountFunctions.checkAccNum()
                     # check maximum number of student account
@@ -85,3 +86,31 @@ def inputJobsAPI():
     #     print("\nNo Input API File.")
 
     return 
+
+# Output: Users
+def outputUsersAPI():
+    fileName = "MyCollege_users.txt"
+    userList = []
+
+    if exists(fileName) == 0:
+        file = open(fileName, "a")
+        file.close()
+
+    else:
+        with open("membership.txt", "r") as file:
+            for line in file:
+                data = ast.literal_eval(line)
+                username = data["username"]
+                membership = data["Membership_Type"]
+                info = username + ' ' + membership
+                userList.append(info)
+        file.close()
+
+        for index in range(len(userList)):
+            userList[index] = str(userList[index]) + "\n"
+
+        with open(fileName, "w") as fw:
+            fw.writelines(userList)
+        fw.close()
+
+    return

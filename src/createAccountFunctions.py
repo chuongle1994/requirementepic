@@ -1,4 +1,4 @@
-import linkFunctions, friendList, profileFunctions, notification
+import linkFunctions, friendList, profileFunctions, notification, apiFunctions
 def checkAccNum():
     #Count the current number of account created
         numAccounts = 0
@@ -40,7 +40,7 @@ def createAcc():
         newFullname = newFirstname + " " + newLastname
         storeData(newUser, newPass, newFirstname, newLastname, newFullname)
         membership = input("Do you want to be a plus member? You will be charged $10 per month.(1 = yes or 0 = no): ")
-        promptMembership(membership, newFullname)
+        promptMembership(membership, newFullname, newUser)
 
         linkFunctions.firstControlsSetting(newFullname)
         linkFunctions.firstLanguageSetting(newFullname)
@@ -48,23 +48,24 @@ def createAcc():
         friendList.createFriendList(newFullname)
         notification.addNewStudentList(newFullname)
         notification.storeJobData(newFullname)
+        apiFunctions.outputUsersAPI()
     return
 
-def promptMembership(membership, newFullname):
+def promptMembership(membership, newFullname, newUser):
     if membership == "1":
-        mem = {'fullName': newFullname, 'Membership_Type':'Plus'}
+        mem = {'username': newUser, 'fullName': newFullname, 'Membership_Type':'Plus'}
         with open('membership.txt','a') as data: 
             data.write(f"{str(mem)}\n")
         data.close()
     elif membership == "0":
-        mem = {'fullName': newFullname, 'Membership_Type':'Standard'}
+        mem = {'username': newUser, 'fullName': newFullname, 'Membership_Type':'Standard'}
         with open('membership.txt','a') as data: 
             data.write(f"{str(mem)}\n")
         data.close()
     else:
         print("Incorrect input. Please try again.")
         membership = input("Do you want to be a plus member? You will be charged $10 per month.(1 = yes or 0 = no): ")
-        promptMembership(membership, newFullname)
+        promptMembership(membership, newFullname, newUser)
 
 def checkUser(newUser):
     #Check if there is a duplicate username
