@@ -5,7 +5,7 @@ import json
 import linkFunctions, friendList, profileFunctions, message, homeFunctions, notification
 import ast
 from datetime import date
-
+import api
 #search for job page
 
 def searchForAJob():
@@ -670,6 +670,7 @@ def createJobPost(jobID, title, description, employer, location, salary, postern
 
 def writeJobPost(jobObject, appendingData, fileName):
     
+    
     filesize = os.path.getsize(fileName)
     
     if filesize == 0:
@@ -683,6 +684,8 @@ def writeJobPost(jobObject, appendingData, fileName):
             file.seek(0)
             json.dump(file_data, file, indent = 4)
     print("\nYour job has been posted.")
+    api.createJobApi()
+    api.updateJobApi()
     return
 
 

@@ -3,6 +3,7 @@ import os
 import ast
 import loginfunctions, homeFunctions
 from os.path import exists
+import api
 
 # Function to create a personal profile with friend lists
 def createProfile(username, lastname):
@@ -37,6 +38,9 @@ def writeProfileBase(name, title, major, university, information, experience, ed
 
     with open("profile.txt", "w") as fw:
         fw.writelines(profile)
+
+    api.createProfileApi()
+    api.updateProfileApi()
 
 # Function to write data into the experience
 def writeExperience(name, title, employer, start, end, location, desc, newtitle):
