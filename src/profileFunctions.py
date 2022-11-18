@@ -247,23 +247,27 @@ def editProfile():
         getEducation()
     elif editInput == '7':
         experiences = []
+        count = 0
+        flag = 0
         with open("profExperience.txt", "r") as file:
             for line in file:
                 data = ast.literal_eval(line)
                 experiences.append(data)
         file.close()
 
-        if experiences.count == 0:
-            print("You have do not have any experiences.")
-            return
-
         print("Here are your experience(s) by title:")
         for user in experiences:
             if user["Name"] == userName:
                 print(user["Title"])
+                count += 1
+
+        if count == 0:
+            print("None")
+            return
 
         selection = input("Please select a title to modify: ")
         for user in experiences:
+            flag += 1
             if user["Name"] == userName:
                 if user["Title"] == selection:
                     titlein = user["Title"]
@@ -273,8 +277,9 @@ def editProfile():
                     locationin = user["Location"]
                     descin = user["Description"]
                     break
-            print("Invalid input")
-            return
+                elif flag == experiences.count:
+                    print("Invalid input")
+                    return
         
         expModify = input("[1] Title\n[2] Employer\n[3] Start date\n[4] End date\n[5] Location\n[6] Description\nInput: ")
         if expModify == '1':
@@ -295,6 +300,7 @@ def editProfile():
         writeExperience(userName, selection, empin, startin, endin, locationin, descin, titlein)
     elif editInput == '8':
         education = []
+        flag = 0
         with open("profEducation.txt", "r") as file:
             for line in file:
                 data = ast.literal_eval(line)
@@ -308,14 +314,16 @@ def editProfile():
         
         selection = input("Please select a university to modify: ")
         for user in education:
+            flag += 1
             if user["Name"] == userName:
                 if user["School"] == selection:
                     school = user["School"]
                     degree = user["Degree"]
                     years = user["Years"]
                     break
-            print("Invalid input")
-            return
+                elif flag == education.count:
+                    print("Invalid input")
+                    return
 
         expModify = input("[1] University\n[2] Degree\n[3] Years\nInput: ")
         if expModify == '1':
