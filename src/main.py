@@ -8,15 +8,17 @@ def main():
     loginfunctions.existsFirstLastFullNameFile()
     loginfunctions.existsCurrentUserData()
 
-    # Run input APIs
+    # Run all input APIs
     apiFunctions.inputAccountAPI()
     apiFunctions.inputJobsAPI()
 
-    # Run output APIs
+    # Run all output APIs
     apiFunctions.outputUsersAPI()
     apiFunctions.outputAppliedJobsAPI()
     apiFunctions.outputSavedJobsAPI()
-
+    apiFunctions.updateJobApi()
+    apiFunctions.updateProfileApi()
+    
     # trigger success story
     homeFunctions.successStory()
 

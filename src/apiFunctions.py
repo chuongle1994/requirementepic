@@ -6,13 +6,18 @@ import createAccountFunctions, linkFunctions, profileFunctions, friendList, noti
 def inputAccountAPI():
     fileName = "studentAccounts.txt"
 
+    # Check the file exists
     if exists(fileName):
         with open(fileName) as file:
             lines = file.readlines()
             for line in lines:
-
                 if line == "=====\n" or line == "=====":
+                    # username already exists
+                    if createAccountFunctions.checkUser(username) == 1:
+                        continue
+                    # Save the account info into our system
                     createAccountFunctions.storeData(username, password, firstname, lastname, fullname)
+                    # Account setting for new user
                     createAccountFunctions.promptMembership("0", fullname, username)
                     linkFunctions.firstControlsSetting(fullname)
                     linkFunctions.firstLanguageSetting(fullname)
@@ -21,35 +26,43 @@ def inputAccountAPI():
                     notification.addNewStudentList(fullname)
                     notification.storeJobData(fullname)
                     outputUsersAPI()
+
+                # Read line for username, firstname, lastname
                 elif ' ' in line:
-                    accLimit = createAccountFunctions.checkAccNum()
                     # check maximum number of student account
+                    accLimit = createAccountFunctions.checkAccNum()
                     if accLimit == 1:
                         print("All permitted accounts have been created, please come back later")
                         break
                     accountInfo = line.split()
                     username = accountInfo[0]
-                    # username already exists
-                    if createAccountFunctions.checkUser(username) == 1:
-                        print("Username already exists, please try again")
-                        break
                     firstname = accountInfo[1]
                     lastname = accountInfo[2]
                     fullname = firstname + ' ' + lastname
+                # Read line for password
                 elif ' ' not in line:
                     accountInfo = line.split()
                     password = accountInfo[0]
-
         file.close()
 
     # else:
     #     print("\nNo Input API File.")
-
+    
     return 
 
 # Input: Jobs API
 def inputJobsAPI():
     fileName = "newJobs.txt"
+    jobList = []
+
+    filesize = os.path.getsize("jobPosts.json")
+    if filesize != 0:
+        obj = json.load(open("jobPosts.json"))
+        if(len(obj) != 0):
+            if(len(obj["job-posts"]) != 0):
+                for index in range(len(obj["job-posts"])):
+                    title = obj["job-posts"][index]["title"]
+                    jobList.append(title)
 
     if exists(fileName):
         with open(fileName) as file:
@@ -59,17 +72,18 @@ def inputJobsAPI():
             for jobPost in jobPosts:
                 if jobPost == "":
                     break
-                
                 filesize = os.path.getsize("jobPosts.json")
                 if filesize != 0:
                     if loginfunctions.getNumberOfJobPosts() >= 10:
                         print("\nThe system can only permit up to 10 jobs to be posted.")
                         break
-                
                 jobPost = jobPost.split("&&&\n")
                 jobInfo1 = jobPost[0].split("\n")
                 jobInfo2 = jobPost[1].split("\n")
                 title = jobInfo1[0]
+                if title in jobList:
+                    print("The title of the new job already exists.")
+                    break
                 description = jobInfo1[1]
                 postername = jobInfo2[0]
                 employer = jobInfo2[1]
@@ -203,3 +217,76 @@ def outputSavedJobsAPI():
                         break
                 fw.write("=====" + "\n")
         fw.close()
+    
+# create jobAPI
+def createJobApi():
+    if exists("MyCollege_jobs.txt") == 0:
+        file = open("MyCollege_jobs.txt", "w")
+        file.close()
+
+def updateJobApi():
+    createJobApi()
+
+    if(os.stat("jobPosts.json").st_size == 0):
+        # print("No jobs found")
+        return
+    
+    jobs = []
+    obj = json.load(open("jobPosts.json"))
+    if(len(obj["job-posts"]) != 0):
+        for i in range(len(obj["job-posts"])):
+            jobs.append(obj["job-posts"][i])
+
+    with open("MyCollege_jobs.txt", 'w') as file:
+        pass
+
+    with open("MyCollege_jobs.txt", 'a') as file:
+        for i in jobs:
+            file.write(f'{i["title"]}\n{i["description"]}\n{i["employer"]}\n{i["location"]}\n{i["salary"]}\n"====="\n')
+
+def createProfileApi():
+    if exists("MyCollege_profiles.txt") == 0:
+        file = open("MyCollege_profiles.txt", "w")
+        file.close()
+
+def updateProfileApi():
+    createProfileApi()
+
+    profiles = []
+    with open("profile.txt", "r") as file:
+        for line in file:
+            data = ast.literal_eval(line)
+            profiles.append(data)
+    
+    educations = []
+    if exists("profEducation.txt"):
+        with open("profEducation.txt", "r") as file:
+            for line in file:
+                data = ast.literal_eval(line)
+                educations.append(data)
+
+    experiences = []
+    if exists("profExperience.txt"):
+        with open("profExperience.txt", "r") as file:
+            for line in file:
+                data = ast.literal_eval(line)
+                experiences.append(data)
+
+
+    with open("MyCollege_profiles.txt", 'w') as file:
+        pass
+
+    with open("MyCollege_profiles.txt", 'a') as file:
+        for i in profiles:
+            file.write(f'{i["Title"]}\n{i["Major"]}\n{i["University"]}\n{i["About"]}\n{i["Experience"]}\n')
+            # write experience of user
+            for exp in experiences:
+                if exp["Name"] == i["Username"]:
+                    file.write(f'{exp["Title"]}\n{exp["Employer"]}\n{exp["Start"]}\n{exp["End"]}\n{exp["Location"]}\n{exp["Description"]}\n')
+            file.write(f'{i["Education"]}\n')
+            # write education of user
+            for edu in educations:
+                if edu["Name"] == i["Username"]:
+                    file.write(f'{edu["School"]}\n {edu["Degree"]}\n {edu["Years"]}\n')
+            
+            file.write("=====\n")

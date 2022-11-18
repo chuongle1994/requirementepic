@@ -1,9 +1,8 @@
 from curses.ascii import isdigit
 import os
 import ast
-import loginfunctions, homeFunctions
+import loginfunctions, homeFunctions, apiFunctions
 from os.path import exists
-import api
 
 # Function to create a personal profile with friend lists
 def createProfile(username, lastname):
@@ -39,8 +38,8 @@ def writeProfileBase(name, title, major, university, information, experience, ed
     with open("profile.txt", "w") as fw:
         fw.writelines(profile)
 
-    api.createProfileApi()
-    api.updateProfileApi()
+    # Re-run the output API
+    apiFunctions.updateProfileApi()
 
 # Function to write data into the experience
 def writeExperience(name, title, employer, start, end, location, desc, newtitle):

@@ -5,9 +5,8 @@ import json
 import linkFunctions, friendList, profileFunctions, message, homeFunctions, notification, apiFunctions
 import ast
 from datetime import date
-import api
-#search for job page
 
+#search for job page
 def searchForAJob():
     displayNotifications()
     notification.total_appliedJob(getUsersName())
@@ -180,6 +179,7 @@ def displaySelectedJob(index):
         applyInput = input("\nWhich of the following would you like to do?\n[1] Apply for the job\n[2] Save the listing\n[3] Unsave the listing\n[4] Return\nInput: ")
         if applyInput == '1':
             jobID, jobindex, name, str_date, access = applyForJob(index, getUsersName())
+            # Re-run the output API
             apiFunctions.outputAppliedJobsAPI()
             if(access == "access denied"):
                 return
@@ -549,6 +549,7 @@ def saveJob(index, name):
     saveFile.close()
 
     print("Successfully saved the job listing")
+    # Re-run the output API
     apiFunctions.outputSavedJobsAPI()
 
 def unsaveJob(index):
@@ -686,8 +687,8 @@ def writeJobPost(jobObject, appendingData, fileName):
             file.seek(0)
             json.dump(file_data, file, indent = 4)
     print("\nYour job has been posted.")
-    api.createJobApi()
-    api.updateJobApi()
+    # Re-run the output API
+    apiFunctions.updateJobApi()
     return
 
 

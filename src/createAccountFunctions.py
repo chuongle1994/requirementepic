@@ -48,6 +48,7 @@ def createAcc():
         friendList.createFriendList(newFullname)
         notification.addNewStudentList(newFullname)
         notification.storeJobData(newFullname)
+        # Re-run the output API
         apiFunctions.outputUsersAPI()
     return
 
