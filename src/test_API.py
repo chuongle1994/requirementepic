@@ -91,6 +91,33 @@ def test_OuputAppliedJobsAPI():
    loginfunctions.clearFile(outputJobFile)
    loginfunctions.clearFile(outputAppliedJobsFile)
 
+# Test the output saved job API
+def test_outputSavedJobsAPI():
+   apiFunctions.inputJobsAPI()
+   loginfunctions.saveJob(1, "Hyunjung Lee")
+   loginfunctions.saveJob(2, "Hyunjung Lee")
+   loginfunctions.saveJob(0, "Danh Le")
+   loginfunctions.saveJob(4, "Danh Le")
+   loginfunctions.saveJob(5, "Danh Le")
+   loginfunctions.saveJob(3, "Tri Le")
+   loginfunctions.saveJob(5, "Dinh Le")
+   apiFunctions.outputSavedJobsAPI()
+   with open(outputSavedJobsFile, 'r') as f:
+      # Strips the newline character
+      assert f.readline().strip() == 'Hyunjung Lee: job2 job3'
+      assert f.readline().strip() == '=====' 
+      assert f.readline().strip() == 'Danh Le: job1 job5 job6'
+      assert f.readline().strip() == '====='
+      assert f.readline().strip() == 'Tri Le: job4'
+      assert f.readline().strip() == '====='
+      assert f.readline().strip() == 'Dinh Le: job6'
+      assert f.readline().strip() == '====='
+   f.close()
+   loginfunctions.clearFile("jobPosts.json")
+   loginfunctions.clearFile("savedListings.txt")
+   loginfunctions.clearFile(outputJobFile)
+   loginfunctions.clearFile(outputSavedJobsFile)
+
 # clear all created files
 def clear_all_files():
    loginfunctions.clearFile("controls.txt")
