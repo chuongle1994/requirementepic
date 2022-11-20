@@ -1,5 +1,5 @@
 from os import path
-import createAccountFunctions, apiFunctions, loginfunctions
+import createAccountFunctions, apiFunctions, loginfunctions, profileFunctions
 
 outputJobFile = "MyCollege_jobs.txt"
 outputAppliedJobsFile = "MyCollege_appliedJobs.txt"
@@ -122,6 +122,38 @@ def test_outputSavedJobsAPI():
    f.close()
    clear_all_files()
 
+# Test the output profiles API
+def test_outputProfilesAPI():
+   profileFunctions.createProfile("Hyunjung Lee", "Lee")
+   profileFunctions.writeProfileBase("Hyunjung Lee", "title1", "Cs", "Usf", "Info1", "-", "-")
+   profileFunctions.saveExperience("Hyunjung Lee", "software engineer", "apple", "2020", "2022", "tampa", "Great")
+   profileFunctions.saveEducation("Hyunjung Lee", "college1", "degree1", "2018")
+   profileFunctions.saveEducation("Hyunjung Lee", "college2", "degree2", "2020")
+   apiFunctions.outputProfileApi()
+   with open(outputProfileFile, 'r') as f:
+      # Strips the newline character
+      assert f.readline().strip() == 'title1'
+      assert f.readline().strip() == 'Cs' 
+      assert f.readline().strip() == 'Usf'
+      assert f.readline().strip() == 'Info1'
+      assert f.readline().strip() == '-'
+      assert f.readline().strip() == 'software engineer'
+      assert f.readline().strip() == 'apple'
+      assert f.readline().strip() == '2020'
+      assert f.readline().strip() == '2022'
+      assert f.readline().strip() == 'tampa'
+      assert f.readline().strip() == 'Great'
+      assert f.readline().strip() == '-'
+      assert f.readline().strip() == 'college1'
+      assert f.readline().strip() == 'degree1'
+      assert f.readline().strip() == '2018'
+      assert f.readline().strip() == 'college2'
+      assert f.readline().strip() == 'degree2'
+      assert f.readline().strip() == '2020'
+      assert f.readline().strip() == '====='
+   f.close()
+   clear_all_files()
+
 # clear all created files
 def clear_all_files():
    loginfunctions.clearFile("controls.txt")
@@ -138,6 +170,8 @@ def clear_all_files():
    loginfunctions.clearFile("jobPosts.json")
    loginfunctions.clearFile("applications.txt")
    loginfunctions.clearFile("savedListings.txt")
+   loginfunctions.clearFile("profEducation.txt")
+   loginfunctions.clearFile("profExperience.txt")
    loginfunctions.clearFile(outputProfileFile)
    loginfunctions.clearFile(outputUserFile)
    loginfunctions.clearFile(outputJobFile)
