@@ -42,7 +42,24 @@ def test_jobInput():
    numJobs = loginfunctions.getNumberOfJobPosts()
    assert numJobs == 6
    clear_all_files()
-
+#test the output appliedJobAPI
+def test_OuputAppliedJobsAPI():
+   apiFunctions.outputAppliedJobsAPI()
+   with open('MyCollege_appliedJobs.txt', 'r') as f:
+# Strips the newline character
+         assert f.readline().strip() == 'job1'
+         assert f.readline().strip() == '=====' 
+         assert f.readline().strip() == 'job2'
+         assert f.readline().strip() == '====='
+         assert f.readline().strip() == 'job3'
+         assert f.readline().strip() == '====='
+         assert f.readline().strip() == 'job4'
+         assert f.readline().strip() == '====='
+         assert f.readline().strip() == 'job5'
+         assert f.readline().strip() == '====='
+         assert f.readline().strip() == 'job6'
+         assert f.readline().strip() == '====='
+   f.close()
 # clear all created files
 def clear_all_files():
    loginfunctions.clearFile("controls.txt")
