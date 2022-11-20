@@ -44,11 +44,12 @@ def inputAccountAPI():
                     accountInfo = line.split()
                     password = accountInfo[0]
         file.close()
+        return 1
+    else:
+        return -1
 
     # else:
     #     print("\nNo Input API File.")
-    
-    return 
 
 # Input: Jobs API
 def inputJobsAPI():
