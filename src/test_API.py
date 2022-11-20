@@ -43,6 +43,18 @@ def test_jobInput():
    assert numJobs == 6
    clear_all_files()
 
+# Test for output users API
+def test_outputUsersAPI():
+   apiFunctions.inputAccountAPI()
+   with open(outputUserFile, 'r') as f:
+      assert f.readline().strip() == 'hyunjungl Standard'
+      assert f.readline().strip() == 'trile Standard'
+      assert f.readline().strip() == 'danhle Standard'
+      assert f.readline().strip() == 'dinhle Standard'
+      assert f.readline().strip() == 'chuongle Standard'
+   f.close()
+   clear_all_files()
+
 # test ouput job API
 def test_outputJobAPI():
    loginfunctions.existsJobPostsFile()
@@ -62,9 +74,7 @@ def test_outputJobAPI():
       assert f.readline().strip() == '200000'
       assert f.readline().strip() == '====='
    f.close()
-   loginfunctions.clearFile("jobPosts.json")
-   loginfunctions.clearFile(outputJobFile)
-   loginfunctions.clearFile(outputAppliedJobsFile)
+   clear_all_files()
 
 #test the output appliedJobAPI
 def test_OuputAppliedJobsAPI():
@@ -86,10 +96,7 @@ def test_OuputAppliedJobsAPI():
       assert f.readline().strip() == 'title3'
       assert f.readline().strip() == "Hyunjung Lee: Description1"
    f.close()
-   loginfunctions.clearFile("jobPosts.json")
-   loginfunctions.clearFile("applications.txt")
-   loginfunctions.clearFile(outputJobFile)
-   loginfunctions.clearFile(outputAppliedJobsFile)
+   clear_all_files()
 
 # Test the output saved job API
 def test_outputSavedJobsAPI():
@@ -113,10 +120,7 @@ def test_outputSavedJobsAPI():
       assert f.readline().strip() == 'Dinh Le: job6'
       assert f.readline().strip() == '====='
    f.close()
-   loginfunctions.clearFile("jobPosts.json")
-   loginfunctions.clearFile("savedListings.txt")
-   loginfunctions.clearFile(outputJobFile)
-   loginfunctions.clearFile(outputSavedJobsFile)
+   clear_all_files()
 
 # clear all created files
 def clear_all_files():
@@ -132,3 +136,10 @@ def clear_all_files():
    loginfunctions.clearFile("profile.txt")
    loginfunctions.clearFile("users.txt")
    loginfunctions.clearFile("jobPosts.json")
+   loginfunctions.clearFile("applications.txt")
+   loginfunctions.clearFile("savedListings.txt")
+   loginfunctions.clearFile(outputProfileFile)
+   loginfunctions.clearFile(outputUserFile)
+   loginfunctions.clearFile(outputJobFile)
+   loginfunctions.clearFile(outputAppliedJobsFile)
+   loginfunctions.clearFile(outputSavedJobsFile)
