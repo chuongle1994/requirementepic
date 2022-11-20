@@ -15,3 +15,15 @@ class TestAllAPIOutputFiles:
         assert path.exists(outputUserFile)
     def test_OutputSavedJobsFile(self):
         assert path.exists(outputSavedJobsFile)
+def test_userAccount():
+    createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le")
+    file = open('studentAccounts.txt', 'a')    
+    file.write("danhle danh le\n")
+    file.write("Abcdef1!\n")
+    file.write("=====\n")
+    file.close
+    #Check the file exists
+    x = apiFunctions.inputAccountAPI()
+    assert x == 1
+    assert createAccountFunctions.checkUser('danhle') == 1
+
