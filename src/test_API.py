@@ -12,17 +12,17 @@ class TestAllAPIOutputFiles:
       apiFunctions.outputUsersAPI()
       assert path.exists(outputJobFile)
    def test_OutputAppliedJobsFile(self):
-       apiFunctions.outputAppliedJobsAPI()
-       assert path.exists(outputAppliedJobsFile)
+      apiFunctions.outputAppliedJobsAPI()
+      assert path.exists(outputAppliedJobsFile)
    def test_OutputProfileFile(self):
-       apiFunctions.outputProfileApi()
-       assert path.exists(outputProfileFile)
+      apiFunctions.outputProfileApi()
+      assert path.exists(outputProfileFile)
    def test_OutputUserFile(self):
-       apiFunctions.outputUsersAPI()
-       assert path.exists(outputUserFile)
+      apiFunctions.outputUsersAPI()
+      assert path.exists(outputUserFile)
    def test_OutputSavedJobsFile(self):
-          apiFunctions.outputSavedJobsAPI()
-          assert path.exists(outputSavedJobsFile)
+      apiFunctions.outputSavedJobsAPI()
+      assert path.exists(outputSavedJobsFile)
 # Test for input student account API
 def test_userAccount():
     loginfunctions.existsUserPasswordFile()
