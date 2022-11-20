@@ -249,7 +249,7 @@ def outputJobApi():
 
     with open("MyCollege_jobs.txt", 'a') as file:
         for i in jobs:
-            file.write(f'{i["title"]}\n{i["description"]}\n{i["employer"]}\n{i["location"]}\n{i["salary"]}\n"====="\n')
+            file.write(f'{i["title"]}\n{i["description"]}\n{i["employer"]}\n{i["location"]}\n{i["salary"]}\n=====\n')
 
 def createProfileApi():
     if exists("MyCollege_profiles.txt") == 0:

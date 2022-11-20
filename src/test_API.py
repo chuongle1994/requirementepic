@@ -42,26 +42,11 @@ def test_jobInput():
    numJobs = loginfunctions.getNumberOfJobPosts()
    assert numJobs == 6
    clear_all_files()
-#test the output appliedJobAPI
-def test_OuputAppliedJobsAPI():
-   apiFunctions.outputAppliedJobsAPI()
-   with open('MyCollege_appliedJobs.txt', 'r') as f:
-# Strips the newline character
-         assert f.readline().strip() == 'job1'
-         assert f.readline().strip() == '=====' 
-         assert f.readline().strip() == 'job2'
-         assert f.readline().strip() == '====='
-         assert f.readline().strip() == 'job3'
-         assert f.readline().strip() == '====='
-         assert f.readline().strip() == 'job4'
-         assert f.readline().strip() == '====='
-         assert f.readline().strip() == 'job5'
-         assert f.readline().strip() == '====='
-         assert f.readline().strip() == 'job6'
-         assert f.readline().strip() == '====='
-   f.close()
- #test ouputJob
+
+# test ouput job API
 def test_outputJobAPI():
+   loginfunctions.existsJobPostsFile()
+   apiFunctions.inputJobsAPI()
    apiFunctions.outputJobApi()
    with open('MyCollege_jobs.txt', 'r') as f:
       assert f.readline().strip() == 'job1'
@@ -69,8 +54,43 @@ def test_outputJobAPI():
       assert f.readline().strip() == 'USF'
       assert f.readline().strip() == 'Tampa'
       assert f.readline().strip() == '100000'
-      assert f.readline().strip() == '"====="'
+      assert f.readline().strip() == '====='
+      assert f.readline().strip() == 'job2'
+      assert f.readline().strip() == 'This is description for job2'
+      assert f.readline().strip() == 'USF'
+      assert f.readline().strip() == 'Miami'
+      assert f.readline().strip() == '200000'
+      assert f.readline().strip() == '====='
    f.close()
+   loginfunctions.clearFile("jobPosts.json")
+   loginfunctions.clearFile(outputJobFile)
+   loginfunctions.clearFile(outputAppliedJobsFile)
+
+#test the output appliedJobAPI
+def test_OuputAppliedJobsAPI():
+   loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "salary1", "Hyunjung Lee", "")
+   loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "salary2", "Hyunjung Lee", "")
+   loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "salary3", "Chuong Le", "")
+   loginfunctions.writeApp("3", "2", "Hyunjung Lee", "2022", "2022", "Description1")
+   loginfunctions.writeApp("2", "1", "Chuong Le", "2023", "2023", "Description2")
+   loginfunctions.writeApp("2", "1", "Tri Le", "2023", "2023", "Description3")
+   apiFunctions.outputAppliedJobsAPI()
+   with open(outputAppliedJobsFile, 'r') as f:
+      # Strips the newline character
+      assert f.readline().strip() == 'title1'
+      assert f.readline().strip() == '=====' 
+      assert f.readline().strip() == 'title2'
+      assert f.readline().strip() == 'Chuong Le: Description2'
+      assert f.readline().strip() == 'Tri Le: Description3'
+      assert f.readline().strip() == '====='
+      assert f.readline().strip() == 'title3'
+      assert f.readline().strip() == "Hyunjung Lee: Description1"
+   f.close()
+   loginfunctions.clearFile("jobPosts.json")
+   loginfunctions.clearFile("applications.txt")
+   loginfunctions.clearFile(outputJobFile)
+   loginfunctions.clearFile(outputAppliedJobsFile)
+
 # clear all created files
 def clear_all_files():
    loginfunctions.clearFile("controls.txt")
