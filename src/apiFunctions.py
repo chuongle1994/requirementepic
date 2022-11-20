@@ -31,7 +31,7 @@ def inputAccountAPI():
                 elif ' ' in line:
                     # check maximum number of student account
                     accLimit = createAccountFunctions.checkAccNum()
-                    if accLimit == 1:
+                    if accLimit >= 10:
                         print("All permitted accounts have been created, please come back later")
                         break
                     accountInfo = line.split()
@@ -44,12 +44,11 @@ def inputAccountAPI():
                     accountInfo = line.split()
                     password = accountInfo[0]
         file.close()
-        return 1
-    else:
-        return -1
-
+        
     # else:
     #     print("\nNo Input API File.")
+    
+    return
 
 # Input: Jobs API
 def inputJobsAPI():

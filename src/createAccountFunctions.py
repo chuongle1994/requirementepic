@@ -1,21 +1,20 @@
 import linkFunctions, friendList, profileFunctions, notification, apiFunctions
 def checkAccNum():
     #Count the current number of account created
-        numAccounts = 0
-        with open("users.txt") as file:
-            while (line := file.readline().rstrip()):
-                numAccounts += 1
-        file.close()
-        # student account can be created upto 10
-        if numAccounts >= 10:
-            return 1
-        else:
-            return 0
+    numAccounts = 0
+    with open("users.txt") as file:
+        while (line := file.readline().rstrip()):
+            numAccounts += 1
+    file.close()
+    
+    return numAccounts
+
             
 def createAcc():
-    #Check account number does not exceed limit
+    # Check account number does not exceed limit
+    # student account can be created upto 10
     accLimit = checkAccNum()
-    if accLimit == 1:
+    if accLimit >= 10:
             print("All permitted accounts have been created, please come back later")
     else:
         #Create username
