@@ -60,6 +60,17 @@ def test_OuputAppliedJobsAPI():
          assert f.readline().strip() == 'job6'
          assert f.readline().strip() == '====='
    f.close()
+ #test ouputJob
+def test_outputJobAPI():
+   apiFunctions.outputJobApi()
+   with open('MyCollege_jobs.txt', 'r') as f:
+      assert f.readline().strip() == 'job1'
+      assert f.readline().strip() == 'This is description for job1'
+      assert f.readline().strip() == 'USF'
+      assert f.readline().strip() == 'Tampa'
+      assert f.readline().strip() == '100000'
+      assert f.readline().strip() == '"====="'
+   f.close()
 # clear all created files
 def clear_all_files():
    loginfunctions.clearFile("controls.txt")
