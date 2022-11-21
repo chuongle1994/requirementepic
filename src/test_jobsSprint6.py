@@ -242,3 +242,15 @@ def test_applyForJob(capsys, monkeypatch):
     assert captured.out == "You cannot apply for your own posted job\n"
     
     clear_all_files()
+    os.remove("applications.txt")
+    os.remove("currentUserData.txt")
+    os.remove("firstname.txt")
+    os.remove("fullname.txt")
+    os.remove("lastname.txt")
+    os.remove("MyCollege_jobs.txt")
+    os.remove("MyCollege_savedJobs.txt")
+    os.remove("passwords.txt")
+    os.remove("savedListings.txt")
+    os.remove("userNotifications.txt")
+    os.remove("users.txt")
+    os.remove("jobPosts.json")
