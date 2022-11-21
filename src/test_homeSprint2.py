@@ -1,3 +1,4 @@
+import os
 import homeFunctions, createAccountFunctions, loginfunctions
 
 #Test if the function returns the correct statement.
@@ -17,4 +18,10 @@ def test_checkNames():
     loginfunctions.clearFile("fullname.txt")
     loginfunctions.clearFile("users.txt")
     loginfunctions.clearFile("passwords.txt")
+
+    os.remove("firstname.txt")
+    os.remove("fullname.txt")
+    os.remove("lastname.txt")
+    os.remove("passwords.txt")
+    os.remove("users.txt")
     
