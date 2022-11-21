@@ -1,3 +1,4 @@
+import os
 import createAccountFunctions, loginfunctions
 
 users = [["trile", "Abcdwd1!", "tri", "le", "TriLe"],
@@ -81,5 +82,10 @@ def test_FullName():
     loginfunctions.clearFile("firstname.txt")
     loginfunctions.clearFile("lastname.txt")
     loginfunctions.clearFile("fullname.txt")
+    os.remove("firstname.txt")
+    os.remove("fullname.txt")
+    os.remove("lastname.txt")
+    os.remove("passwords.txt")
+    os.remove("users.txt")
 
 
