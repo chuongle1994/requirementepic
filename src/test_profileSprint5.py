@@ -1,5 +1,5 @@
 import ast
-import loginfunctions, profileFunctions, friendList
+import loginfunctions, profileFunctions, friendList, os
 
 # Test profile is complete or not
 def test_completeProfile():
@@ -296,3 +296,9 @@ def test_friendProfile():
     loginfunctions.clearFile("profExperience.txt")
     loginfunctions.clearFile("profEducation.txt")
     loginfunctions.clearFile("friendList.txt")
+
+    os.remove("friendList.txt")
+    os.remove("MyCollege_profiles.txt")
+    os.remove("profEducation.txt")
+    os.remove("profExperience.txt")
+    os.remove("profile.txt")
