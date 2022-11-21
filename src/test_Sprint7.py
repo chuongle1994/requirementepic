@@ -14,8 +14,8 @@ def delete_files():
 def test_Messages():
     createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le")
     createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le")
-    createAccountFunctions.promptMembership("1", "tri le")
-    createAccountFunctions.promptMembership("0", "danh le")
+    createAccountFunctions.promptMembership("1", "tri le", "trile")
+    createAccountFunctions.promptMembership("0", "danh le", "danhle")
 
     #Check if the membership has been logged when registered
     assert message.existsMembershipList() == True
@@ -50,8 +50,8 @@ def test_Messages():
 def test_delete(capsys, monkeypatch):
     createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le")
     createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le")
-    createAccountFunctions.promptMembership("0", "tri le")
-    createAccountFunctions.promptMembership("0", "danh le")
+    createAccountFunctions.promptMembership("0", "tri le", "trile")
+    createAccountFunctions.promptMembership("0", "danh le", "danhle")
     friendList.createFriendList("tri le")
     friendList.createFriendList("danh le")
     friendList.requestFriend("tri le", "danh le")
@@ -98,8 +98,8 @@ def test_delete(capsys, monkeypatch):
 def test_mes1(capsys, monkeypatch):
     createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le")
     createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le")
-    createAccountFunctions.promptMembership("0", "tri le")
-    createAccountFunctions.promptMembership("0", "danh le")
+    createAccountFunctions.promptMembership("0", "tri le", "trile")
+    createAccountFunctions.promptMembership("0", "danh le", "danhle")
     friendList.createFriendList("tri le")
     friendList.createFriendList("danh le")
     friendList.requestFriend("tri le", "danh le")
