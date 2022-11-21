@@ -1,4 +1,5 @@
 from os import path
+import os
 import createAccountFunctions, apiFunctions, loginfunctions, profileFunctions
 
 outputJobFile = "MyCollege_jobs.txt"
@@ -153,6 +154,28 @@ def test_outputProfilesAPI():
       assert f.readline().strip() == '====='
    f.close()
    clear_all_files()
+   os.remove("applications.txt")
+   os.remove("controls.txt")
+   os.remove("firstname.txt")
+   os.remove("friendList.txt")
+   os.remove("fullname.txt")
+   os.remove("jobNotification.txt")
+   os.remove("jobPosts.json")
+   os.remove("language.txt")
+   os.remove("lastname.txt")
+   os.remove("membership.txt")
+   os.remove("MyCollege_appliedJobs.txt")
+   os.remove("MyCollege_jobs.txt")
+   os.remove("MyCollege_profiles.txt")
+   os.remove("MyCollege_savedJobs.txt")
+   os.remove("MyCollege_users.txt")
+   os.remove("passwords.txt")
+   os.remove("profEducation.txt")
+   os.remove("profExperience.txt")
+   os.remove("profile.txt")
+   os.remove("savedListings.txt")
+   os.remove("users.txt")
+
 
 # clear all created files
 def clear_all_files():
