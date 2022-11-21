@@ -19,17 +19,17 @@ def test_numberOfJobPosts():
     loginfunctions.storeUserData("hyunjungl") # current user
 
     loginfunctions.existsJobPostsFile()
-    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "")
-    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "")
-    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "")
-    loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "")
-    loginfunctions.createJobPost("5", "title5", "description5", "employer5", "location5", "50000", "")
-    loginfunctions.createJobPost("6", "title6", "description6", "employer6", "location6", "60000", "")
-    loginfunctions.createJobPost("7", "title7", "description7", "employer7", "location7", "70000", "")
-    loginfunctions.createJobPost("8", "title8", "description8", "employer8", "location8", "80000", "")
-    loginfunctions.createJobPost("9", "title9", "description9", "employer9", "location9", "90000", "")
-    loginfunctions.createJobPost("10", "title10", "description10", "employer10", "location10", "100000", "")
-    loginfunctions.createJobPost("11", "title11", "description11", "employer11", "location11", "110000", "")  
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "Poster", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "Poster", [])
+    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "Poster", [])
+    loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "Poster", [])
+    loginfunctions.createJobPost("5", "title5", "description5", "employer5", "location5", "50000", "Poster", [])
+    loginfunctions.createJobPost("6", "title6", "description6", "employer6", "location6", "60000", "Poster", [])
+    loginfunctions.createJobPost("7", "title7", "description7", "employer7", "location7", "70000", "Poster", [])
+    loginfunctions.createJobPost("8", "title8", "description8", "employer8", "location8", "80000", "Poster", [])
+    loginfunctions.createJobPost("9", "title9", "description9", "employer9", "location9", "90000", "Poster", [])
+    loginfunctions.createJobPost("10", "title10", "description10", "employer10", "location10", "100000", "Poster", [])
+    loginfunctions.createJobPost("11", "title11", "description11", "employer11", "location11", "110000", "Poster", [])  
     assert loginfunctions.inputJobInfo() ==  "\nThe system can only permit up to 10 jobs to be posted."
 
     clear_all_files()
@@ -42,8 +42,8 @@ def test_displayAllJob():
 
     loginfunctions.existsJobPostsFile()
     assert loginfunctions.displayAllJobTitles() == False
-    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "")
-    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "")
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "Poster", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "Poster", [])
     assert loginfunctions.displayAllJobTitles() == True
     assert loginfunctions.getNumberOfJobPosts() == 2
 
@@ -57,10 +57,10 @@ def test_deleteJobPosts():
     loginfunctions.storeUserData("hyunjungl") # current user
 
     loginfunctions.existsJobPostsFile()
-    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "")
-    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "")
-    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "")
-    loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "")
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "hyunjungl", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "hyungjungl", [])
+    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "hyungjungl", [])
+    loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "hyungjungl", [])
     # Checking for the number of existing job post
     assert loginfunctions.getNumberOfJobPosts() == 4
 
@@ -97,10 +97,10 @@ def test_saveJobPost():
     loginfunctions.storeUserData("hyunjungl") # current user
     # create 4 job posts
     loginfunctions.existsJobPostsFile()
-    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "")
-    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "")
-    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "")
-    loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "")
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "Poster", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "Poster", [])
+    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "Poster", [])
+    loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "Poster", [])
 
     # Save a job post
     loginfunctions.saveJob(0, "tri le")
@@ -152,9 +152,9 @@ def test_saveJobPost():
 # Test for displaying jobs applied and not applied
 def test_appliedJob():
     loginfunctions.existsJobPostsFile()
-    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "")
-    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "")
-    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "")
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "Poster", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "Poster", [])
+    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "Poster", [])
     
     loginfunctions.writeApp("1", 1, "Hyunjung Lee", "2023", "2023", "Best")
     loginfunctions.writeApp("2", 2, "Hyunjung Lee", "2023", "2023", "Good")
@@ -181,8 +181,8 @@ def test_notification(capsys, monkeypatch):
     # create job post
     loginfunctions.storeUserData("hyunjungl")
     loginfunctions.existsJobPostsFile()
-    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", [])
-    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", [])
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "Poster", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "Poster", [])
 
     inputs = iter(["2022", "2025", "I like it"])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
@@ -212,8 +212,8 @@ def test_applyForJob(capsys, monkeypatch):
     # create job post
     loginfunctions.storeUserData("hyunjungl")
     loginfunctions.existsJobPostsFile()
-    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", [])
-    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", [])
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "poster", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "poster", [])
 
     # test if applying for a job is saved
     inputs = iter(["2000", "2002", "I love it"])
