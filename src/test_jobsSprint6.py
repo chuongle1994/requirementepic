@@ -1,3 +1,4 @@
+import os
 import createAccountFunctions, loginfunctions
 import ast
 
@@ -54,13 +55,14 @@ def test_displayAllJob():
 def test_deleteJobPosts():
     createAccountFunctions.storeData("hyunjungl", "!Hello123", "Hyunjung", "Lee", "Hyunjung Lee")
     createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le")
+    loginfunctions.clearFile("currentUserData.txt")
     loginfunctions.storeUserData("hyunjungl") # current user
 
     loginfunctions.existsJobPostsFile()
-    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "hyunjungl", [])
-    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "hyungjungl", [])
-    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "hyungjungl", [])
-    loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "hyungjungl", [])
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "Hyunjung Lee", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "Hyunjung Lee", [])
+    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "Hyunjung Lee", [])
+    loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "Hyunjung Lee", [])
     # Checking for the number of existing job post
     assert loginfunctions.getNumberOfJobPosts() == 4
 
