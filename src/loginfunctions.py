@@ -214,8 +214,8 @@ def displayAllJobTitles():
                     if( obj["job-posts"][i]["applicants-list"][j]["name"] == currentUser):
                         print("\n[" + str(i+1) + "] " + "[Applied] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
                         continue
-                    else:
-                        print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
+                    # else:
+                    #     print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
             else:
                 print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
         isFound = True
