@@ -1,5 +1,6 @@
 
 from fileinput import close
+import os
 import createAccountFunctions
 
 
@@ -15,7 +16,7 @@ def test_accNumTest():
     createAccountFunctions.storeData("dinhle1", "Abcdef1!1", "dinh1", "le1", "dinh le1")
     createAccountFunctions.storeData("chuongle1", "Abcdef1!1", "chuong1", "le1", "chuong le1")
     createAccountFunctions.storeData("hyunjung1", "Abcdef1!1", "hyunjung1", "lee1", "hyungjung lee1")
-    assert createAccountFunctions.checkAccNum() == 1
+    assert createAccountFunctions.checkAccNum() == 10
     user = open("users.txt", "w")
     user.close()
     passw = open("passwords.txt", "w")
@@ -31,11 +32,17 @@ def test_accNumTest():
     createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le")
     createAccountFunctions.storeData("dinhle", "Abcdef1!", "dinh", "le", "dinh le")
     createAccountFunctions.storeData("chuongle", "Abcdef1!", "chuong", "le", "chuong le")
-    assert createAccountFunctions.checkAccNum() == 0
+    assert createAccountFunctions.checkAccNum() == 4
     user = open("users.txt", "w")
     user.close()
     passw = open("passwords.txt", "w")
     passw.close()
+
+    os.remove("firstname.txt")
+    os.remove("fullname.txt")
+    os.remove("lastname.txt")
+    os.remove("passwords.txt")
+    os.remove("users.txt")
 
 # check if there is duplicated account
 def test_checkDup():
@@ -52,7 +59,12 @@ def test_checkDup():
     last.close()
     full = open("fullname.txt", "w")
     full.close()
-
+    
+    os.remove("firstname.txt")
+    os.remove("fullname.txt")
+    os.remove("lastname.txt")
+    os.remove("passwords.txt")
+    os.remove("users.txt")
 # check if passwords are eligible
 def test_checkPass():
     assert createAccountFunctions.checkPass("abc") == 1

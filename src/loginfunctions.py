@@ -697,7 +697,8 @@ def writeJobPost(jobObject, appendingData, fileName):
 #find someone you know page
 def findSomeone():
     homeFunctions.connectPeople()
-    return
+    response = "\nunder construction"
+    return response
 
 #skill1 page
 def frontendDevelopment():
