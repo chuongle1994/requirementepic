@@ -1,14 +1,23 @@
-import loginfunctions, homeFunctions, linkFunctions
+import loginfunctions, homeFunctions, linkFunctions, apiFunctions
 
 
 def main():
-
     # Creating files for database
     loginfunctions.existsUserPasswordFile()
     loginfunctions.existsJobPostsFile()
     loginfunctions.existsFirstLastFullNameFile()
     loginfunctions.existsCurrentUserData()
 
+    # Run all input APIs
+    apiFunctions.inputAccountAPI()
+    apiFunctions.inputJobsAPI()
+    # Run all output APIs
+    apiFunctions.outputUsersAPI()
+    apiFunctions.outputAppliedJobsAPI()
+    apiFunctions.outputSavedJobsAPI()
+    apiFunctions.outputJobApi()
+    apiFunctions.outputProfileApi()
+    
     # trigger success story
     homeFunctions.successStory()
 

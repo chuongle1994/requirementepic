@@ -22,8 +22,8 @@ def test_newMsg():
     # Checks new message notification
     createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le")
     createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le")
-    createAccountFunctions.promptMembership("1", "tri le")
-    createAccountFunctions.promptMembership("0", "danh le")
+    createAccountFunctions.promptMembership("1", "tri le", "trile")
+    createAccountFunctions.promptMembership("0", "danh le", "danhle")
     message.existsMessages()
     message.sendMessageType("tri le", "Plus", True, False, "danh le")
     message.sendMessage("tri le", "danh le", "test")
@@ -60,6 +60,7 @@ def test_sevenDays():
     notification.storeJobData("danh le")
 
     # if has NOT applied in 7 days. Last date applied 11/13/2022
+    notification.updateDate("danh le", "11/13/2022")
     assert notification.NotApplyNotification("danh le", "11/21/2022") == 1
 
     # update last date applied to 11/10/2022, today is 11/11/2022
@@ -90,8 +91,8 @@ def test_numAppliedJobs():
 
     # danh creates 2 job posts
     applicants = []
-    loginfunctions.createJobPost("12345", "engineer", "code", "google", "remote", "50k", applicants)
-    loginfunctions.createJobPost("54321", "engineer 2", "code 2", "google 2", "remote2", "150k", applicants)
+    loginfunctions.createJobPost("12345", "engineer", "code", "google", "remote", "50k", "poster", applicants)
+    loginfunctions.createJobPost("54321", "engineer 2", "code 2", "google 2", "remote2", "150k", "poster", applicants)
     
     # if applied for no jobs
     assert notification.total_appliedJob("tri le") == 0
@@ -136,8 +137,8 @@ def test_newJobPosted():
 
     # create 2 job posts
     applicants = []
-    loginfunctions.createJobPost("12345", "engineer", "code", "google", "remote", "50k", applicants)
-    loginfunctions.createJobPost("54321", "engineer 2", "code 2", "google 2", "remote2", "150k", applicants)
+    loginfunctions.createJobPost("12345", "engineer", "code", "google", "remote", "50k", "poster", applicants)
+    loginfunctions.createJobPost("54321", "engineer 2", "code 2", "google 2", "remote2", "150k", "poster", applicants)
 
     # login as tri
     os.remove("currentUserData.txt")
@@ -161,3 +162,5 @@ def test_newJobPosted():
     os.remove("jobNotification.txt")
     os.remove("currentUserData.txt")
     os.remove("jobPosts.json")
+    os.remove("MyCollege_jobs.txt")
+    os.remove("MyCollege_profiles.txt")

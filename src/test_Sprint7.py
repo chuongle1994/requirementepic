@@ -14,8 +14,8 @@ def delete_files():
 def test_Messages():
     createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le")
     createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le")
-    createAccountFunctions.promptMembership("1", "tri le")
-    createAccountFunctions.promptMembership("0", "danh le")
+    createAccountFunctions.promptMembership("1", "tri le", "trile")
+    createAccountFunctions.promptMembership("0", "danh le", "danhle")
 
     #Check if the membership has been logged when registered
     assert message.existsMembershipList() == True
@@ -50,8 +50,8 @@ def test_Messages():
 def test_delete(capsys, monkeypatch):
     createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le")
     createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le")
-    createAccountFunctions.promptMembership("0", "tri le")
-    createAccountFunctions.promptMembership("0", "danh le")
+    createAccountFunctions.promptMembership("0", "tri le", "trile")
+    createAccountFunctions.promptMembership("0", "danh le", "danhle")
     friendList.createFriendList("tri le")
     friendList.createFriendList("danh le")
     friendList.requestFriend("tri le", "danh le")
@@ -78,7 +78,7 @@ def test_delete(capsys, monkeypatch):
 
     
     # test if user interface is correct (read the message, delete the message, no respond)
-    assert captured.out == "\nYou have 2 new message(s) from: tri le\n\nWould you like to read to the message(s)?:\n\nPlease select an option:\n[1] Yes, read the message(s)\n[2] No, exit\n\nUnread Messages: \ntri le: hello\ntri le: hi\n\nWould you like to save or delete the message(s)?:\n\nPlease select an option:\n[1] Save the message(s)\n[2] Delete the message(s)\nMessage successfully deleted\n\nWould you like to respond the message(s)?:\n\nPlease select an option:\n[1] Yes, respond the message(s)\n[2] No, exit\n"
+    assert captured.out == "\nYou have 2 new message(s) from: tri le\n\nWould you like to read to the message(s)?:\n\nPlease select an option:\n[1] Yes, read the message(s)\n[2] No, continue\n\nUnread Messages: \ntri le: hello\ntri le: hi\n\nWould you like to save or delete the message(s)?:\n\nPlease select an option:\n[1] Save the message(s)\n[2] Delete the message(s)\nMessage successfully deleted\n\nWould you like to respond the message(s)?:\n\nPlease select an option:\n[1] Yes, respond the message(s)\n[2] No, continue\n"
 
     # test receiver message got deleted in the messageList.json file
     obj = json.load(open("messagesList.json"))
@@ -98,8 +98,8 @@ def test_delete(capsys, monkeypatch):
 def test_mes1(capsys, monkeypatch):
     createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le")
     createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le")
-    createAccountFunctions.promptMembership("0", "tri le")
-    createAccountFunctions.promptMembership("0", "danh le")
+    createAccountFunctions.promptMembership("0", "tri le", "trile")
+    createAccountFunctions.promptMembership("0", "danh le", "danhle")
     friendList.createFriendList("tri le")
     friendList.createFriendList("danh le")
     friendList.requestFriend("tri le", "danh le")
@@ -125,7 +125,7 @@ def test_mes1(capsys, monkeypatch):
 
 
     # test receiver interface (read new messages, save messages, respond to sender)
-    assert captured.out == "\nYou have 2 new message(s) from: tri le\n\nWould you like to read to the message(s)?:\n\nPlease select an option:\n[1] Yes, read the message(s)\n[2] No, exit\n\nUnread Messages: \ntri le: hello\ntri le: hi\n\nWould you like to save or delete the message(s)?:\n\nPlease select an option:\n[1] Save the message(s)\n[2] Delete the message(s)\nMessage(s) has been saved\n\nWould you like to respond the message(s)?:\n\nPlease select an option:\n[1] Yes, respond the message(s)\n[2] No, exit\nMessage has been sent.\n"
+    assert captured.out == "\nYou have 2 new message(s) from: tri le\n\nWould you like to read to the message(s)?:\n\nPlease select an option:\n[1] Yes, read the message(s)\n[2] No, continue\n\nUnread Messages: \ntri le: hello\ntri le: hi\n\nWould you like to save or delete the message(s)?:\n\nPlease select an option:\n[1] Save the message(s)\n[2] Delete the message(s)\nMessage(s) has been saved\n\nWould you like to respond the message(s)?:\n\nPlease select an option:\n[1] Yes, respond the message(s)\n[2] No, continue\nMessage has been sent.\n"
 
     # test reciver's features
     obj = json.load(open("messagesList.json"))

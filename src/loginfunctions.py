@@ -2,12 +2,11 @@ from os.path import exists
 import os
 import uuid
 import json
-import linkFunctions, friendList, profileFunctions, message, homeFunctions, notification
+import linkFunctions, friendList, profileFunctions, message, homeFunctions, notification, apiFunctions
 import ast
 from datetime import date
 
 #search for job page
-
 def searchForAJob():
     displayNotifications()
     notification.total_appliedJob(getUsersName())
@@ -214,8 +213,9 @@ def displayAllJobTitles():
                 for j in range(len(obj["job-posts"][i]["applicants-list"])):
                     if( obj["job-posts"][i]["applicants-list"][j]["name"] == currentUser):
                         print("\n[" + str(i+1) + "] " + "[Applied] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
+                        continue
                     else:
-                        print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
+                         print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
             else:
                 print("\n[" + str(i+1) + "] " + "ID(" + obj["job-posts"][i]["jobID"] + "): " + obj["job-posts"][i]["title"])
         isFound = True
@@ -363,7 +363,7 @@ def inputJobInfo():
     location = input("Location: ")
     salary = input("Salary: ")    
     applicantsList = []
-    createJobPost(jobID, title, description, employer, location, salary, applicantsList)
+    createJobPost(jobID, title, description, employer, location, salary, getUsersName(), applicantsList)
     notification.saveNewJob(getUsersName(), title)
     return
 
@@ -416,12 +416,16 @@ def fillJobApplication(jobID, index, name, str_date):
     desc = input("Why do you think you're fit for this job?\nParagraph: ")
     writeApp(jobID, index, name, gradDate, workDate, desc)
     notification.updateDate(getUsersName(), str_date)
+    # Re-run the output API
+    apiFunctions.outputAppliedJobsAPI()
 
 def writeApp(jobID, index, name, gradDate, workDate, desc):
     output = { "jobID": jobID, "Index" : index, "Name" : name, "gradDate" : gradDate, "workDate" : workDate, "Desc" : desc}
     appFile = open("applications.txt", "a")
     appFile.write("{}\n".format(output))
     appFile.close()
+
+    # api.appliedJobsApi()
 
 def displayApps(name):
     jobListing = []
@@ -548,6 +552,8 @@ def saveJob(index, name):
     saveFile.close()
 
     print("Successfully saved the job listing")
+    # Re-run the output API
+    apiFunctions.outputSavedJobsAPI()
 
 def unsaveJob(index):
     currentUser = getUsersName()
@@ -637,9 +643,9 @@ def getUsersName():
             break
     return usersName
 
-def createJobPost(jobID, title, description, employer, location, salary, applicantsList):
+def createJobPost(jobID, title, description, employer, location, salary, postername, applicantsList):
 
-    usersName = getUsersName()
+    # usersName = getUsersName()
 
     new_data = {
         'job-posts' : [
@@ -650,7 +656,7 @@ def createJobPost(jobID, title, description, employer, location, salary, applica
                 "employer": employer,
                 "location": location,
                 "salary": salary,
-                "poster-name": usersName,
+                "poster-name": postername,
                 "applicants-list": applicantsList
             }
         ]
@@ -662,13 +668,14 @@ def createJobPost(jobID, title, description, employer, location, salary, applica
                     "employer": employer,
                     "location": location,
                     "salary": salary,
-                    "poster-name": usersName,
+                    "poster-name": postername,
                     "applicants-list": applicantsList
                     }
 
     writeJobPost(new_data, appendingData, "jobPosts.json")
 
 def writeJobPost(jobObject, appendingData, fileName):
+    
     
     filesize = os.path.getsize(fileName)
     
@@ -683,13 +690,16 @@ def writeJobPost(jobObject, appendingData, fileName):
             file.seek(0)
             json.dump(file_data, file, indent = 4)
     print("\nYour job has been posted.")
+    # Re-run the output API
+    apiFunctions.outputJobApi()
     return
 
 
 #find someone you know page
 def findSomeone():
     homeFunctions.connectPeople()
-    return
+    response = "\nunder construction"
+    return response
 
 #skill1 page
 def frontendDevelopment():

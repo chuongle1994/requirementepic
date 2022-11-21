@@ -1,4 +1,4 @@
-import linkFunctions, createAccountFunctions, loginfunctions, ast, friendList, profileFunctions
+import linkFunctions, createAccountFunctions, loginfunctions, ast, friendList, profileFunctions, os
 
 # clear all created files
 def clear_all_files():
@@ -11,6 +11,16 @@ def clear_all_files():
     loginfunctions.clearFile("controls.txt")
     loginfunctions.clearFile("profile.txt")
     loginfunctions.clearFile("friendList.txt")
+    os.remove("firstname.txt")
+    os.remove("controls.txt")
+    os.remove("currentUserData.txt")
+    os.remove("fullname.txt")
+    os.remove("users.txt")
+    os.remove("passwords.txt")
+    os.remove("MyCollege_profiles.txt")
+    os.remove("friendList.txt")
+    os.remove("lastname.txt")
+    os.remove("profile.txt")
 
 # making sure all friends show up
 def test_showFriends():

@@ -1,3 +1,4 @@
+import os
 import linkFunctions, createAccountFunctions, loginfunctions, ast
  
 # get control number: 1 is "on" and 0 is "off"
@@ -33,6 +34,14 @@ def clear_all_files():
     loginfunctions.clearFile("passwords.txt")
     loginfunctions.clearFile("currentUserData.txt")
     loginfunctions.clearFile("controls.txt")
+
+    os.remove("firstname.txt")
+    os.remove("controls.txt")
+    os.remove("currentUserData.txt")
+    os.remove("fullname.txt")
+    os.remove("users.txt")
+    os.remove("passwords.txt")
+    os.remove("lastname.txt")
     
 # test email change
 def test_changeEmail():
@@ -79,3 +88,4 @@ def test_language():
     assert get_current_language("Language") == "Spanish"    # make sure language is spanish
     loginfunctions.clearFile("language.txt")
     clear_all_files()
+    os.remove("language.txt")

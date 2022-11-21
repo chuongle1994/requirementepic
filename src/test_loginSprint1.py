@@ -1,4 +1,5 @@
-import loginfunctions, createAccountFunctions
+import os
+import loginfunctions, createAccountFunctions, homeFunctions
 
 
 # Selecting any of these skills result in “under construction”
@@ -23,7 +24,13 @@ def test_gitVersionControl():
 #    assert loginfunctions.searchForAJob() == "\nunder construction"
 
 def test_findSomeone():
-    assert loginfunctions.findSomeone() == "\nunder construction"
+    #assert loginfunctions.findSomeone() == "\nunder construction"
+    createAccountFunctions.storeData("test1", "Password123!", "Danh", "Le", "Danh Le")
+
+    assert homeFunctions.checkMatch("Danh Le") == "\nThey are a part of the Incollege system"
+    assert homeFunctions.checkMatch("Mike Le") == "\nThey are not yet a part of the InCollege system yet"
+
+
 
 def test_validateLogin():
     createAccountFunctions.storeData("test1", "Password123!", "Danh", "Le", "Danh Le")
@@ -40,3 +47,9 @@ def test_validateLogin():
     last.close()
     full = open("fullname.txt", "w")
     full.close()
+
+    os.remove("firstname.txt")
+    os.remove("fullname.txt")
+    os.remove("lastname.txt")
+    os.remove("passwords.txt")
+    os.remove("users.txt")

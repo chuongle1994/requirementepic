@@ -1,3 +1,4 @@
+import os
 import createAccountFunctions, loginfunctions
 import ast
 
@@ -19,17 +20,17 @@ def test_numberOfJobPosts():
     loginfunctions.storeUserData("hyunjungl") # current user
 
     loginfunctions.existsJobPostsFile()
-    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "")
-    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "")
-    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "")
-    loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "")
-    loginfunctions.createJobPost("5", "title5", "description5", "employer5", "location5", "50000", "")
-    loginfunctions.createJobPost("6", "title6", "description6", "employer6", "location6", "60000", "")
-    loginfunctions.createJobPost("7", "title7", "description7", "employer7", "location7", "70000", "")
-    loginfunctions.createJobPost("8", "title8", "description8", "employer8", "location8", "80000", "")
-    loginfunctions.createJobPost("9", "title9", "description9", "employer9", "location9", "90000", "")
-    loginfunctions.createJobPost("10", "title10", "description10", "employer10", "location10", "100000", "")
-    loginfunctions.createJobPost("11", "title11", "description11", "employer11", "location11", "110000", "")  
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "Poster", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "Poster", [])
+    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "Poster", [])
+    loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "Poster", [])
+    loginfunctions.createJobPost("5", "title5", "description5", "employer5", "location5", "50000", "Poster", [])
+    loginfunctions.createJobPost("6", "title6", "description6", "employer6", "location6", "60000", "Poster", [])
+    loginfunctions.createJobPost("7", "title7", "description7", "employer7", "location7", "70000", "Poster", [])
+    loginfunctions.createJobPost("8", "title8", "description8", "employer8", "location8", "80000", "Poster", [])
+    loginfunctions.createJobPost("9", "title9", "description9", "employer9", "location9", "90000", "Poster", [])
+    loginfunctions.createJobPost("10", "title10", "description10", "employer10", "location10", "100000", "Poster", [])
+    loginfunctions.createJobPost("11", "title11", "description11", "employer11", "location11", "110000", "Poster", [])  
     assert loginfunctions.inputJobInfo() ==  "\nThe system can only permit up to 10 jobs to be posted."
 
     clear_all_files()
@@ -42,8 +43,8 @@ def test_displayAllJob():
 
     loginfunctions.existsJobPostsFile()
     assert loginfunctions.displayAllJobTitles() == False
-    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "")
-    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "")
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "Poster", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "Poster", [])
     assert loginfunctions.displayAllJobTitles() == True
     assert loginfunctions.getNumberOfJobPosts() == 2
 
@@ -54,13 +55,14 @@ def test_displayAllJob():
 def test_deleteJobPosts():
     createAccountFunctions.storeData("hyunjungl", "!Hello123", "Hyunjung", "Lee", "Hyunjung Lee")
     createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le")
+    loginfunctions.clearFile("currentUserData.txt")
     loginfunctions.storeUserData("hyunjungl") # current user
 
     loginfunctions.existsJobPostsFile()
-    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "")
-    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "")
-    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "")
-    loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "")
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "Hyunjung Lee", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "Hyunjung Lee", [])
+    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "Hyunjung Lee", [])
+    loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "Hyunjung Lee", [])
     # Checking for the number of existing job post
     assert loginfunctions.getNumberOfJobPosts() == 4
 
@@ -97,10 +99,10 @@ def test_saveJobPost():
     loginfunctions.storeUserData("hyunjungl") # current user
     # create 4 job posts
     loginfunctions.existsJobPostsFile()
-    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "")
-    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "")
-    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "")
-    loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "")
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "Poster", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "Poster", [])
+    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "Poster", [])
+    loginfunctions.createJobPost("4", "title4", "description4", "employer4", "location4", "40000", "Poster", [])
 
     # Save a job post
     loginfunctions.saveJob(0, "tri le")
@@ -152,9 +154,9 @@ def test_saveJobPost():
 # Test for displaying jobs applied and not applied
 def test_appliedJob():
     loginfunctions.existsJobPostsFile()
-    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "")
-    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "")
-    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "")
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "Poster", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "Poster", [])
+    loginfunctions.createJobPost("3", "title3", "description3", "employer3", "location3", "30000", "Poster", [])
     
     loginfunctions.writeApp("1", 1, "Hyunjung Lee", "2023", "2023", "Best")
     loginfunctions.writeApp("2", 2, "Hyunjung Lee", "2023", "2023", "Good")
@@ -181,8 +183,8 @@ def test_notification(capsys, monkeypatch):
     # create job post
     loginfunctions.storeUserData("hyunjungl")
     loginfunctions.existsJobPostsFile()
-    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", [])
-    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", [])
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "Poster", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "Poster", [])
 
     inputs = iter(["2022", "2025", "I like it"])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
@@ -200,7 +202,7 @@ def test_notification(capsys, monkeypatch):
     
     # test notification
     captured = capsys.readouterr()
-    assert captured.out == "storing user data\n\nYour job has been posted.\n\nYour job has been posted.\nPoster: Hyunjung Lee\nstoring user data\nYour application 1 for title1 at employer1 has been deleted\nWould you like to delete this notification?\n[1] Yes\n[2] No\n"
+    assert captured.out == "\nYour job has been posted.\n\nYour job has been posted.\nPoster: Poster\n\nYou cannot delete a post you did not create.\nYour application 1 for title1 at employer1 has been deleted\nWould you like to delete this notification?\n[1] Yes\n[2] No\n"
     assert 1 == 1
     clear_all_files()
 
@@ -212,8 +214,8 @@ def test_applyForJob(capsys, monkeypatch):
     # create job post
     loginfunctions.storeUserData("hyunjungl")
     loginfunctions.existsJobPostsFile()
-    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", [])
-    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", [])
+    loginfunctions.createJobPost("1", "title1", "description1", "employer1", "location1", "10000", "poster", [])
+    loginfunctions.createJobPost("2", "title2", "description2", "employer2", "location2", "20000", "poster", [])
 
     # test if applying for a job is saved
     inputs = iter(["2000", "2002", "I love it"])
@@ -232,11 +234,23 @@ def test_applyForJob(capsys, monkeypatch):
     # test can't apply for same job
     loginfunctions.applyForJob(0, "Tri Le")
     captured = capsys.readouterr()
-    assert captured.out == "storing user data\n\nYour job has been posted.\n\nYour job has been posted.\nPoster: Hyunjung Lee\nYou have already applied for this job\n"
+    assert captured.out == "\nYour job has been posted.\n\nYour job has been posted.\nPoster: poster\nYou have already applied for this job\n"
     
     # test can't apply your own post
-    loginfunctions.applyForJob(0, "Hyunjung Lee")
+    loginfunctions.applyForJob(0, "poster")
     captured = capsys.readouterr()
     assert captured.out == "You cannot apply for your own posted job\n"
     
     clear_all_files()
+    os.remove("applications.txt")
+    os.remove("currentUserData.txt")
+    os.remove("firstname.txt")
+    os.remove("fullname.txt")
+    os.remove("lastname.txt")
+    os.remove("MyCollege_jobs.txt")
+    os.remove("MyCollege_savedJobs.txt")
+    os.remove("passwords.txt")
+    os.remove("savedListings.txt")
+    os.remove("userNotifications.txt")
+    os.remove("users.txt")
+    os.remove("jobPosts.json")

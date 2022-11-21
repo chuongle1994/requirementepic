@@ -1,4 +1,4 @@
-import linkFunctions, createAccountFunctions, loginfunctions, ast, friendList, profileFunctions
+import linkFunctions, createAccountFunctions, loginfunctions, ast, friendList, profileFunctions, os
 
 # clear all created files
 def clear_all_files():
@@ -10,6 +10,13 @@ def clear_all_files():
     loginfunctions.clearFile("currentUserData.txt")
     loginfunctions.clearFile("controls.txt")
     loginfunctions.clearFile("profile.txt")
+
+    os.remove("firstname.txt")
+    os.remove("controls.txt")
+    os.remove("currentUserData.txt")
+    os.remove("fullname.txt")
+    os.remove("users.txt")
+    os.remove("passwords.txt")
 
 def test_searchLastName():
     createAccountFunctions.storeData("trile", "Abcdef1!", "tri", "le", "tri le") # making an account defaults sms to 1 or "on"
@@ -30,5 +37,8 @@ def test_searchMajor():
     createAccountFunctions.storeData("danhle", "Abcdef1!", "danh", "le", "danh le") # making an account defaults sms to 1 or "on"
     assert friendList.searchMajor("danh le", "CS") == 0
     clear_all_files()
+    os.remove("lastname.txt")
+    os.remove("MyCollege_profiles.txt")
+    os.remove("profile.txt")
 
     

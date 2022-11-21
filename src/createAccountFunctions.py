@@ -1,21 +1,20 @@
-import linkFunctions, friendList, profileFunctions, notification
+import linkFunctions, friendList, profileFunctions, notification, apiFunctions
 def checkAccNum():
     #Count the current number of account created
-        numAccounts = 0
-        with open("users.txt") as file:
-            while (line := file.readline().rstrip()):
-                numAccounts += 1
-        file.close()
-        # student account can be created upto 10
-        if numAccounts >= 10:
-            return 1
-        else:
-            return 0
+    numAccounts = 0
+    with open("users.txt") as file:
+        while (line := file.readline().rstrip()):
+            numAccounts += 1
+    file.close()
+    
+    return numAccounts
+
             
 def createAcc():
-    #Check account number does not exceed limit
+    # Check account number does not exceed limit
+    # student account can be created upto 10
     accLimit = checkAccNum()
-    if accLimit == 1:
+    if accLimit >= 10:
             print("All permitted accounts have been created, please come back later")
     else:
         #Create username
@@ -40,7 +39,7 @@ def createAcc():
         newFullname = newFirstname + " " + newLastname
         storeData(newUser, newPass, newFirstname, newLastname, newFullname)
         membership = input("Do you want to be a plus member? You will be charged $10 per month.(1 = yes or 0 = no): ")
-        promptMembership(membership, newFullname)
+        promptMembership(membership, newFullname, newUser)
 
         linkFunctions.firstControlsSetting(newFullname)
         linkFunctions.firstLanguageSetting(newFullname)
@@ -48,23 +47,25 @@ def createAcc():
         friendList.createFriendList(newFullname)
         notification.addNewStudentList(newFullname)
         notification.storeJobData(newFullname)
+        # Re-run the output API
+        apiFunctions.outputUsersAPI()
     return
 
-def promptMembership(membership, newFullname):
+def promptMembership(membership, newFullname, newUser):
     if membership == "1":
-        mem = {'fullName': newFullname, 'Membership_Type':'Plus'}
+        mem = {'username': newUser, 'fullName': newFullname, 'Membership_Type':'Plus'}
         with open('membership.txt','a') as data: 
             data.write(f"{str(mem)}\n")
         data.close()
     elif membership == "0":
-        mem = {'fullName': newFullname, 'Membership_Type':'Standard'}
+        mem = {'username': newUser, 'fullName': newFullname, 'Membership_Type':'Standard'}
         with open('membership.txt','a') as data: 
             data.write(f"{str(mem)}\n")
         data.close()
     else:
         print("Incorrect input. Please try again.")
         membership = input("Do you want to be a plus member? You will be charged $10 per month.(1 = yes or 0 = no): ")
-        promptMembership(membership, newFullname)
+        promptMembership(membership, newFullname, newUser)
 
 def checkUser(newUser):
     #Check if there is a duplicate username

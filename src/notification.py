@@ -133,6 +133,13 @@ def messageNotification(name):
 
 # Save the new job info in user data
 def saveNewJob(name, jobTitle):
+    fileExist = exists("jobNotification.txt")
+
+    # Checks if the file exists
+    if fileExist == 0:
+        file = open("jobNotification.txt", "a")
+        file.close()
+
     saveList = []
 
     with open("jobNotification.txt", "r") as file:
