@@ -202,7 +202,7 @@ def test_notification(capsys, monkeypatch):
     
     # test notification
     captured = capsys.readouterr()
-    assert captured.out == "storing user data\n\nYour job has been posted.\n\nYour job has been posted.\nPoster: Hyunjung Lee\nstoring user data\nYour application 1 for title1 at employer1 has been deleted\nWould you like to delete this notification?\n[1] Yes\n[2] No\n"
+    assert captured.out == "\nYour job has been posted.\n\nYour job has been posted.\nPoster: Poster\n\nYou cannot delete a post you did not create.\nYour application 1 for title1 at employer1 has been deleted\nWould you like to delete this notification?\n[1] Yes\n[2] No\n"
     assert 1 == 1
     clear_all_files()
 
@@ -234,10 +234,10 @@ def test_applyForJob(capsys, monkeypatch):
     # test can't apply for same job
     loginfunctions.applyForJob(0, "Tri Le")
     captured = capsys.readouterr()
-    assert captured.out == "storing user data\n\nYour job has been posted.\n\nYour job has been posted.\nPoster: Hyunjung Lee\nYou have already applied for this job\n"
+    assert captured.out == "\nYour job has been posted.\n\nYour job has been posted.\nPoster: poster\nYou have already applied for this job\n"
     
     # test can't apply your own post
-    loginfunctions.applyForJob(0, "Hyunjung Lee")
+    loginfunctions.applyForJob(0, "poster")
     captured = capsys.readouterr()
     assert captured.out == "You cannot apply for your own posted job\n"
     
